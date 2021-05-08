@@ -1,11 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <title>ALFA</title>
-    <h1>Ciao</h1>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+        }
+        .header {
+            background-color: #f1f1f1;
+            padding: 8px;
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid #e7e7e7;
+            background-color: #f3f3f3;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: #666666;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover:not(.active) {
+            background-color: #dddddd;
+        }
+
+       /*li a.active {
+            color: white;
+            background-color: #dddddd;
+        }*/
+        .column {
+            background-color: #f1f1f1;
+            float: left;
+            text-align: center;
+            width: 50%;
+            padding: 200px;
+        }
+        .footer {
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
+<div class="header">
+    <a href="HomePage.html">
+        <img src="Images/logo.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
+    </a>
+</div>
+
+<ul>
+    <li><a href="#Uomo">Uomo</a></li>
+    <li><a href="#Donna">Donna</a></li>
+    <li style="float:right"><a href="#Utente">Utente</a></li>
+    <li style="float:right"><a href="#Carrello">Carrello</a></li>
+    <li style="float:right"><a href="#Preferiti">Preferiti</a></li>
+</ul>
+
+<div class="row">
+    <div class="column">
+        <h2>Abbigliamento Maschile</h2>
+        <a href="HomePage.html">
+        <img src="Images/man.jpg" alt="Impossibile caricare l'immagine" width="400" height="600">
+        </a>
+    </div>
+</div>
+
+
+    <div class="row">
+        <div class="column">
+            <h2>Abbigliamento Femminile</h2>
+            <a href="HomePage.html">
+            <img src="Images/woman.jpg" alt="Impossibile caricare l'immagine" width="400" height="600">
+            </a>
+        </div>
+    </div>
+
+
+        <div class="footer">
+            <p>Footer</p>
+        </div>
 </body>
 </html>
