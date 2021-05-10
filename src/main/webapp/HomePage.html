@@ -58,6 +58,31 @@
             text-align: center;
         }
     </style>
+    <style type="text/css">
+
+        #search_form {
+            display:inline-block;
+            font: bold 10px Verdana,Geneva,Arial,Helvetica,sans-serif;
+            font-size: medium;
+            color:black;
+        }
+
+        #search_form label {
+            padding : 0 5px;
+        }
+        #search_form input[type="image"] {
+            display:inline-block;
+            height:15px;
+        }
+
+
+        #search_input {
+            font-size:medium;
+            alignment: center;
+        }
+
+    </style>
+
 </head>
 <body>
 
@@ -73,7 +98,10 @@
     <li style="float:right"><a href="#Utente">Utente</a></li>
     <li style="float:right"><a href="#Carrello">Carrello</a></li>
     <li style="float:right"><a href="#Preferiti">Preferiti</a></li>
-    <li style="float:right"><a href="#Ricerca"><input type="search" placeholder="Ricerca abbigliamento"></a></li>
+   <li style="float:right"><form id="search_form" action="index.jsp" method="post">
+        <label> <input id="search_input" size="15" name="keyword" placeholder="Barra di ricerca"/></label>
+        <button><i  style="font-size:18px" class="fa">&#xf002;</i></button>
+   </form></li>
 </ul>
 
 <div class="row">
@@ -94,6 +122,7 @@
             </a>
         </div>
     </div>
+
 
 
         <div class="footer">
