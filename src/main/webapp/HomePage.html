@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>ALFA</title>
-    <style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style type="text/css">
         * {
             box-sizing: border-box;
         }
@@ -57,8 +58,46 @@
             padding: 10px;
             text-align: center;
         }
-    </style>
-    <style type="text/css">
+
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {background-color: #f1f1f1}
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
 
         #search_form {
             display:inline-block;
@@ -67,9 +106,6 @@
             color:black;
         }
 
-        #search_form label {
-            padding : 0 5px;
-        }
         #search_form input[type="image"] {
             display:inline-block;
             height:15px;
@@ -80,7 +116,6 @@
             font-size:medium;
             alignment: center;
         }
-
     </style>
 
 </head>
@@ -93,21 +128,29 @@
 </div>
 
 <ul>
-    <li><a href="#Uomo">Uomo</a></li>
+    <li><div class="dropdown">
+        <button class="dropbtn">Uomo</button>
+        <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+        </div>
+    </div></li>
     <li><a href="#Donna">Donna</a></li>
     <li style="float:right"><a href="#Utente">Utente</a></li>
     <li style="float:right"><a href="#Carrello">Carrello</a></li>
     <li style="float:right"><a href="#Preferiti">Preferiti</a></li>
-   <li style="float:right"><form id="search_form" action="index.jsp" method="post">
-        <label> <input id="search_input" size="15" name="keyword" placeholder="Barra di ricerca"/></label>
-        <button><i  style="font-size:18px" class="fa">&#xf002;</i></button>
+   <li style="float:right">
+       <form action="/hello-servlet" method="get">
+       <input id="search_input" size="20"name="keyword" placeholder="Barra di ricerca"/>
+           <button><i  style="font-size:30px" class="fa">&#xf002;</i></button>
    </form></li>
 </ul>
 
 <div class="row">
     <div class="column">
         <h2>Abbigliamento Maschile</h2>
-        <a href="HomePage.html">
+        <a href="/WEB-INF/Catalogo.jsp">
         <img src="Images/man.jpg" alt="Impossibile caricare l'immagine" width="400" height="600">
         </a>
     </div>
@@ -123,10 +166,24 @@
         </div>
     </div>
 
-
-
         <div class="footer">
-            <p>Footer</p>
+            <p>
+            Info sull’azienda:
+            Alfa, Via Inventina 290(PT), P.I  IT 11257691002, Alfa S.r.l© Copyright 2021 Alfa.
+            Tutti i diritti riservati;
+
+
+
+            Info sull’autore:
+            Capone,  Caruso, Coticelli;
+
+            informazioni d’obbligo:
+            “Alfa” ed il logo “Alfa” sono trademark di Alfa S.r.l e rappresenta marchi registrati globalmente.
+            Policy del sito termini e condizioni.
+
+            Chi siamo:
+            άλφα è un sito emergente che punta a diventare uno dei più importanti e-commerce di abbigliamento di classe proponendo abiti e giacche con lo scopo di coinvolgere utenti di qualsiasi fascia d’età e di interesse globale.
+            </p>
         </div>
 </body>
 </html>
