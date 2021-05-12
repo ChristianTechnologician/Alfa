@@ -67,10 +67,6 @@
     background-color: #dddddd;
   }
 
-  /*li a.active {
-       color: white;
-       background-color: #dddddd;
-   }*/
   .column {
     background-color: #f1f1f1;
     float: left;
@@ -146,11 +142,13 @@
 
 </head>
 <body>
+
 <div class="header">
   <a href="HomePage.html">
     <img src="Images/logo.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
   </a>
 </div>
+
 <ul>
   <div class="dropdown">
     <li></li><button class="dropbtn">Uomo</button>
@@ -159,6 +157,7 @@
       <a href="#">Link 2</a>
       <a href="#">Link 3</a>
     </div>
+
   </div></li>
   <li><a href="#Donna">Donna</a></li>
   <li style="float:right"><a href="#Utente">Utente</a></li>
@@ -176,11 +175,13 @@
 <div class="row">
   <div class="column" style="float:left; width :30%">
     <ul>
-      <li style="float: left">abito</li>
-      <li style="float: left">giacca</li>
+      <li style="float: left"><form action="" Applica un filtro</li><br><br>
+      <li style="float: left">abito></li><br><br>
+      <li style="float: left">giacca</li><br><br>
     </ul>
     </div>
 </div>
+
   <div class="row">
   <div class="column" style="float:right;width:70%">
     <ul>
@@ -226,7 +227,6 @@
         <div class="desc">Add a description of the image here</div>
       </div></li>
     </ul>
-
   </div>
 </div>
 
@@ -239,7 +239,7 @@
 
 
     Info sull’autore:
-    Capone,  Caruso, Coticelli;<br>
+    Capone, Caruso, Coticelli;<br>
 
     informazioni d’obbligo:
     “Alfa” ed il logo “Alfa” sono trademark di Alfa S.r.l e rappresenta marchi registrati globalmente.
