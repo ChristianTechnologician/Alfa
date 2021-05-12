@@ -175,9 +175,9 @@
 <div class="row">
   <div class="column" style="float:left; width :30%">
     <ul>
-      <li style="float: left"><form action="" Applica un filtro</li><br><br>
-      <li style="float: left">abito></li><br><br>
-      <li style="float: left">giacca</li><br><br>
+      <li style="float: left"><form action="" Applica un filtro</li><br>
+      <li style="float: left">abito></li><br>
+      <li style="float: left">giacca</li><br>
     </ul>
     </div>
 </div>
