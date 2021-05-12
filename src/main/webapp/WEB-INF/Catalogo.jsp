@@ -48,7 +48,8 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #f3f3f3;
+
+    background-color: #f1f1f1;
   }
 
   li {
@@ -59,7 +60,7 @@
     display: block;
     color: #666666;
     text-align: center;
-    padding: 14px 16px;
+    padding: 60px 16px;
     text-decoration: none;
   }
 
@@ -72,7 +73,7 @@
     float: left;
     text-align: center;
     width: 100%;
-    height:100%;
+    height: 100%;
     padding: 30px;
   }
   .footer {
@@ -155,11 +156,17 @@
     <div class="dropdown-content">
       <a href="#">Link 1</a>
       <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
     </div>
+  </div>
 
-  </div></li>
-  <li><a href="#Donna">Donna</a></li>
+    <div class="dropdown">
+      <li></li><button class="dropbtn">Donna</button>
+      <div class="dropdown-content">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+      </div>
+    </div></li>
+
   <li style="float:right"><a href="#Utente">Utente</a></li>
   <li style="float:right"><a href="#Carrello">Carrello</a></li>
   <li style="float:right"><a href="#Preferiti">Preferiti</a></li>
@@ -173,26 +180,26 @@
 
 
 <div class="row">
-  <div class="column" style="float:left; width :30%">
+  <div class="column" style="float:left; width :20% ">
     <ul>
-      <li style="float: left"><form action="" Applica un filtro</li><br>
-      <li style="float: left">abito></li><br>
+      <li style="float: left"></li><br>
+      <li style="float: left">abito</li><br>
       <li style="float: left">giacca</li><br>
     </ul>
     </div>
 </div>
 
   <div class="row">
-  <div class="column" style="float:right;width:70%">
+  <div class="column" style="float:right; width: 80%">
     <ul>
-     <li style="float: left "> <div class="gallery">
+     <li style="float: right "> <div class="gallery">
         <a target="_blank" href="woman.jpg">
           <img src="./Images/woman.jpg" alt="DONNA" width="600" height="400">
         </a>
         <div class="desc">Add a description of the image here</div>
       </div></li>
 
-      <li style="float:inside ">    <div class="gallery">
+      <li style="float:right ">    <div class="gallery">
         <a target="_blank" href="img_forest.jpg">
           <img src="./Images/woman.jpg" alt="Forest" width="600" height="400">
         </a>
@@ -206,14 +213,14 @@
         <div class="desc">Add a description of the image here</div>
       </div></li>
 
-      <li style="float: left "> <div class="gallery">
+      <li style="float: right "> <div class="gallery">
         <a target="_blank" href="img_mountains.jpg">
           <img src="./Images/woman.jpg" alt="Mountains" width="600" height="400">
         </a>
         <div class="desc">Add a description of the image here</div>
       </div></li>
 
-      <li style="float:inside "> <div class="gallery">
+      <li style="float:right "> <div class="gallery">
         <a target="_blank" href="woman.jpg">
           <img src="./Images/woman.jpg" alt="DONNA" width="600" height="400">
         </a>
@@ -230,7 +237,7 @@
   </div>
 </div>
 
-<div class="footer" style="width:100%">
+<div class="footer">
   <p>
     Info sull’azienda:
     Alfa, Via Inventina 290(PT), P.I  IT 11257691002, Alfa S.r.l© Copyright 2021 Alfa.
