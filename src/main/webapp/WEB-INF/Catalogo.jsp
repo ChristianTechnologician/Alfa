@@ -48,7 +48,6 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    border: 1px solid #e7e7e7;
     background-color: #f3f3f3;
   }
 
@@ -76,8 +75,9 @@
     background-color: #f1f1f1;
     float: left;
     text-align: center;
-    width: 70%;
-    padding: 200px;
+    width: 100%;
+    height:100%;
+    padding: 30px;
   }
   .footer {
     background-color: #f1f1f1;
@@ -174,7 +174,7 @@
 
 
 <div class="row">
-  <div class="column" style="float:left; width :30% ">
+  <div class="column" style="float:left; width :30%">
     <ul>
       <li style="float: left">abito</li>
       <li style="float: left">giacca</li>
@@ -182,7 +182,7 @@
     </div>
 </div>
   <div class="row">
-  <div class="column" style="float:right">
+  <div class="column" style="float:right;width:70%">
     <ul>
      <li style="float: left "> <div class="gallery">
         <a target="_blank" href="woman.jpg">
@@ -230,7 +230,7 @@
   </div>
 </div>
 
-<div class="footer">
+<div class="footer" style="width:100%">
   <p>
     Info sull’azienda:
     Alfa, Via Inventina 290(PT), P.I  IT 11257691002, Alfa S.r.l© Copyright 2021 Alfa.
