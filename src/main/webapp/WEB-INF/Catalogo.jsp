@@ -133,8 +133,8 @@
 </div>
 
 <ul>
-  <li><div class="dropdown">
-    <button class="dropbtn">Uomo</button>
+  <div class="dropdown">
+    <li></li><button class="dropbtn">Uomo</button>
     <div class="dropdown-content">
       <a href="#">Link 1</a>
       <a href="#">Link 2</a>
