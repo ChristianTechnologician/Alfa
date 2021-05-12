@@ -10,6 +10,27 @@
 <title>ALFA</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style type="text/css">
+
+  div.gallery {
+    margin: 2px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+  }
+
+  div.gallery:hover {
+    border: 1px solid #777;
+  }
+
+  div.gallery img {
+    width: 100%;
+    height: auto;
+  }
+
+  div.desc {
+    padding: 15px;
+    text-align: center;
+  }
   * {
     box-sizing: border-box;
   }
@@ -55,7 +76,7 @@
     background-color: #f1f1f1;
     float: left;
     text-align: center;
-    width: 100%;
+    width: 70%;
     padding: 200px;
   }
   .footer {
@@ -125,13 +146,11 @@
 
 </head>
 <body>
-
 <div class="header">
   <a href="HomePage.html">
     <img src="Images/logo.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
   </a>
 </div>
-
 <ul>
   <div class="dropdown">
     <li></li><button class="dropbtn">Uomo</button>
@@ -155,12 +174,58 @@
 
 
 <div class="row">
-  <div class="column">
+  <div class="column" style="float:left; width :30% ">
     <ul>
       <li style="float: left">abito</li>
       <li style="float: left">giacca</li>
     </ul>
+    </div>
+</div>
+  <div class="row">
+  <div class="column" style="float:right">
+    <ul>
+     <li style="float: left "> <div class="gallery">
+        <a target="_blank" href="woman.jpg">
+          <img src="./Images/woman.jpg" alt="DONNA" width="600" height="400">
+        </a>
+        <div class="desc">Add a description of the image here</div>
+      </div></li>
 
+      <li style="float:inside ">    <div class="gallery">
+        <a target="_blank" href="img_forest.jpg">
+          <img src="./Images/woman.jpg" alt="Forest" width="600" height="400">
+        </a>
+        <div class="desc">Add a description of the image here</div>
+      </div></li>
+
+      <li style="float: right "><div class="gallery">
+        <a target="_blank" href="img_lights.jpg">
+          <img src="./Images/woman.jpg" alt="Northern Lights" width="600" height="400">
+        </a>
+        <div class="desc">Add a description of the image here</div>
+      </div></li>
+
+      <li style="float: left "> <div class="gallery">
+        <a target="_blank" href="img_mountains.jpg">
+          <img src="./Images/woman.jpg" alt="Mountains" width="600" height="400">
+        </a>
+        <div class="desc">Add a description of the image here</div>
+      </div></li>
+
+      <li style="float:inside "> <div class="gallery">
+        <a target="_blank" href="woman.jpg">
+          <img src="./Images/woman.jpg" alt="DONNA" width="600" height="400">
+        </a>
+        <div class="desc">Add a description of the image here</div>
+      </div></li>
+
+      <li style="float: right "> <div class="gallery">
+        <a target="_blank" href="woman.jpg">
+          <img src="./Images/woman.jpg" alt="DONNA" width="600" height="400">
+        </a>
+        <div class="desc">Add a description of the image here</div>
+      </div></li>
+    </ul>
 
   </div>
 </div>
@@ -169,16 +234,16 @@
   <p>
     Info sull’azienda:
     Alfa, Via Inventina 290(PT), P.I  IT 11257691002, Alfa S.r.l© Copyright 2021 Alfa.
-    Tutti i diritti riservati;
+    Tutti i diritti riservati; <br>
 
 
 
     Info sull’autore:
-    Capone,  Caruso, Coticelli;
+    Capone,  Caruso, Coticelli;<br>
 
     informazioni d’obbligo:
     “Alfa” ed il logo “Alfa” sono trademark di Alfa S.r.l e rappresenta marchi registrati globalmente.
-    Policy del sito termini e condizioni.
+    Policy del sito termini e condizioni.<br>
 
     Chi siamo:
     άλφα è un sito emergente che punta a diventare uno dei più importanti e-commerce di abbigliamento di classe proponendo abiti e giacche con lo scopo di coinvolgere utenti di qualsiasi fascia d’età e di interesse globale.
