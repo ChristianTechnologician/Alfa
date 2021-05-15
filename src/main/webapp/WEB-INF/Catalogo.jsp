@@ -73,6 +73,7 @@
     text-align: center;
     width: 100%;
     height:100%;
+    border:1px;
     padding: 30px;
   }
   .footer {
@@ -82,39 +83,39 @@
   }
 
   .dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
+    background-color: #f1f1f1;
+    color: black;
+    padding: 14px;
     font-size: 16px;
-    border: none;
+    border: black;
     cursor: pointer;
   }
 
   .dropdown {
-    position: relative;
-    display: inline-block;
+    position: absolute;
+    display: block;
   }
 
   .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 160px;
+    min-width: 20px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
   }
 
   .dropdown-content a {
     color: black;
-    padding: 12px 16px;
+    padding: 8px 8px;
     text-decoration: none;
     display: block;
   }
 
-  .dropdown-content a:hover {background-color: #f1f1f1}
+  .dropdown-content a:hover {background-color: #4CAF50}
 
   .dropdown:hover .dropdown-content {
-    display: block;
+    display:block;
   }
 
   .dropdown:hover .dropbtn {
@@ -151,20 +152,26 @@
 
 <ul>
   <div class="dropdown">
-    <li></li><button class="dropbtn">Uomo</button>
+    <button class="dropbtn">Donna</button>
     <div class="dropdown-content">
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
+      <a href="#opzione4">Abiti</a>
+      <a href="#opzione5">Giacche</a>
+      <a href="#opzione6">Offerte</a>
     </div>
-
-  </div></li>
-  <li><a href="#Donna">Donna</a></li>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Uomo</button>
+    <div class="dropdown-content">
+      <a href="#opzione1">Abiti</a>
+      <a href="#opzione2">Giacche</a>
+      <a href="#opzione3">Offerte</a>
+    </div>
+  </div>
   <li style="float:right"><a href="#Utente">Utente</a></li>
   <li style="float:right"><a href="#Carrello">Carrello</a></li>
   <li style="float:right"><a href="#Preferiti">Preferiti</a></li>
   <li style="float:right">
-    <form id="search_form" action="" method="post">
+    <form id="search_form" action="" method="get">
       <input id="search_input" size="20"name="keyword" placeholder="Barra di ricerca"/>
       <button><i  style="font-size:30px" class="fa">&#xf002;</i></button>
     </form></li>
@@ -173,17 +180,20 @@
 
 
 <div class="row">
-  <div class="column" style="float:left; width :30%">
-    <ul>
-      <li style="float: left"><form action="" Applica un filtro</li><br>
-      <li style="float: left">abito></li><br>
-      <li style="float: left">giacca</li><br>
-    </ul>
-    </div>
+  <div class="column" style="float:left; width :20%">
+        <form id="filter_form" action="" method="get">
+          <ul>
+             <li style="float: left">Applica un filtro</li><br><br>
+             <li style="float: left">Abito<input type="checkbox" name="checkbox1"></li>
+             <li style="float: left">Giacca<input type="checkbox" name="checkbox2"></li>
+            <br><li><input type="submit" name="applica_filtro" value="Applica"></li>
+          </ul>
+        </form>
+  </div>
 </div>
 
   <div class="row">
-  <div class="column" style="float:right;width:70%">
+  <div class="column" style="float:right;width:80%">
     <ul>
      <li style="float: left "> <div class="gallery">
         <a target="_blank" href="woman.jpg">
@@ -194,7 +204,7 @@
 
       <li style="float:inside ">    <div class="gallery">
         <a target="_blank" href="img_forest.jpg">
-          <img src="./Images/woman.jpg" alt="Forest" width="600" height="400">
+          <img src="./Images/woman.jpg" alt="Forest" width="700" height="500">
         </a>
         <div class="desc">Add a description of the image here</div>
       </div></li>
