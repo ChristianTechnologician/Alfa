@@ -149,7 +149,7 @@
     <img src="Images/logo.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
   </a>
 </div>
-c
+
 <ul>
   <div class="dropdown">
     <button class="dropbtn">Donna</button>
