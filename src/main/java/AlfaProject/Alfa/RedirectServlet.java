@@ -9,11 +9,18 @@ import java.io.IOException;
 public class RedirectServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String uomo = request.getParameter("redirect_uomo");
+        String donna = request.getParameter("redirect_donna");
+        if(uomo != null){
+            request.setAttribute("#uomo",uomo);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
+            dispatcher.forward(request, response);
+        }
+        if(donna != null){
+            request.setAttribute("#donna",donna);
 
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 }

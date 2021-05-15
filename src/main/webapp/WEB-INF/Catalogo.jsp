@@ -150,7 +150,7 @@
   </a>
 </div>
 
-<ul>
+<ul style="border: 1px solid #e7e7e7;">
     <div class="dropdown">
         <li></li><button class="dropbtn">Uomo</button>
         <div class="dropdown-content">

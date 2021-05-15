@@ -10,9 +10,13 @@ import javax.servlet.annotation.*;
 public class ResearchServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
-        dispatcher.forward(request, response);
-
-
+        String inputRicerca = request.getParameter("keyword");
+        switch(inputRicerca) {
+            case "catalogo":
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
+                dispatcher.forward(request, response);
+            case "home":RequestDispatcher dispatcher1 = request.getRequestDispatcher("HomePage.html");
+                dispatcher1.forward(request, response);
+        }
     }
 }
