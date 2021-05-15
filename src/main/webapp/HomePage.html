@@ -165,7 +165,8 @@
         <h2>Abbigliamento Maschile</h2>
         <form action="RedirectServlet" method="get">
             <button>
-                <img src="Images/man.jpg" alt="Impossibile caricare l'immagine" width="400" height="600" id="redirect_uomo">
+                <img src="Images/man.jpg" alt="Impossibile caricare l'immagine" width="400" height="600" >
+                <input type="hidden" id="redirect_uomo" name="redirect_uomo">
             </button>
         </form>
     </div>
@@ -176,8 +177,9 @@
         <div class="column" style="float:right">
             <h2>Abbigliamento Femminile</h2>
             <form action="RedirectServlet" method="get">
-                <button id="redirect_donna">
+                <button>
                     <img src="Images/woman.jpg" alt="Impossibile caricare l'immagine" width="400" height="600">
+                    <input type="hidden" id="redirect_donna" name="redirect_donna">
                 </button>
             </form>
         </div>

@@ -25,8 +25,10 @@ public class RedirectServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
         if(donna != null){
-            request.setAttribute("generale",donna);
-
+            List<Abbigliamento> a = new ArrayList<>();
+            WearRetriving ab = new WearRetriving();
+            a = ab.doRetrieveAll("F");
+            request.setAttribute("generale",a);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
             dispatcher.forward(request, response);
         }

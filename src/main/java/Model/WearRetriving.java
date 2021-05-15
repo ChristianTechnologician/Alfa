@@ -34,7 +34,7 @@ public class WearRetriving {
         Abbigliamento p;
         try (Connection con = ConPool.getConnection()) {
             st = con.createStatement();
-            rs = st.executeQuery("SELECT * FROM Customer WHERE Genere = "+genere+";");
+            rs = st.executeQuery("SELECT * FROM merce WHERE Genere = '"+genere+"'");
             while (rs.next()) {
                 p = new Abbigliamento();
                 p.setCodice(rs.getString(1));

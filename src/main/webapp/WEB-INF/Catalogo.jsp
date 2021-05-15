@@ -211,42 +211,7 @@
       </div></li>
         <%}%>
         <%}%>
-      <li>    <div class="gallery">
-        <a target="_blank" href="img_forest.jpg">
-          <img src="./Images/.jpg" alt="Forest" width="700" height="500">
-        </a>
-        <div class="desc">Add a description of the image here</div>
-      </div></li>
-
-      <li style="float: left "><div class="gallery">
-        <a target="_blank" href="img_lights.jpg">
-          <img src="./Images/woman.jpg" alt="Northern Lights" width="700" height="500">
-        </a>
-        <div class="desc">Add a description of the image here</div>
-      </div></li>
-
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-      <li style="float: left "> <div class="gallery">
-        <a target="_blank" href="img_mountains.jpg">
-          <img src="./Images/woman.jpg" alt="Mountains" width="700" height="500">
-        </a>
-        <div class="desc">Add a description of the image here</div>
-      </div></li>
-
-      <li style="float:left "> <div class="gallery">
-        <a target="_blank" href="woman.jpg">
-          <img src="./Images/woman.jpg" alt="DONNA" width="700" height="500">
-        </a>
-        <div class="desc">Add a description of the image here</div>
-      </div></li>
-
-      <li style="float: left "> <div class="gallery">
-        <a target="_blank" href="woman.jpg">
-          <img src="./Images/woman.jpg" alt="DONNA" width="700" height="500">
-        </a>
-        <div class="desc">Add a description of the image here</div>
-      </div></li>
+     
     </ul>
   </div>
 </div>
