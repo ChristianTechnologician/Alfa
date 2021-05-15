@@ -12,10 +12,10 @@
 <style type="text/css">
 
   div.gallery {
-    margin: 2px;
+    margin: 35px;
     border: 1px solid #ccc;
     float: left;
-    width: 180px;
+    width: 300px;
   }
 
   div.gallery:hover {
@@ -59,7 +59,7 @@
     display: block;
     color: #666666;
     text-align: center;
-    padding: 14px 16px;
+    padding: 16px 16px;
     text-decoration: none;
   }
 
@@ -71,8 +71,8 @@
     background-color: #f1f1f1;
     float: left;
     text-align: center;
-    width: 100%;
-    height:100%;
+    width: 200%;
+    height:200%;
     border:1px;
     padding: 30px;
   }
@@ -85,29 +85,29 @@
   .dropbtn {
     background-color: #f1f1f1;
     color: black;
-    padding: 14px;
+    padding: 16px;
     font-size: 16px;
-    border: black;
+    border: none;
     cursor: pointer;
   }
 
   .dropdown {
-    position: absolute;
-    display: block;
+    position: relative;
+    display: inline-block;
   }
 
   .dropdown-content {
     display: none;
-    position: absolute;
+    position: fixed;
     background-color: #f9f9f9;
-    min-width: 20px;
+    min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
   }
 
   .dropdown-content a {
     color: black;
-    padding: 8px 8px;
+    padding: 12px 16px;
     text-decoration: none;
     display: block;
   }
@@ -149,24 +149,24 @@
     <img src="Images/logo.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
   </a>
 </div>
-c
+
 <ul>
-  <div class="dropdown">
-    <button class="dropbtn">Donna</button>
-    <div class="dropdown-content">
-      <a href="#opzione4">Abiti</a>
-      <a href="#opzione5">Giacche</a>
-      <a href="#opzione6">Offerte</a>
+    <div class="dropdown">
+        <li></li><button class="dropbtn">Uomo</button>
+        <div class="dropdown-content">
+            <a href="#">Abiti</a>
+            <a href="#">Giacche</a>
+        </div>
     </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Uomo</button>
-    <div class="dropdown-content">
-      <a href="#opzione1">Abiti</a>
-      <a href="#opzione2">Giacche</a>
-      <a href="#opzione3">Offerte</a>
-    </div>
-  </div>
+
+    <div class="dropdown">
+        <li></li><button class="dropbtn">Donna</button>
+        <div class="dropdown-content">
+            <a href="#">Abiti</a>
+            <a href="#">Giacche</a>
+        </div>
+    </div></li>
+
   <li style="float:right"><a href="#Utente">Utente</a></li>
   <li style="float:right"><a href="#Carrello">Carrello</a></li>
   <li style="float:right"><a href="#Preferiti">Preferiti</a></li>
@@ -182,12 +182,12 @@ c
 <div class="row">
   <div class="column" style="float:left; width :20%">
         <form id="filter_form" action="" method="get">
-          <ul>
+          <ul >
              <li style="float: left">Applica un filtro</li><br><br>
-             <li style="float: left">Abito<input type="checkbox" name="checkbox1"></li>
+             <li style="float: left">Abito<input type="checkbox" name="checkbox1"></li><br><br>
              <li style="float: left">Giacca<input type="checkbox" name="checkbox2"></li>
-            <br><li><input type="submit" name="applica_filtro" value="Applica"></li>
           </ul>
+           <br><br> <input style="float: left" type="submit" name="applica_filtro" value="Applica">
         </form>
   </div>
 </div>
@@ -197,42 +197,44 @@ c
     <ul>
      <li style="float: left "> <div class="gallery">
         <a target="_blank" href="woman.jpg">
-          <img src="./Images/woman.jpg" alt="DONNA" width="600" height="400">
+          <img src="./Images/woman.jpg" alt="DONNA" width="700" height="500">
         </a>
         <div class="desc">Add a description of the image here</div>
       </div></li>
 
-      <li style="float:inside ">    <div class="gallery">
+      <li>    <div class="gallery">
         <a target="_blank" href="img_forest.jpg">
           <img src="./Images/woman.jpg" alt="Forest" width="700" height="500">
         </a>
         <div class="desc">Add a description of the image here</div>
       </div></li>
 
-      <li style="float: right "><div class="gallery">
+      <li style="float: left "><div class="gallery">
         <a target="_blank" href="img_lights.jpg">
-          <img src="./Images/woman.jpg" alt="Northern Lights" width="600" height="400">
+          <img src="./Images/woman.jpg" alt="Northern Lights" width="700" height="500">
+        </a>
+        <div class="desc">Add a description of the image here</div>
+      </div></li>
+
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+      <li style="float: left "> <div class="gallery">
+        <a target="_blank" href="img_mountains.jpg">
+          <img src="./Images/woman.jpg" alt="Mountains" width="700" height="500">
+        </a>
+        <div class="desc">Add a description of the image here</div>
+      </div></li>
+
+      <li style="float:left "> <div class="gallery">
+        <a target="_blank" href="woman.jpg">
+          <img src="./Images/woman.jpg" alt="DONNA" width="700" height="500">
         </a>
         <div class="desc">Add a description of the image here</div>
       </div></li>
 
       <li style="float: left "> <div class="gallery">
-        <a target="_blank" href="img_mountains.jpg">
-          <img src="./Images/woman.jpg" alt="Mountains" width="600" height="400">
-        </a>
-        <div class="desc">Add a description of the image here</div>
-      </div></li>
-
-      <li style="float:inside "> <div class="gallery">
         <a target="_blank" href="woman.jpg">
-          <img src="./Images/woman.jpg" alt="DONNA" width="600" height="400">
-        </a>
-        <div class="desc">Add a description of the image here</div>
-      </div></li>
-
-      <li style="float: right "> <div class="gallery">
-        <a target="_blank" href="woman.jpg">
-          <img src="./Images/woman.jpg" alt="DONNA" width="600" height="400">
+          <img src="./Images/woman.jpg" alt="DONNA" width="700" height="500">
         </a>
         <div class="desc">Add a description of the image here</div>
       </div></li>
