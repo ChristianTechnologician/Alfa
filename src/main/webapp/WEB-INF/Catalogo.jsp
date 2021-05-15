@@ -1,4 +1,5 @@
-<%--
+<%@ page import="Model.Abbigliamento" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: chris
   Date: 10/05/2021
@@ -144,6 +145,10 @@
 </head>
 <body>
 
+<%
+    List<Abbigliamento> generale = (List<Abbigliamento>) request.getAttribute("generale");
+%>
+
 <div class="header">
   <a href="HomePage.html">
     <img src="Images/logo.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
@@ -195,16 +200,20 @@
   <div class="row">
   <div class="column" style="float:right;width:80%">
     <ul>
+    <% for(Abbigliamento g : generale){
+        if (g != null ){
+    %>
      <li style="float: left "> <div class="gallery">
         <a target="_blank" href="woman.jpg">
-          <img src="./Images/woman.jpg" alt="DONNA" width="700" height="500">
+          <img src="./Images/<%=g.getCodice()%>.jpg" alt="img" width="700" height="500">
         </a>
         <div class="desc">Add a description of the image here</div>
       </div></li>
-
+        <%}%>
+        <%}%>
       <li>    <div class="gallery">
         <a target="_blank" href="img_forest.jpg">
-          <img src="./Images/woman.jpg" alt="Forest" width="700" height="500">
+          <img src="./Images/.jpg" alt="Forest" width="700" height="500">
         </a>
         <div class="desc">Add a description of the image here</div>
       </div></li>
