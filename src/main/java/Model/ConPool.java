@@ -2,7 +2,6 @@ package Model;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.TimeZone;
@@ -13,10 +12,10 @@ public class ConPool {
     public static Connection getConnection() throws SQLException {
         if (datasource == null) {
             PoolProperties p = new PoolProperties();
-            p.setUrl("jdbc:mysql://localhost:3306/Alfa?serverTimezone=" + TimeZone.getDefault().getID());
+            p.setUrl("jdbc:mysql://localhost:3306/alfa?serverTimezone=" + TimeZone.getDefault().getID());
             p.setDriverClassName("com.mysql.cj.jdbc.Driver");
             p.setUsername("root");
-            p.setPassword("Chriscap-00");
+            p.setPassword("daviduccio15");
             p.setMaxActive(100);
             p.setInitialSize(10);
             p.setMinIdle(10);

@@ -50,4 +50,27 @@ public class WearRetriving {
             throw new RuntimeException(e);
         }
     }
+    public List<Abbigliamento> doRetrieveAllbyType(String genere, String type) {
+        ArrayList<Abbigliamento> vestiario =new ArrayList<>();
+        Statement st;
+        ResultSet rs;
+        Abbigliamento p;
+        try (Connection con = ConPool.getConnection()) {
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM merce WHERE Genere = '"+genere+"'and Categoria='"+type+"'");
+            while (rs.next()) {
+                p = new Abbigliamento();
+                p.setCodice(rs.getString(1));
+                p.setTaglia(rs.getString(2));
+                p.setGenere(rs.getString(3));
+                p.setPrezzo(rs.getDouble(4));
+                p.setCategoria(rs.getString(5));
+                vestiario.add(p);
+            }
+            con.close();
+            return vestiario;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

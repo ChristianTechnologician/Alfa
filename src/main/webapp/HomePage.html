@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>ALFA</title>
@@ -133,20 +133,22 @@
 </div>
 
 <ul>
-    <div class="dropdown">
-        <li></li><button class="dropbtn">Uomo</button>
+    <div class="dropdown"> <form action="RedirectServlet" method="get">
+        <li></li><button class="dropbtn" id="r_uomo" name="redirect_uomo">Uomo</button>
         <div class="dropdown-content">
-            <a href="#">Abiti</a>
-            <a href="#">Giacche</a>
+            <a href="RedirectServlet"  id="redirect_uomo_abiti" name="redirect_uomo_abiti">Abiti</a>
+            <a href="RedirectServlet"  id="redirect_uomo_giacche" name="redirect_uomo_giacche">Giacche</a>
         </div>
+    </form>
     </div>
 
-    <div class="dropdown">
-        <li></li><button class="dropbtn">Donna</button>
+    <div class="dropdown"><form action="RedirectServlet" method="get">
+        <li></li><button class="dropbtn" id="r_donna" name="redirect_donna">Donna</button>
         <div class="dropdown-content">
-            <a href="#">Abiti</a>
-            <a href="#">Giacche</a>
+            <a href="RedirectServlet"  id="redirect_donna_abiti" name="redirect_donna_abiti">Abiti</a>
+            <a  href ="RedirectServlet" id="redirect_donna_giacche" name="redirect_donna_giacche">Giacche</a>
         </div>
+    </form>
     </div></li>
 
     <li style="float:right"><a href="#Utente">Utente</a></li>
@@ -196,7 +198,7 @@
             Info sull’autore:
             Capone,  Caruso, Coticelli;<br>
 
-            informazioni d’obbligo:
+            Informazioni d’obbligo:
             “Alfa” ed il logo “Alfa” sono trademark di Alfa S.r.l e rappresenta marchi registrati globalmente.
             Policy del sito termini e condizioni.<br>
 

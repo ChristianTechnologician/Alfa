@@ -16,19 +16,55 @@ public class RedirectServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uomo = request.getParameter("redirect_uomo");
         String donna = request.getParameter("redirect_donna");
-        if(uomo != null){
+        String abitiUomo = request.getParameter("redirect_uomo_abiti");
+        String abitiDonna = request.getParameter("redirect_donna_abiti");
+        String giaccheUomo = request.getParameter("redirect_uomo_giacche");
+        String giaccheDonna = request.getParameter("redirect_donna_giacche");
+        if (uomo != null) {
             List<Abbigliamento> a = new ArrayList<>();
             WearRetriving ab = new WearRetriving();
             a = ab.doRetrieveAll("M");
-            request.setAttribute("generale",a);
+            request.setAttribute("generale", a);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
             dispatcher.forward(request, response);
         }
-        if(donna != null){
+        if (abitiUomo != null) {
+            List<Abbigliamento> a = new ArrayList<>();
+            WearRetriving ab = new WearRetriving();
+            a = ab.doRetrieveAllbyType("M", "Abito");
+            request.setAttribute("generale", a);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
+            dispatcher.forward(request, response);
+        }
+        if (giaccheUomo != null) {
+            List<Abbigliamento> a = new ArrayList<>();
+            WearRetriving ab = new WearRetriving();
+            a = ab.doRetrieveAllbyType("M", "Giacca");
+            request.setAttribute("generale", a);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
+            dispatcher.forward(request, response);
+        }
+        if (donna != null) {
             List<Abbigliamento> a = new ArrayList<>();
             WearRetriving ab = new WearRetriving();
             a = ab.doRetrieveAll("F");
-            request.setAttribute("generale",a);
+            request.setAttribute("generale", a);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
+            dispatcher.forward(request, response);
+        }
+        if (abitiDonna != null) {
+            List<Abbigliamento> a = new ArrayList<>();
+            WearRetriving ab = new WearRetriving();
+            a = ab.doRetrieveAllbyType("F", "Abito");
+            request.setAttribute("generale", a);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
+            dispatcher.forward(request, response);
+        }
+        if (giaccheDonna != null) {
+            List<Abbigliamento> a = new ArrayList<>();
+            WearRetriving ab = new WearRetriving();
+            a = ab.doRetrieveAllbyType("F", "Giacca");
+            request.setAttribute("generale", a);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
             dispatcher.forward(request, response);
         }
