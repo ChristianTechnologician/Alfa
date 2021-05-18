@@ -123,6 +123,18 @@
     background-color: #3e8e41;
   }
 
+  .key {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      width:100%;
+      border:none;
+      cursor: pointer;
+  }
+
+  .key:hover{background-color: #4CAF50}
+
   #search_form {
     display:inline-block;
     font: bold 10px Verdana,Geneva,Arial,Helvetica,sans-serif;
@@ -156,21 +168,22 @@
 </div>
 
 <ul style="border: 1px solid #e7e7e7;">
-    <div class="dropdown">
-        <li></li><button class="dropbtn">Uomo</button>
-        <div class="dropdown-content">
-            <a href="#">Abiti</a>
-            <a href="#">Giacche</a>
-        </div>
+    <div class="dropdown"> <form action="RedirectServlet" method="get">
+        <li><button class="dropbtn" id="r_uomo" name="redirect_uomo">Uomo</button>
+            <div class="dropdown-content">
+                <button class="key" id="redirect_uomo_abiti" name="redirect_uomo_abiti">Abiti</button>
+                <button class="key" id="redirect_uomo_giacche" name="redirect_uomo_giacche">Giacche</button>
+            </div></li>
+    </form>
     </div>
 
-    <div class="dropdown">
-        <li></li><button class="dropbtn">Donna</button>
-        <div class="dropdown-content">
-            <a href="#">Abiti</a>
-            <a href="#">Giacche</a>
-        </div>
-    </div></li>
+    <div class="dropdown"><form action="RedirectServlet" method="get">
+        <li><button class="dropbtn" id="r_donna" name="redirect_donna">Donna</button>
+            <div class="dropdown-content">
+                <button class="key" id="redirect_donna_abiti" name="redirect_donna_abiti">Abiti</button>
+                <button class="key" id="redirect_donna_giacche" name="redirect_donna_giacche">Giacche</button>
+            </div></li></form>
+    </div>
 
   <li style="float:right"><a href="#Utente">Utente</a></li>
   <li style="float:right"><a href="#Carrello">Carrello</a></li>
