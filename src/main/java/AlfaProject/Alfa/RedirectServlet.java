@@ -31,7 +31,7 @@ public class RedirectServlet extends HttpServlet {
         if (abitiUomo != null) {
             List<Abbigliamento> a = new ArrayList<>();
             WearRetriving ab = new WearRetriving();
-            a = ab.doRetrieveAllbyType("M", "Abito");
+            a = ab.doRetrieveAllbyType("M", "Completo");
             request.setAttribute("generale", a);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
             dispatcher.forward(request, response);
@@ -39,7 +39,7 @@ public class RedirectServlet extends HttpServlet {
         if (giaccheUomo != null) {
             List<Abbigliamento> a = new ArrayList<>();
             WearRetriving ab = new WearRetriving();
-            a = ab.doRetrieveAllbyType("M", "Giacca");
+            a = ab.doRetrieveAllbyType("M", "Cappotto");
             request.setAttribute("generale", a);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
             dispatcher.forward(request, response);
@@ -55,7 +55,7 @@ public class RedirectServlet extends HttpServlet {
         if (abitiDonna != null) {
             List<Abbigliamento> a = new ArrayList<>();
             WearRetriving ab = new WearRetriving();
-            a = ab.doRetrieveAllbyType("F", "Abito");
+            a = ab.doRetrieveAllbyType("F", "Completo");
             request.setAttribute("generale", a);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
             dispatcher.forward(request, response);
@@ -63,7 +63,7 @@ public class RedirectServlet extends HttpServlet {
         if (giaccheDonna != null) {
             List<Abbigliamento> a = new ArrayList<>();
             WearRetriving ab = new WearRetriving();
-            a = ab.doRetrieveAllbyType("F", "Giacca");
+            a = ab.doRetrieveAllbyType("F", "Cappotto");
             request.setAttribute("generale", a);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
             dispatcher.forward(request, response);

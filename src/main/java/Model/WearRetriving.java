@@ -38,10 +38,9 @@ public class WearRetriving {
             while (rs.next()) {
                 p = new Abbigliamento();
                 p.setCodice(rs.getString(1));
-                p.setTaglia(rs.getString(2));
-                p.setGenere(rs.getString(3));
-                p.setPrezzo(rs.getDouble(4));
-                p.setCategoria(rs.getString(5));
+                p.setGenere(rs.getString(2));
+                p.setPrezzo(rs.getDouble(3));
+                p.setCategoria(rs.getString(4));
                 vestiario.add(p);
             }
             con.close();
@@ -61,10 +60,9 @@ public class WearRetriving {
             while (rs.next()) {
                 p = new Abbigliamento();
                 p.setCodice(rs.getString(1));
-                p.setTaglia(rs.getString(2));
-                p.setGenere(rs.getString(3));
-                p.setPrezzo(rs.getDouble(4));
-                p.setCategoria(rs.getString(5));
+                p.setGenere(rs.getString(2));
+                p.setPrezzo(rs.getDouble(3));
+                p.setCategoria(rs.getString(4));
                 vestiario.add(p);
             }
             con.close();
