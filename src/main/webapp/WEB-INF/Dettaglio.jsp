@@ -1,4 +1,4 @@
-<%--
+<%@ page import="Model.Abbigliamento" %><%--
   Created by IntelliJ IDEA.
   User: 129109
   Date: 22/05/2021
@@ -158,7 +158,7 @@
 <body>
 
 <%
-    List<Abbigliamento> generale = (List<Abbigliamento>) request.getAttribute("generale");
+    Abbigliamento prodotto = (Abbigliamento) request.getAttribute("prodotto");
 %>
 
 <div class="header">
@@ -213,17 +213,7 @@
 <div class="row">
     <div class="column" style="float:right;width:80%">
         <ul>
-            <% for(Abbigliamento g : generale){
-                if (g != null ){
-            %>
-            <li style="float: left "> <div class="gallery">
-                <a target="_blank" href="woman.jpg">
-                    <img src="./Images/<%=g.getCodice()%>.jpg" alt="img" width="700" height="500">
-                </a>
-                <div class="desc">Add a description of the image here</div>
-            </div></li>
-            <%}%>
-            <%}%>
+            <%=prodotto.getCodice()%> <%=prodotto.getCategoria()%> <%=prodotto.getGenere()%>
 
         </ul>
     </div>

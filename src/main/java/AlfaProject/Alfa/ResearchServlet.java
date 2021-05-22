@@ -13,10 +13,12 @@ public class ResearchServlet extends HttpServlet {
         String inputRicerca = request.getParameter("keyword");
         switch(inputRicerca) {
             case "catalogo":
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
-                dispatcher.forward(request, response);
+               RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
+               dispatcher.forward(request, response);break;
             case "home":RequestDispatcher dispatcher1 = request.getRequestDispatcher("HomePage.html");
-                dispatcher1.forward(request, response);
+                dispatcher1.forward(request, response);break;
+            default : RequestDispatcher dispatcher2 = request.getRequestDispatcher("/WEB-INF/index.jsp");
+                dispatcher2.forward(request,response);break;
         }
     }
 }

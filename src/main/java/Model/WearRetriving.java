@@ -71,4 +71,25 @@ public class WearRetriving {
             throw new RuntimeException(e);
         }
     }
+
+    public Abbigliamento doRetrieveByCode(String codice) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT Codice, Genere, Prezzo ,Categoria FROM merce WHERE codice=?");
+            ps.setString(1, codice);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Abbigliamento p = new Abbigliamento();
+                p.setCodice(rs.getString(1));
+                p.setTaglia(rs.getString(2));
+                p.setGenere(rs.getString(3));
+                p.setPrezzo(rs.getDouble(4));
+                p.setCategoria(rs.getString(5));
+                return p;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

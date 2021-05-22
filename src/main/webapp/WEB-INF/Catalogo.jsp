@@ -68,6 +68,14 @@
     background-color: #dddddd;
   }
 
+  li button#product {
+      display: block;
+      color: #666666;
+      text-align: center;
+      padding: 16px 16px;
+      text-decoration: none;
+  }
+
   .column {
     background-color: #f1f1f1;
     float: left;
@@ -169,7 +177,7 @@
 
 <ul style="border: 1px solid #e7e7e7;">
     <div class="dropdown"> <form action="RedirectServlet" method="get">
-        <li><button class="dropbtn" id="r_uomo" name="redirect_uomo">Uomo</button>
+        <li><button  class="dropbtn" id="r_uomo" name="redirect_uomo">Uomo</button>
             <div class="dropdown-content">
                 <button class="key" id="redirect_uomo_abiti" name="redirect_uomo_abiti">Abiti</button>
                 <button class="key" id="redirect_uomo_giacche" name="redirect_uomo_giacche">Giacche</button>
@@ -217,10 +225,11 @@
         if (g != null ){
     %>
      <li style="float: left "> <div class="gallery">
-        <a target="_blank" href="woman.jpg">
+         <form action="DettaglioServlet" method="get">
+        <button id="product" name="<%=g.getCodice()%>">
           <img src="./Images/<%=g.getCodice()%>.jpg" alt="img" width="700" height="500">
-        </a>
-        <div class="desc">Add a description of the image here</div>
+        </button>
+        <div class="desc">Add a description of the image here</div></form>
       </div></li>
         <%}%>
         <%}%>
