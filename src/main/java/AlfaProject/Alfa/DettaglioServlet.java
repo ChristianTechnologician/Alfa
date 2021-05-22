@@ -12,9 +12,9 @@ import java.io.IOException;
 public class DettaglioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String codice = request.getParameter("<%=g.getCodice()%>");
+        /*String codice = request.getParameter("UCA1");*/
         WearRetriving wr = new WearRetriving();
-        Abbigliamento ab = wr.doRetrieveByCode(codice);
+        Abbigliamento ab = wr.doRetrieveByCode("UCA1");
         request.setAttribute("prodotto",ab);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Dettaglio.jsp");
         dispatcher.forward(request,response);

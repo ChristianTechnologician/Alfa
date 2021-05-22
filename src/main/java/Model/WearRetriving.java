@@ -9,16 +9,18 @@ public class WearRetriving {
     public Abbigliamento doRetrieveByGender(String genere) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT Codice, Taglia, Genere, Prezzo ,Categoria FROM merce WHERE Genere=?");
+                    con.prepareStatement("SELECT * FROM merce WHERE Genere=?");
             ps.setString(1, genere);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Abbigliamento p = new Abbigliamento();
                 p.setCodice(rs.getString(1));
-                p.setTaglia(rs.getString(2));
-                p.setGenere(rs.getString(3));
-                p.setPrezzo(rs.getDouble(4));
-                p.setCategoria(rs.getString(5));
+                p.setNome(rs.getString(2));
+                p.setDescrizione(rs.getString(3));
+                p.setGenere(rs.getString(4));
+                p.setPrezzo(rs.getDouble(5));
+                p.setTipocategoria(rs.getString(6));
+                p.setSconto(rs.getDouble(7));
                 return p;
             }
             return null;
@@ -38,9 +40,12 @@ public class WearRetriving {
             while (rs.next()) {
                 p = new Abbigliamento();
                 p.setCodice(rs.getString(1));
-                p.setGenere(rs.getString(2));
-                p.setPrezzo(rs.getDouble(3));
-                p.setCategoria(rs.getString(4));
+                p.setNome(rs.getString(2));
+                p.setDescrizione(rs.getString(3));
+                p.setGenere(rs.getString(4));
+                p.setPrezzo(rs.getDouble(5));
+                p.setTipocategoria(rs.getString(6));
+                p.setSconto(rs.getDouble(7));
                 vestiario.add(p);
             }
             con.close();
@@ -56,13 +61,16 @@ public class WearRetriving {
         Abbigliamento p;
         try (Connection con = ConPool.getConnection()) {
             st = con.createStatement();
-            rs = st.executeQuery("SELECT * FROM merce WHERE Genere = '"+genere+"'and Categoria='"+type+"'");
+            rs = st.executeQuery("SELECT * FROM merce WHERE Genere = '"+genere+"'and TipoCategoria='"+type+"'");
             while (rs.next()) {
                 p = new Abbigliamento();
                 p.setCodice(rs.getString(1));
-                p.setGenere(rs.getString(2));
-                p.setPrezzo(rs.getDouble(3));
-                p.setCategoria(rs.getString(4));
+                p.setNome(rs.getString(2));
+                p.setDescrizione(rs.getString(3));
+                p.setGenere(rs.getString(4));
+                p.setPrezzo(rs.getDouble(5));
+                p.setTipocategoria(rs.getString(6));
+                p.setSconto(rs.getDouble(7));
                 vestiario.add(p);
             }
             con.close();
@@ -75,16 +83,18 @@ public class WearRetriving {
     public Abbigliamento doRetrieveByCode(String codice) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT Codice, Genere, Prezzo ,Categoria FROM merce WHERE codice=?");
+                    con.prepareStatement("SELECT * FROM merce WHERE Codice=?");
             ps.setString(1, codice);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Abbigliamento p = new Abbigliamento();
                 p.setCodice(rs.getString(1));
-                p.setTaglia(rs.getString(2));
-                p.setGenere(rs.getString(3));
-                p.setPrezzo(rs.getDouble(4));
-                p.setCategoria(rs.getString(5));
+                p.setNome(rs.getString(2));
+                p.setDescrizione(rs.getString(3));
+                p.setGenere(rs.getString(4));
+                p.setPrezzo(rs.getDouble(5));
+                p.setTipocategoria(rs.getString(6));
+                p.setSconto(rs.getDouble(7));
                 return p;
             }
             return null;

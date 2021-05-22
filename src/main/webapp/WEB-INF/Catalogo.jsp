@@ -226,10 +226,11 @@
     %>
      <li style="float: left "> <div class="gallery">
          <form action="DettaglioServlet" method="get">
-        <button id="product" name="<%=g.getCodice()%>">
+        <button>
           <img src="./Images/<%=g.getCodice()%>.jpg" alt="img" width="700" height="500">
+            <input type="hidden" name="<%g.getCodice();%>">
         </button>
-        <div class="desc">Add a description of the image here</div></form>
+        <div class="desc"><%=g.getNome()%></div></form>
       </div></li>
         <%}%>
         <%}%>

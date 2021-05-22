@@ -195,29 +195,39 @@
         </form></li>
 </ul>
 
-
-
 <div class="row">
-    <div class="column" style="float:left; width :20%">
-        <form id="filter_form" action="" method="get">
-            <ul >
-                <li style="float: left">Applica un filtro</li><br><br>
-                <li style="float: left">Abito<input type="checkbox" name="checkbox1"></li><br><br>
-                <li style="float: left">Giacca<input type="checkbox" name="checkbox2"></li>
-            </ul>
-            <br><br> <input style="float: left" type="submit" name="applica_filtro" value="Applica">
-        </form>
-    </div>
-</div>
-
-<div class="row">
-    <div class="column" style="float:right;width:80%">
+    <div class="column" style="float:left;width:33%">
         <ul>
-            <%=prodotto.getCodice()%> <%=prodotto.getCategoria()%> <%=prodotto.getGenere()%>
-
+            <li style="float: left "> <div class="gallery">
+                        <img src="./Images/<%=prodotto.getCodice()%>.jpg" alt="img" width="700" height="500">
+                    <div class="desc"><%=prodotto.getNome()%></div>
+            </div></li>
         </ul>
     </div>
 </div>
+
+<div class="row">
+    <div class="column" style="float:left;width:33%">
+        <ul>
+            <li style="float: left "> <div class="gallery">
+                <%=prodotto.getDescrizione()%>
+            </div></li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="column" style="float:left;width:33%">
+        <ul>
+            <li style="float: left "> <div class="gallery">
+                <img src="./Images/<%=prodotto.getCodice()%>.jpg" alt="img" width="700" height="500">
+                <div class="desc"><%=prodotto.getNome()%></div>
+            </div></li>
+        </ul>
+    </div>
+</div>
+
+
 
 <div class="footer" style="width:100%">
     <p>
