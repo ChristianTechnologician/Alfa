@@ -12,7 +12,6 @@ public class ResearchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String inputRicerca = request.getParameter("keyword");
         switch(inputRicerca) {
-
             case "catalogo":
                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
                dispatcher.forward(request, response);break;
