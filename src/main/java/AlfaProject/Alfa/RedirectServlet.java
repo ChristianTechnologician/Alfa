@@ -19,6 +19,7 @@ public class RedirectServlet extends HttpServlet {
         String abitiUomo = request.getParameter("redirect_uomo_abiti");
         String abitiDonna = request.getParameter("redirect_donna_abiti");
         String giaccheUomo = request.getParameter("redirect_uomo_giacche");
+
         String giaccheDonna = request.getParameter("redirect_donna_giacche");
         if (uomo != null) {
             List<Abbigliamento> a = new ArrayList<>();

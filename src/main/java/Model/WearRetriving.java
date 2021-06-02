@@ -60,6 +60,7 @@ public class WearRetriving {
         ResultSet rs;
         Abbigliamento p;
         try (Connection con = ConPool.getConnection()) {
+
             st = con.createStatement();
             rs = st.executeQuery("SELECT * FROM merce WHERE Genere = '"+genere+"'and TipoCategoria='"+type+"'");
             while (rs.next()) {
