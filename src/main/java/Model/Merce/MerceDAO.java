@@ -1,19 +1,21 @@
-package Model;
+package Model.Merce;
+
+import Model.ConPool;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WearRetriving {
+public class MerceDAO {
 
-    public Abbigliamento doRetrieveByGender(String genere) {
+    public Merce doRetrieveByGender(String genere) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
                     con.prepareStatement("SELECT * FROM merce WHERE Genere=?");
             ps.setString(1, genere);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Abbigliamento p = new Abbigliamento();
+                Merce p = new Merce();
                 p.setCodice(rs.getString(1));
                 p.setNome(rs.getString(2));
                 p.setDescrizione(rs.getString(3));
@@ -29,16 +31,16 @@ public class WearRetriving {
         }
     }
 
-    public List<Abbigliamento> doRetrieveAll(String genere) {
-        ArrayList<Abbigliamento> vestiario =new ArrayList<>();
+    public List<Merce> doRetrieveAll(String genere) {
+        ArrayList<Merce> vestiario =new ArrayList<>();
         Statement st;
         ResultSet rs;
-        Abbigliamento p;
+        Merce p;
         try (Connection con = ConPool.getConnection()) {
             st = con.createStatement();
             rs = st.executeQuery("SELECT * FROM merce WHERE Genere = '"+genere+"'");
             while (rs.next()) {
-                p = new Abbigliamento();
+                p = new Merce();
                 p.setCodice(rs.getString(1));
                 p.setNome(rs.getString(2));
                 p.setDescrizione(rs.getString(3));
@@ -54,16 +56,16 @@ public class WearRetriving {
             throw new RuntimeException(e);
         }
     }
-    public List<Abbigliamento> doRetrieveAllbyType(String genere, String type) {
-        ArrayList<Abbigliamento> vestiario =new ArrayList<>();
+    public List<Merce> doRetrieveAllbyType(String genere, String type) {
+        ArrayList<Merce> vestiario =new ArrayList<>();
         Statement st;
         ResultSet rs;
-        Abbigliamento p;
+        Merce p;
         try (Connection con = ConPool.getConnection()) {
             st = con.createStatement();
             rs = st.executeQuery("SELECT * FROM merce WHERE Genere = '"+genere+"'and TipoCategoria='"+type+"'");
             while (rs.next()) {
-                p = new Abbigliamento();
+                p = new Merce();
                 p.setCodice(rs.getString(1));
                 p.setNome(rs.getString(2));
                 p.setDescrizione(rs.getString(3));
@@ -80,14 +82,14 @@ public class WearRetriving {
         }
     }
 
-    public Abbigliamento doRetrieveByCode(String codice) {
+    public Merce doRetrieveByCode(String codice) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
                     con.prepareStatement("SELECT * FROM merce WHERE Codice=?");
             ps.setString(1, codice);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Abbigliamento p = new Abbigliamento();
+                Merce p = new Merce();
                 p.setCodice(rs.getString(1));
                 p.setNome(rs.getString(2));
                 p.setDescrizione(rs.getString(3));

@@ -1,4 +1,4 @@
-<%@ page import="Model.Abbigliamento" %><%--
+<%@ page import="Model.Merce.Merce" %><%--
   Created by IntelliJ IDEA.
   User: 129109
   Date: 22/05/2021
@@ -158,7 +158,7 @@
 <body>
 
 <%
-    Abbigliamento prodotto = (Abbigliamento) request.getAttribute("prodotto");
+    Merce prodotto = (Merce) request.getAttribute("prodotto");
 %>
 
 <div class="header">

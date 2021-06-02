@@ -1,4 +1,4 @@
-package AlfaProject.Alfa;
+package Controller;
 
 import java.io.*;
 import javax.servlet.RequestDispatcher;
