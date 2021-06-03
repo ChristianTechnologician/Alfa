@@ -16,7 +16,6 @@ public class Merce {
   private List<Carrello> carrelloList;
 
   public Merce(){
-
   }
 
   public String getCodice() {
