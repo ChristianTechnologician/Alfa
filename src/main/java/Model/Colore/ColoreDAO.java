@@ -1,4 +1,6 @@
 package Model.Colore;
 
-public class ColoreDAO {
+public class ColoreDAO
+{
+
 }

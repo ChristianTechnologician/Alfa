@@ -1,4 +1,6 @@
 package Model.Carrello;
 
-public class CarrelloDAO {
+public class CarrelloDAO
+{
+
 }
