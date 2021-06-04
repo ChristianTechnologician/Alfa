@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public interface UtenteD {
+public interface UtenteInterface {
 
     List<Utente> fetchUtenti(int start, int end) throws SQLException;
 

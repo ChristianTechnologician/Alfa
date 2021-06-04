@@ -1,8 +1,7 @@
 package Model.Utente;
 
-import Model.Connessione.Manager;
 import Model.ConPool;
-import javax.sql.DataSource;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UtenteDAO implements UtenteD
+public class UtenteDAO implements UtenteInterface
 {
     @Override
     public List<Utente> fetchUtenti(int start, int end) throws SQLException {
@@ -19,20 +18,16 @@ public class UtenteDAO implements UtenteD
             try(PreparedStatement ps = connection.prepareStatement("SELECT * FROM utente LIMIT ?,?;")){
                 ps.setInt(1,start);
                 ps.setInt(2,end);
-                ResultSet set = ps.executeQuery();
+                ResultSet rs = ps.executeQuery();
                 List<Utente> utenti = new ArrayList<>();
-                while(set.next()){
-                    Utente utente = new Utente();
-                    utente.setIsAdministration(set.getBoolean("isAdministration"));
-                    utente.setId(set.getInt("ID"));
-                    utente.setNome(set.getString("Nome"));
-                    utente.setCognome(set.getString("Cognome"));
-                    utente.setEmail(set.getString("Email"));
-                    utente.setPassword(set.getString("PW"));
-                    utenti.add(utente);
+                UtenteExtraction utenteExtraction = new UtenteExtraction();
+                while(rs.next()){
+                    utenti.add(utenteExtraction.mapping(rs));
                 }
-                set.close();
-                return  utenti;
+                rs.close();
+                return utenti;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         }
     }
