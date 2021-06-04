@@ -171,7 +171,7 @@
 
 <div class="header">
   <a href="HomePage.html">
-    <img src="Images/logo.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
+    <img src="Images/LOGO.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
   </a>
 </div>
 

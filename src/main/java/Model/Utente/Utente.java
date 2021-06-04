@@ -63,7 +63,7 @@ public class Utente {
         return isAdministration;
     }
 
-    public void setAdministration(boolean isAdministration) {
+    public void setIsAdministration(boolean isAdministration) {
         isAdministration = isAdministration;
     }
 

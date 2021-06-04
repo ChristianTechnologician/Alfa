@@ -2,14 +2,13 @@ package Model.Ordine;
 
 import Model.Carrello.Carrello;
 import Model.Utente.Utente;
-
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 
 public class Ordine {
     private int numeroFattura,civico,stato,idUtente;
     private String via,citta,provincia;
     private double prezzoTotale;
-    private GregorianCalendar date;
+    private LocalDate date;
     private Carrello carrello;
     private Utente utente;
 
@@ -81,11 +80,11 @@ public class Ordine {
         this.prezzoTotale = prezzoTotale;
     }
 
-    public GregorianCalendar getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(GregorianCalendar date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

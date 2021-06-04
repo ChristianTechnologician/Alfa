@@ -23,7 +23,7 @@ public class RedirectServlet extends HttpServlet {
         if (uomo != null) {
             List<Merce> a = new ArrayList<>();
             MerceDAO ab = new MerceDAO();
-            a = ab.doRetrieveAll("M");
+            a = ab.doRetrieveAllbyGender("M");
             request.setAttribute("generale", a);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
             dispatcher.forward(request, response);
@@ -47,7 +47,7 @@ public class RedirectServlet extends HttpServlet {
         if (donna != null) {
             List<Merce> a = new ArrayList<>();
             MerceDAO ab = new MerceDAO();
-            a = ab.doRetrieveAll("F");
+            a = ab.doRetrieveAllbyGender("F");
             request.setAttribute("generale", a);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
             dispatcher.forward(request, response);
