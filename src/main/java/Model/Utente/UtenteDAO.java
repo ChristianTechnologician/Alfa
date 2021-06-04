@@ -23,7 +23,7 @@ public class UtenteDAO implements UtenteD
                 List<Utente> utenti = new ArrayList<>();
                 while(set.next()){
                     Utente utente = new Utente();
-                    utente.setAdministration(set.getBoolean("isAdministration"));
+                    utente.setIsAdministration(set.getBoolean("isAdministration"));
                     utente.setId(set.getInt("ID"));
                     utente.setNome(set.getString("Nome"));
                     utente.setCognome(set.getString("Cognome"));
