@@ -1,5 +1,7 @@
 package Model.Ordine;
 
+import Model.Colore.Colore;
+import Model.Colore.ColoreExtraction;
 import Model.ConPool;
 
 import java.sql.Connection;
@@ -51,8 +53,23 @@ public class OrdineDAO implements OrdineInterface{
     }
 
     @Override
-    public Ordine DoRetriveByUtente(int id_utente) throws SQLException {
-        return null;
+    public List<Ordine> DoRetriveByUtente(int id_utente) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT ordine.Numerofattura, ordine.Via, ordine.Civico, ordine.Citta, ordine.Provincia, tordine.PrezzoTotale,ordine.DataFattura,ordine.Stato\n" +
+                            "FROM utente,ordine\n" +
+                            "WHERE utente.ID = ? AND Ordine.IDUtente = utente.ID");
+            ps.setInt(1, id_utente);
+            ResultSet rs = ps.executeQuery();
+            List<Ordine> ordini = new ArrayList<>();
+            OrdineExtraction oe = new OrdineExtraction();
+            while (rs.next()) {
+                ordini.add(oe.mapping(rs));
+            }
+            return ordini;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

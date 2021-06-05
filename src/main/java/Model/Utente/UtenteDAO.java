@@ -54,11 +54,30 @@ public class UtenteDAO implements UtenteInterface
 
     @Override
     public Integer updateUtente(Utente utente) throws SQLException {
-        return null;
+        try(Connection connection = ConPool.getConnection()){
+            try(PreparedStatement ps = connection.prepareStatement("UPDATE utente SET (?,?,?,?,?,?) WHERE ID=?")){
+                ps.setInt(1,utente.getId());
+                ps.setString(2,utente.getNome());
+                ps.setString(3,utente.getCognome());
+                ps.setString(4,utente.getEmail());
+                ps.setString(5,utente.getPassword());
+                ps.setBoolean(6,utente.getIsAdministration());
+                ps.setInt(7,utente.getId());
+                return ps.executeUpdate();
+            }
+        }
     }
 
     @Override
     public Integer deleteUtente(String email) throws SQLException {
-        return null;
+        PreparedStatement ps;
+        ResultSet rs;
+        try (Connection con = ConPool.getConnection()) {
+            ps = con.prepareStatement("DELETE FROM utente WHERE Email = ?");
+            ps.setString(1, email);
+            return ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

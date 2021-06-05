@@ -6,6 +6,10 @@ import java.util.List;
 public interface ColoreInterface
 {
     Colore doRetrieveByCode(int code) throws SQLException;
+    List<Colore> doRetrieveByMerce(String codice) throws SQLException;
+    List<Colore> doRetrieveByTaglia(String lTaglia) throws SQLException;
+    List<Colore> doRetrieveByMerce_Taglia(String merce, String taglia) throws SQLException;
     List<Colore> doRetrieveAll() throws SQLException;
-    List<Colore> doRetrieveAllByMerce() throws SQLException;
+    void insertColor(int codice, String colore) throws SQLException;
+    void deleteColor(int codice) throws SQLException;
 }
