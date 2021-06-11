@@ -1,12 +1,14 @@
 package Model.Utente;
 
+import Model.Gestione.Paginatore;
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public interface UtenteInterface {
 
-    List<Utente> fetchUtenti(int start, int end) throws SQLException;
+    List<Utente> fetchUtenti(Paginatore paginatore) throws SQLException;
 
     Optional<Utente> fetchUtente(String email) throws SQLException;
 

@@ -63,4 +63,56 @@ public class MerceDAO implements MerceInterface{
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void insertMerce(Merce merce) throws SQLException {
+        PreparedStatement ps;
+        ResultSet rs;
+        try (Connection con = ConPool.getConnection()) {
+            ps = con.prepareStatement("INSERT INTO merce VALUES (?,?,?,?,?,?,?)");
+            ps.setString(1, merce.getCodice());
+            ps.setString(2, merce.getNome());
+            ps.setString(3, merce.getDescrizione());
+            ps.setString(4, merce.getGenere());
+            ps.setDouble(5, merce.getPrezzo());
+            ps.setString(6, merce.getTipocategoria());
+            ps.setDouble(7, merce.getSconto());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void updateMerce(String Codice,Merce merce) throws SQLException {
+        PreparedStatement ps;
+        ResultSet rs;
+        try (Connection con = ConPool.getConnection()) {
+            ps = con.prepareStatement("UPDATE merce VALUES (?,?,?,?,?,?,?) WHERE Codice = ?");
+            ps.setString(8, Codice);
+            ps.setString(1, merce.getCodice());
+            ps.setString(2, merce.getNome());
+            ps.setString(3, merce.getDescrizione());
+            ps.setString(4, merce.getGenere());
+            ps.setDouble(5, merce.getPrezzo());
+            ps.setString(6, merce.getTipocategoria());
+            ps.setDouble(7, merce.getSconto());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteMerce(String Codice) throws SQLException {
+        PreparedStatement ps;
+        ResultSet rs;
+        try (Connection con = ConPool.getConnection()) {
+            ps = con.prepareStatement("DELETE merce WHERE Codice = ?");
+            ps.setString(1, Codice);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

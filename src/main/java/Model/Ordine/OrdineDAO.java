@@ -3,6 +3,8 @@ package Model.Ordine;
 import Model.Colore.Colore;
 import Model.Colore.ColoreExtraction;
 import Model.ConPool;
+import Model.Gestione.Paginatore;
+import Model.Merce.Merce;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,11 +16,11 @@ import java.util.List;
 
 public class OrdineDAO implements OrdineInterface{
     @Override
-    public List<Ordine> DoRetriveAll(int start, int end) throws SQLException {
+    public List<Ordine> DoRetriveAll(Paginatore paginatore) throws SQLException {
         try(Connection connection = ConPool.getConnection()){
             try(PreparedStatement ps = connection.prepareStatement("SELECT * FROM ordine LIMIT ?,?;")) {
-                ps.setInt(1, start);
-                ps.setInt(2,end);
+                ps.setInt(1, paginatore.getOffset());
+                ps.setInt(2,paginatore.getLimit());
                 ResultSet rs = ps.executeQuery();
                 List<Ordine> ordine = new ArrayList<>();
                 OrdineExtraction ordineExtraction = new OrdineExtraction();
@@ -88,6 +90,40 @@ public class OrdineDAO implements OrdineInterface{
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    @Override
+    public void insertMerce(Ordine ordine) throws SQLException {
+        PreparedStatement ps;
+        ResultSet rs;
+        try (Connection con = ConPool.getConnection()) {
+            ps = con.prepareStatement("INSERT INTO ordine VALUES (?,?,?,?,?,?,?,?,?)");
+            ps.setInt(1, ordine.getNumeroFattura());
+            ps.setString(2, ordine.getVia());
+            ps.setInt(3, ordine.getCivico());
+            ps.setString(4, ordine.getCitta());
+            ps.setString(5, ordine.getProvincia());
+            ps.setDouble(6,ordine.getPrezzoTotale());
+            ps.setObject(7,ordine.getDate());
+            ps.setInt(8,ordine.getStato());
+            ps.setInt(9,ordine.getIdUtente());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteMerce(int numeroFattura) throws SQLException {
+        PreparedStatement ps;
+        ResultSet rs;
+        try (Connection con = ConPool.getConnection()) {
+            ps = con.prepareStatement("DELETE ordine WHERE NumeroFattura = ?");
+            ps.setInt(1, numeroFattura);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

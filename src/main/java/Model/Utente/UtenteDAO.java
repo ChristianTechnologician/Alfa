@@ -1,6 +1,7 @@
 package Model.Utente;
 
 import Model.ConPool;
+import Model.Gestione.Paginatore;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,11 +14,11 @@ import java.util.Optional;
 public class UtenteDAO implements UtenteInterface
 {
     @Override
-    public List<Utente> fetchUtenti(int start, int end) throws SQLException {
+    public List<Utente> fetchUtenti(Paginatore paginatore) throws SQLException {
         try(Connection connection = ConPool.getConnection()){
             try(PreparedStatement ps = connection.prepareStatement("SELECT * FROM utente LIMIT ?,?;")){
-                ps.setInt(1,start);
-                ps.setInt(2,end);
+                ps.setInt(1,paginatore.getOffset());
+                ps.setInt(2,paginatore.getLimit());
                 ResultSet rs = ps.executeQuery();
                 List<Utente> utenti = new ArrayList<>();
                 UtenteExtraction utenteExtraction = new UtenteExtraction();
