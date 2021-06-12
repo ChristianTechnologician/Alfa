@@ -7,6 +7,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,11 @@ public class RedirectServlet extends HttpServlet {
         if (uomo != null) {
             List<Merce> a = new ArrayList<>();
             MerceDAO ab = new MerceDAO();
-            a = ab.doRetrieveAllbyGender("M");
+            try {
+                a = ab.doRetrieveAllbyGender("M");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
             request.setAttribute("generale", a);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
             dispatcher.forward(request, response);
@@ -31,7 +36,11 @@ public class RedirectServlet extends HttpServlet {
         if (abitiUomo != null) {
             List<Merce> a = new ArrayList<>();
             MerceDAO ab = new MerceDAO();
-            a = ab.doRetrieveAllbyType("M", "Completo");
+            try {
+                a = ab.doRetrieveAllbyType("M", "Completo");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
             request.setAttribute("generale", a);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
             dispatcher.forward(request, response);
@@ -39,7 +48,11 @@ public class RedirectServlet extends HttpServlet {
         if (giaccheUomo != null) {
             List<Merce> a = new ArrayList<>();
             MerceDAO ab = new MerceDAO();
-            a = ab.doRetrieveAllbyType("M", "Cappotto");
+            try {
+                a = ab.doRetrieveAllbyType("M", "Cappotto");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
             request.setAttribute("generale", a);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
             dispatcher.forward(request, response);
@@ -47,7 +60,11 @@ public class RedirectServlet extends HttpServlet {
         if (donna != null) {
             List<Merce> a = new ArrayList<>();
             MerceDAO ab = new MerceDAO();
-            a = ab.doRetrieveAllbyGender("F");
+            try {
+                a = ab.doRetrieveAllbyGender("F");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
             request.setAttribute("generale", a);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
             dispatcher.forward(request, response);
@@ -55,7 +72,11 @@ public class RedirectServlet extends HttpServlet {
         if (abitiDonna != null) {
             List<Merce> a = new ArrayList<>();
             MerceDAO ab = new MerceDAO();
-            a = ab.doRetrieveAllbyType("F", "Completo");
+            try {
+                a = ab.doRetrieveAllbyType("F", "Completo");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
             request.setAttribute("generale", a);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
             dispatcher.forward(request, response);
@@ -63,7 +84,11 @@ public class RedirectServlet extends HttpServlet {
         if (giaccheDonna != null) {
             List<Merce> a = new ArrayList<>();
             MerceDAO ab = new MerceDAO();
-            a = ab.doRetrieveAllbyType("F", "Cappotto");
+            try {
+                a = ab.doRetrieveAllbyType("F", "Cappotto");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
             request.setAttribute("generale", a);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Catalogo.jsp");
             dispatcher.forward(request, response);

@@ -12,6 +12,7 @@
 <link rel="apple-touch-icon" href="images/LOGO.png">
 <link rel="apple-touch-startup-image" href="images/LOGO.png">
 <meta name="theme-color" content="#808080">
+<link href="css/reset.css" rel="stylesheet">
 <link href="css/library.css" rel="stylesheet">
 <c:if test="${not empty param.style}">
   <link rel="stylesheet" href="css/${param.style}">
