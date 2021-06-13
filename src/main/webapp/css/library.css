@@ -53,3 +53,64 @@
     font-weight: normal;
     src: url("../fonts/Merriweather-Regular.otf");
 }
+
+:root{
+    font-family: 'Merriweather', serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: clamp(16px, 2vw, 24px);
+    --white: #ffffff;
+    --beige: #e9e9c3;
+    --lightblue: #99cbff;
+    --red: #ff0000;
+    --black: #000000;
+    --error: #EE4037;
+    --success: #89C540
+}
+
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+.hide{
+    display: none !important;
+}
+
+.grid-x{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.grid-y{
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.grid-inline{
+    display: inline-flex;
+}
+
+.justify-center{
+    justify-content: center;
+}
+
+.align-center{
+    align-items: center;
+}
+
+.cell{
+    flex-basis: 100%;
+}
+
+.field{
+    display: inline-flex;
+    align-items: center;
+}
+
+.field > input, .field > select, .field >text{
+    width: 100%;
+}
+
+.field > input[disabled], .field > select[disabled], .field > textarea[disabled]{
+    background-color: var(--beige);
+}

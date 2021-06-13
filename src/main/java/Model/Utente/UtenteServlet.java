@@ -11,17 +11,26 @@ public class UtenteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
-            case "signinCliente":
+            case "/":
+                request.getRequestDispatcher(view("crm/accounts")).forward(request, response);
                 break;
-            case "/" :
+            case "/signinCliente":
+                request.getRequestDispatcher(view("site/signin")).forward(request, response);
                 break;
             case "/create":
+                request.getRequestDispatcher(view("crm/account")).forward(request, response);
                 break;
             case "/show":
+                request.getRequestDispatcher(view("crm/account")).forward(request, response);
                 break;
             case "/signinAdmin":
+                request.getRequestDispatcher(view("crm/secret")).forward(request, response);
                 break;
-            case"signup":
+            case "/signup":
+                request.getRequestDispatcher(view("site/signup")).forward(request, response);
+                break;
+            case "/profile":
+                request.getRequestDispatcher(view("site/profile")).forward(request, response);
                 break;
             default:
                 response.sendError(HttpServletResponse.SC_NOT_FOUND,"Risorsa non trovata");

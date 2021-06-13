@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri ="http://java.sun.com/jsp/jstl/core" %>
 
+<c:set var="context" value="${pageContext.request.contextPath}"/>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>${param.title}</title>
@@ -12,12 +13,18 @@
 <link rel="apple-touch-icon" href="images/LOGO.png">
 <link rel="apple-touch-startup-image" href="images/LOGO.png">
 <meta name="theme-color" content="#808080">
-<link href="css/reset.css" rel="stylesheet">
-<link href="css/library.css" rel="stylesheet">
+<link href="${context}/css/reset.css" rel="stylesheet">
+<link href="${context}/css/library.css" rel="stylesheet">
 <c:if test="${not empty param.style}">
-  <link rel="stylesheet" href="css/${param.style}">
+  <c:forTokens items="${param.styles}" delims="," var="style">
+    <link rel="stylesheet" href="${context}/css/${style}.css">
+  </c:forTokens>
 </c:if>
-<script src="javascript/library.js" defer></script>
+
+<script src="${context}/javascript/library.js" defer></script>
+
 <c:if test="${not empty param.script}">
-  <script src="javascript/${param.script}" defer></script>
+  <c:forTokens items="${param.script}" delims="," var="script">
+  <script src="${context}/javascript/${script}.js" defer></script>
+  </c:forTokens>
 </c:if>
