@@ -1,10 +1,7 @@
 package Model.Ordine;
 
-import Model.Colore.Colore;
-import Model.Colore.ColoreExtraction;
-import Model.ConPool;
+import Model.Gestione.ConPool;
 import Model.Gestione.Paginatore;
-import Model.Merce.Merce;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

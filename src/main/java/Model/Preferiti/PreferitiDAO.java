@@ -1,8 +1,6 @@
 package Model.Preferiti;
 
-import Model.ConPool;
-import Model.Ordine.Ordine;
-import Model.Ordine.OrdineExtraction;
+import Model.Gestione.ConPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
