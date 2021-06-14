@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form action="./accounts/secret" method="post">
+<form action="./crm/dashboard" method="post">
     <fieldset>
         <h2>Login Pannello Admin</h2>
         <span>Email</span>
