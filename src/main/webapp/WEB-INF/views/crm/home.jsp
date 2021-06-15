@@ -10,32 +10,52 @@
 </head>
 <body>
 
-
+<div class="grid-x justify-center">
     <img src="/Images/LOGO.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
-
-<div class="menu grid-x align-center dropdown">
-    <a href="">Gestione Merce</a>
-    <div class="dropdown-list">
-        <a href="">Visualizza Merce</a>
-        <a href="">Inserisci Merce</a>
-        <a href="">Modifica Merce</a>
-        <a href="">Cancella Merce</a>
-    </div>
-    <a href="">Gestione Ordine </a>
-    <div class="dropdown-list">
-        <a href="">Visualizza Ordini</a>
-        <a href="">Inserisci Ordine</a>
-        <a href="">Cancella Merce</a>
-    </div>
-    <a href="">Gestione Utente</a>
-    <div class="dropdown-list">
-        <a href="">Visualizza Utenti</a>
-        <a href="">Cancella Merce</a>
-    </div>
-    <a href="">Profilo</a>
-    <a href="">Esci</a>
 </div>
 
+<ul>
+    <div class="dropdown grid-x align-center">
+        <li><a href="">Gestione Merce</a>
+            <div class="dropdown-content">
+                <a href="">Visualizza Merce</a>
+                <a href="">Inserisci Merce</a>
+                <a href="">Modifica Merce</a>
+                <a href="">Cancella Merce</a>
+            </div>
+        </li>
+    </div>
+
+    <div class="dropdown grid-x align-center">
+        <li>
+            <a href="">Gestione Ordine </a>
+            <div class="dropdown-content">
+                <a href="">Visualizza Ordini</a>
+                <a href="">Inserisci Ordine</a>
+                <a href="">Cancella Merce</a>
+            </div>
+        </li>
+    </div>
+
+    <div class="dropdown grid-x align-center">
+        <li>
+            <a href="">Gestione Utente</a>
+            <div class="dropdown-content">
+                <a href="">Visualizza Utenti</a>
+                <a href="">Cancella Merce</a>
+            </div>
+        </li>
+    </div>
+
+    <div class="grid-x align-center">
+        <a href="">Profilo</a>
+    </div>
+
+    <div class="grid-x align-center">
+        <a href="">Esci</a>
+    </div>
+
+</ul>
 
 <section>
     <div class="grid-x justify-center">

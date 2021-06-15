@@ -17,7 +17,7 @@ public class UtenteServlet extends Controller {
                 request.getRequestDispatcher(view("crm/accounts")).forward(request, response);
                 break;
             case "/signinCliente":
-                request.getRequestDispatcher(view("site/signin")).forward(request, response);
+                request.getRequestDispatcher(view("account/loginform")).forward(request, response);//"site/signin"
                 break;
             case "/create":
                 request.getRequestDispatcher(view("crm/account")).forward(request, response);
