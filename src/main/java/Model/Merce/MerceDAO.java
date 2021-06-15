@@ -1,6 +1,6 @@
 package Model.Merce;
 
-import Model.ConPool;
+import Model.Gestione.ConPool;
 
 import java.sql.*;
 import java.util.ArrayList;

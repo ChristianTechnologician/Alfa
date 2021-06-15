@@ -1,8 +1,6 @@
 package Model.Taglia;
 
-import Model.Colore.Colore;
-import Model.Colore.ColoreExtraction;
-import Model.ConPool;
+import Model.Gestione.ConPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

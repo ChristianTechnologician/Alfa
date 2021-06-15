@@ -1,10 +1,7 @@
 package Model.Ordine;
 
-import Model.Colore.Colore;
-import Model.Colore.ColoreExtraction;
-import Model.ConPool;
+import Model.Gestione.ConPool;
 import Model.Gestione.Paginatore;
-import Model.Merce.Merce;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -95,7 +92,7 @@ public class OrdineDAO implements OrdineInterface{
     }
 
     @Override
-    public void insertMerce(Ordine ordine) throws SQLException {
+    public void insertOrdine(Ordine ordine) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =con.prepareStatement("INSERT INTO ordine VALUES (?,?,?,?,?,?,?,?,?)")){
                 ps.setInt(1, ordine.getNumeroFattura());
@@ -116,7 +113,7 @@ public class OrdineDAO implements OrdineInterface{
     }
 
     @Override
-    public void deleteMerce(int numeroFattura) throws SQLException {
+    public void deleteOrdine(int numeroFattura) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("DELETE ordine WHERE NumeroFattura = ?")) {
                 ps.setInt(1, numeroFattura);

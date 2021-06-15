@@ -1,8 +1,6 @@
 package Model.Colore;
 
-import Model.ConPool;
-import Model.Merce.Merce;
-import Model.Merce.MerceExtraction;
+import Model.Gestione.ConPool;
 
 import java.sql.*;
 import java.util.ArrayList;

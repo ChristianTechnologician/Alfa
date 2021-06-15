@@ -1,6 +1,6 @@
 package Model.Utente;
 
-import Model.ConPool;
+import Model.Gestione.ConPool;
 import Model.Gestione.Paginatore;
 
 import java.sql.Connection;
