@@ -1,46 +1,49 @@
 package Model.Merce;
 
 import Model.Colore.Colore;
+import Model.Colore.ColoreDAO;
 import Model.Gestione.Controller;
 import Model.Taglia.Taglia;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 
 @WebServlet(name = "MerceServlet", value = "/merce/*")
+@MultipartConfig
 public class MerceServlet extends Controller {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = getPath(request);
-        switch (path){
+        switch (path) {
             case "/insertMerce":
-                request.getRequestDispatcher(view("crm/insertMerce")).forward(request,response);
+                request.getRequestDispatcher(view("crm/insertMerce")).forward(request, response);
                 break;
             case "/updateMerce":
-                request.getRequestDispatcher(view("crm/updateMerce")).forward(request,response);
+                request.getRequestDispatcher(view("crm/updateMerce")).forward(request, response);
                 break;
             case "/deleteMerce":
-                request.getRequestDispatcher(view("crm/deleteMerce")).forward(request,response);
+                request.getRequestDispatcher(view("crm/deleteMerce")).forward(request, response);
                 break;
             default:
-                response.sendError(HttpServletResponse.SC_NOT_FOUND,"Risorsa non trovata");
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Risorsa non trovata");
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
-        try{
-            String path=getPath(request);
-            switch (path)
-            {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            String path = getPath(request);
+            switch (path) {
                 case "/create":
-                    MerceDAO merceDao=new MerceDAO();
-                    Merce merce=new Merce();
+                    MerceDAO merceDao = new MerceDAO();
+                    Merce merce = new Merce();
                     merce.setCodice(request.getParameter("Codice"));
                     merce.setNome(request.getParameter("Nome"));
                     merce.setDescrizione(request.getParameter("Descrizione"));
@@ -48,15 +51,28 @@ public class MerceServlet extends Controller {
                     merce.setPrezzo(Double.parseDouble(request.getParameter("Prezzo")));
                     merce.setTipocategoria(request.getParameter("TipoCategoria"));
                     merce.setSconto(Double.parseDouble(request.getParameter("Sconto")));
-                    Taglia taglia=new Taglia();
+                    Taglia taglia = new Taglia();
                     taglia.setlTaglia(request.getParameter("LTaglia"));
-                    Colore colore=new Colore();
+                    Colore colore = new Colore();
                     colore.setCod(Integer.parseInt(request.getParameter("Cod")));
-                    int quantita=Integer.parseInt(request.getParameter("Quantita"));
-                    Part filePart=request.getPart("UpImg");
-                    String fileName= Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                    merce.setCover(fileName);
+                    ColoreDAO coloreDAO = new ColoreDAO();
+                    int quantita = Integer.parseInt(request.getParameter("Quantita"));
+                    Part filePart = request.getPart("upImg");
+                    String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                    merce.setUpImg(fileName);
+                    if (merceDao.insertMerce(merce) && fornituraDAO.insertQuantita(quantita)/* && coloreDAO.insertColor(colore.getCod(),colore.getTipoColore()) && tagliaDao.*/) {
+                        request.getRequestDispatcher("/index.jsp").forward(request, response);
+                        String uploadRoot = getUploadPath();
+                        merce.writeCover(uploadRoot, filePart);
+                    } else {
+                        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Errore Server");
+                    }
+                    break;
+                case "/update":
+                    break;
+                default:
+                    break;
+                }
             }
         }
     }
-}

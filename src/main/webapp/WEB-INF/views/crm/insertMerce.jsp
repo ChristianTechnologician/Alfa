@@ -11,7 +11,7 @@
 <body>
 <%@include file="/WEB-INF/views/partials/HeaderCrm.jsp"%>
 <section class="field">
-    <form action="" method="post">
+    <form action="${pageContext.request.contextPath}/merce/create" method="post" enctype="multipart/form-data">
         <label for="Codice">
             <input type="text" name="IdMerce" id="Codice" placeholder="ID">
         </label>
@@ -42,8 +42,8 @@
         <label for="Quantita">
             <input type="number" name="Quantita" id="Quantita" placeholder="Quantita">
         </label>
-        <label for="UpImg">
-            <input type="file" name="UpImg" id="UpImg">
+        <label for="upImg">
+            <input type="file" name="upImg" id="upImg">
         </label>
     </form>
 </section>
