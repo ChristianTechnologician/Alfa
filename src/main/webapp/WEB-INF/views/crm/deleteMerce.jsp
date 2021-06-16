@@ -3,15 +3,14 @@
 <html>
 <head>
     <jsp:include page="/WEB-INF/views/partials/head.jsp">
-        <jsp:param name="title" value="Alfa-Home"/>
-        <jsp:param name="style" value="crm,dashboard"/>
-        <jsp:param name="script" value="crm,dashboard"/>
+        <jsp:param name="title" value="Alfa-DeleteMerce"/>
+        <jsp:param name="style" value="crm"/>
+        <jsp:param name="script" value="crm"/>
     </jsp:include>
 </head>
 <body>
-
 <header class="grid-x justify-center">
-        <img src="${pageContext.request.contextPath}/Images/LOGO.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
+    <img src="Images/LOGO.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
 </header>
 
 <ul>
@@ -49,42 +48,32 @@
 
     <div class="dropdown grid-x align-center">
         <li>
-        <a href="">Profilo</a>
+            <a href="">Profilo</a>
         </li>
     </div>
 
     <div class=" dropdown grid-x align-center">
         <li>
-        <a href="">Esci</a>
+            <a href="">Esci</a>
         </li>
     </div>
 
 </ul>
 
-<section>
-    <div class="grid-x justify-center ">
-        <div class="grid-y cell">
-            <h4>Merce in magazzino</h4>
-            <h5>1</h5>
-        </div>
-        <div class="grid-y cell">
-            <h4>Ordini effettuati</h4>
-            <h5>1</h5>
-        </div>
-        <div class="grid-y cell">
-            <h4>Utenti online</h4>
-            <h5>1</h5>
-        </div>
-        <div class="grid-y cell">
-            <h4>Utenti registrati</h4>
-            <h5>1</h5>
-        </div>
-    </div>
+<section class="field">
+<form action="" method="post">
+    <label id="#id">
+    <input type="number" name="IdMerce" placeholder="ID merce">
+    </label>
+</form>
 </section>
 
-<footer class="info">
-Copyright 2021.
-</footer>
+<%boolean operazione = (boolean) session.getAttribute("delete"); %>
+<% if(operazione){ %>
+L'eliminazione è stata effettuata
+<% }else{%>
+L'eliminazione non è stata effettuata
+<%}%>
 
 </body>
 </html>
