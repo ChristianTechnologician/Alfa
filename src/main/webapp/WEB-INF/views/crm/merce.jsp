@@ -1,16 +1,18 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: chris
-  Date: 15/06/2021
-  Time: 16:54
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+    <jsp:include page="/WEB-INF/views/partials/head.jsp">
+        <jsp:param name="title" value="Alfa-Home"/>
+        <jsp:param name="style" value="crm,dashboard"/>
+        <jsp:param name="script" value="crm,dashboard"/>
+    </jsp:include>
 </head>
 <body>
-
+<%@include file="/WEB-INF/views/partials/HeaderCrm.jsp"%>
+<div>
+    <%@include file="/WEB-INF/views/partials/Table.jsp"%>
+</div>
+<%@include file="/WEB-INF/views/partials/FooterCrm.jsp"%>
 </body>
 </html>

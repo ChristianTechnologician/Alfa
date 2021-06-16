@@ -9,97 +9,50 @@
     </jsp:include>
 </head>
 <body>
-<header class="grid-x justify-center">
-    <img src="Images/LOGO.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
-</header>
-
-<ul>
-    <div class="dropdown grid-x align-center">
-        <li><a href="/crm/merce">Gestione Merce</a>
-            <div class="dropdown-content">
-                <a href="./crm/showMerce">Visualizza Merce</a>
-                <a href="./crm/insertMerce">Inserisci Merce</a>
-                <a href="./crm/updateMerce">Modifica Merce</a>
-                <a href="./crm/deleteMerce">Cancella Merce</a>
-            </div>
-        </li>
-    </div>
-
-    <div class="dropdown grid-x align-center">
-        <li>
-            <a href="">Gestione Ordine </a>
-            <div class="dropdown-content">
-                <a href="">Visualizza Ordini</a>
-                <a href="">Inserisci Ordine</a>
-                <a href="">Cancella Merce</a>
-            </div>
-        </li>
-    </div>
-
-    <div class="dropdown grid-x align-center">
-        <li>
-            <a href="">Gestione Utente</a>
-            <div class="dropdown-content">
-                <a href="">Visualizza Utenti</a>
-                <a href="">Cancella Merce</a>
-            </div>
-        </li>
-    </div>
-
-    <div class="dropdown grid-x align-center">
-        <li>
-            <a href="">Profilo</a>
-        </li>
-    </div>
-
-    <div class=" dropdown grid-x align-center">
-        <li>
-            <a href="">Esci</a>
-        </li>
-    </div>
-
-</ul>
-
+<%@include file="/WEB-INF/views/partials/HeaderCrm.jsp"%>
 <section class="field">
     <form action="" method="post">
-        <label id="#codice">
-            <input type="text" name="IdMerce" placeholder="ID">
+        <label for="Codice">
+            <input type="text" name="IdMerce" id="Codice" placeholder="ID">
         </label>
-        <label id="#nome">
-            <input type="text" name="NomeMerce" placeholder="Nome">
+        <label for="Nome">
+            <input type="text" name="NomeMerce" id="Nome" placeholder="Nome">
         </label>
-        <label id="#descrizione">
-            <input type="text" name="DescrizioneMerce" placeholder="Descrizione">
+        <label for="Descrizione">
+            <input type="text" name="DescrizioneMerce" id="Descrizione" placeholder="Descrizione">
         </label>
-        <label id="#genere">
-            <input type="text" name="GenereMerce" placeholder="Genere">
+        <label for="Genere">
+            <input type="text" name="GenereMerce" id="Genere" placeholder="Genere">
         </label>
-        <label id="#prezzo">
-            <input type="number" name="PrezzoMerce" placeholder="Prezzo">
+        <label for="Prezzo">
+            <input type="number" name="PrezzoMerce" id="Prezzo" placeholder="Prezzo">
         </label>
-        <label id="#tipoCategoria">
-            <input type="text" name="TipoCategoria" placeholder="Categoria(Completo,Cappotto)">
+        <label for="TipoCategoria">
+            <input type="text" name="TipoCategoria" id="TipoCategoria" placeholder="Categoria(Completo,Cappotto)">
         </label>
-        <label id="#sconto">
-            <input type="number" name="Sconto" placeholder="%sconto">
+        <label for="Sconto">
+            <input type="number" name="Sconto" id="Sconto" placeholder="%sconto">
         </label>
-        <label id="#colore">
-            <input type="text" name="Colore" placeholder="Colore">
+        <label for="Colore">
+            <input type="text" name="Colore" id="Colore" placeholder="Colore">
         </label>
-        <label id="#taglia">
-            <input type="text" name="Taglia" placeholder="Taglia">
+        <label for="Taglia">
+            <input type="text" name="Taglia" id="Taglia" placeholder="Taglia">
         </label>
-        <label id="#quantita">
-            <input type="number" name="Quantita" placeholder="Quantità">
+        <label for="Quantita">
+            <input type="number" name="Quantita" id="Quantita" placeholder="Quantita">
+        </label>
+        <label for="UpImg">
+            <input type="file" name="UpImg" id="UpImg">
         </label>
     </form>
 </section>
-
 <%boolean operazione = (boolean) session.getAttribute("inserimento"); %>
 <% if(operazione){ %>
 Inserimento riuscito
 <% }else{%>
 Inserimento fallito
 <%}%>
+<%@include file="/WEB-INF/views/partials/FooterCrm.jsp"%>
 </body>
 </html>

@@ -9,58 +9,7 @@
     </jsp:include>
 </head>
 <body>
-
-<header class="grid-x justify-center">
-        <img src="${pageContext.request.contextPath}/Images/LOGO.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
-</header>
-
-<ul>
-    <div class="dropdown grid-x align-center">
-        <li><a href="/crm/merce">Gestione Merce</a>
-            <div class="dropdown-content">
-                <a href="./crm/showMerce">Visualizza Merce</a>
-                <a href="./crm/insertMerce">Inserisci Merce</a>
-                <a href="./crm/updateMerce">Modifica Merce</a>
-                <a href="./crm/deleteMerce">Cancella Merce</a>
-            </div>
-        </li>
-    </div>
-
-    <div class="dropdown grid-x align-center">
-        <li>
-            <a href="">Gestione Ordine </a>
-            <div class="dropdown-content">
-                <a href="">Visualizza Ordini</a>
-                <a href="">Inserisci Ordine</a>
-                <a href="">Cancella Merce</a>
-            </div>
-        </li>
-    </div>
-
-    <div class="dropdown grid-x align-center">
-        <li>
-            <a href="">Gestione Utente</a>
-            <div class="dropdown-content">
-                <a href="">Visualizza Utenti</a>
-                <a href="">Cancella Merce</a>
-            </div>
-        </li>
-    </div>
-
-    <div class="dropdown grid-x align-center">
-        <li>
-        <a href="">Profilo</a>
-        </li>
-    </div>
-
-    <div class=" dropdown grid-x align-center">
-        <li>
-        <a href="">Esci</a>
-        </li>
-    </div>
-
-</ul>
-
+<%@include file="/WEB-INF/views/partials/HeaderCrm.jsp"%>
 <section>
     <div class="grid-x justify-center ">
         <div class="grid-y cell">
@@ -81,10 +30,6 @@
         </div>
     </div>
 </section>
-
-<footer class="info">
-Copyright 2021.
-</footer>
-
+<%@include file="/WEB-INF/views/partials/FooterCrm.jsp"%>
 </body>
 </html>
