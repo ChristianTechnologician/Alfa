@@ -3,6 +3,7 @@ package Model.Utente;
 import Model.Gestione.ConPool;
 import Model.Gestione.Paginatore;
 
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -78,6 +79,23 @@ public class UtenteDAO implements UtenteInterface
                 return ps.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
+    public Optional<Utente> findUtente(String email, String password, boolean admin) throws SQLException {
+        try(Connection con = ConPool.getConnection()) {
+            try(PreparedStatement ps = con.prepareStatement("SELECT *  FROM utente WHERE Email=? AND PW = ? AND IsAdministrator = ?")){
+                ps.setString(1, email);
+                ps.setString(2, password);
+                ps.setBoolean(3, admin);
+                ResultSet rs = ps.executeQuery();
+                Utente utente = null;
+                if(rs.next()){
+                    utente = new UtenteExtraction().mapping(rs);
+                }
+                return Optional.ofNullable(utente);
             }
         }
     }

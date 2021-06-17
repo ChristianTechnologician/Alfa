@@ -4,6 +4,10 @@ import Model.Carrello.Carrello;
 import Model.Ordine.Ordine;
 import Model.Preferiti.Preferiti;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.List;
 
 public class Utente {
@@ -47,8 +51,18 @@ public class Utente {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SMA-512");
+        SecureRandom ss = new SecureRandom();
+        byte [] salt = new byte[16];
+        ss.nextBytes(salt);
+        digest.update(salt);
+        byte [] hashedPad = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+        StringBuilder builder = new StringBuilder();
+        for(byte bit : hashedPad){
+            builder.append(String.format("%02x",bit));
+        }
+        this.password = builder.toString();
     }
 
     public int getId() {

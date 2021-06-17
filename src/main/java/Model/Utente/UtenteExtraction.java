@@ -1,12 +1,12 @@
 package Model.Utente;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UtenteExtraction
 {
-    public Utente mapping(ResultSet rs) throws SQLException
-    {
+    public Utente mapping(ResultSet rs) throws SQLException, NoSuchAlgorithmException {
         Utente u=new Utente();
         u.setId(rs.getInt(1));
         u.setNome(rs.getString(2));
