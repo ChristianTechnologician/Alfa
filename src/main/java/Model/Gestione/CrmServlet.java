@@ -14,6 +14,9 @@ public class CrmServlet extends Controller {
         case "/dashboard":
             request.getRequestDispatcher(view("crm/home")).forward(request,response);
             break;
+        case "/merce":
+            request.getRequestDispatcher(view("crm/merce")).forward(request,response);
+            break;
         default:
             response.sendError(HttpServletResponse.SC_NOT_FOUND,"Risorsa non trovata");
     }

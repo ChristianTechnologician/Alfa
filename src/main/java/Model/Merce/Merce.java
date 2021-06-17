@@ -5,17 +5,22 @@ import Model.Colore.Colore;
 import Model.Preferiti.Preferiti;
 import Model.Taglia.Taglia;
 
+import javax.servlet.http.Part;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.List;
 
 public class Merce {
-  private String codice,nome,descrizione,genere,tipocategoria;
-  private double prezzo,sconto;
+  private String codice, nome, descrizione, genere, tipocategoria,upImg;
+  private double prezzo, sconto;
   private List<Preferiti> preferitiList;
   private List<Colore> coloreList;
   private List<Taglia> tagliaList;
   private List<Carrello> carrelloList;
 
-  public Merce(){
+  public Merce() {
   }
 
   public String getCodice() {
@@ -105,5 +110,19 @@ public class Merce {
   public void setCarrelloList(List<Carrello> carrelloList) {
     this.carrelloList = carrelloList;
   }
+
+  public void setUpImg(String upImg){
+    this.upImg = upImg;
+  }
+
+  public String getUpImg(){
+    return upImg;
+  }
+
+  public void writeCover(String uploadPath, Part stream) throws IOException {
+    try (InputStream fileStream = stream.getInputStream()) {
+      File file = new File(uploadPath + upImg);
+      Files.copy(fileStream, file.toPath());
+    }
+  }
 }
-  

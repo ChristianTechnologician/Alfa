@@ -6,8 +6,8 @@ import javax.sql.DataSource;
 import java.io.File;
 
 public abstract class Controller extends HttpServlet {
-    //Resource(name = "jdbc/Alfa")
-    protected static DataSource source;
+    /*Resource(name = "jdbc/Alfa")
+    protected static DataSource source;*/
 
     protected String getPath(HttpServletRequest request){
         return request.getPathInfo() != null ? request.getPathInfo() : "/";
@@ -30,7 +30,8 @@ public abstract class Controller extends HttpServlet {
     }*/
 
     protected String getUploadPath(){
-        return System.getenv("CATALINA_HOME") + File.separator + "webapps" +
-                File.separator + "Alfa" + File.separator + "uploads" + File.separator;
+        /*return System.getenv("CATALINA_HOME") + File.separator + "webapps" +
+                File.separator + "Alfa" + File.separator + "uploads" + File.separator;*/
+        return  System.getenv("CATALINA_HOME")+File.separator + "uploads" + File.separator;
     }
 }
