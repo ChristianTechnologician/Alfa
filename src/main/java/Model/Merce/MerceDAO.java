@@ -1,5 +1,6 @@
 package Model.Merce;
 
+import Model.ConPool;
 import Model.Gestione.ConPool;
 
 import java.sql.*;
@@ -116,6 +117,19 @@ public class MerceDAO implements MerceInterface{
                 ps.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public int countAll() throws SQLException{
+        try(Connection con = ConPool.getConnection()){
+            try(PreparedStatement ps = con.prepareStatement("SELECT COUNT * FROM merce")){
+                ResultSet rs = ps.executeQuery();
+                int size = 0;
+                if(rs.next()){
+                    size = rs.getInt("totalProducts");
+                }
+                return  size;
             }
         }
     }

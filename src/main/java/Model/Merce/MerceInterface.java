@@ -11,4 +11,5 @@ public interface MerceInterface
     void insertMerce(Merce merce) throws SQLException;
     void updateMerce(String Codice,Merce merce) throws  SQLException;
     void deleteMerce(String Codice) throws SQLException;
+    int countAll() throws SQLException;
 }

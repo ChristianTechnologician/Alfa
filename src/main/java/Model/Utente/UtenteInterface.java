@@ -19,4 +19,6 @@ public interface UtenteInterface {
     Integer deleteUtente(String email) throws SQLException;
 
     Optional <Utente> findUtente(String email, String password, boolean admin) throws SQLException;
+
+    int countAll() throws SQLException;
 }

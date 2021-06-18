@@ -1,6 +1,9 @@
 package Model.Utente;
 
+import Model.Gestione.Alert;
 import Model.Gestione.Controller;
+import Model.Gestione.InvalidRequestException;
+import Model.Gestione.Paginatore;
 import com.sun.jdi.request.InvalidRequestStateException;
 import com.sun.tools.javac.util.List;
 
@@ -21,16 +24,35 @@ public class UtenteServlet extends Controller {
            String path = getPath(request);//(request.getPathInfo() != null) ? request.getPathInfo() : "/";
            switch (path) {
                case "/":
+                   authorize(request.getSession());
+                   request.setAttribute("back",view("crm/accounts"));
+                   validate(CommonValidator.validatePage(request));
+                   int page = parsePage(request);
+                   Paginatore paginator = new Paginatore(page,50);
+                   int size = UtenteDAO.countAll();
+                   request.setAttribute("pages",paginator.getPages(size));
+                   List<Utente> utenti = UtenteDAO.fetchUtenti(paginator);
+                   request.setAttribute("utenti",utenti);
                    request.getRequestDispatcher(view("crm/accounts")).forward(request, response);
                    break;
                case "/signinCliente":
                    request.getRequestDispatcher(view("account/loginform")).forward(request, response);//"site/signin"
                    break;
                case "/create":
+                   authorize(request.getSession(false));
                    request.getRequestDispatcher(view("crm/account")).forward(request, response);
                    break;
                case "/show":
-                   request.getRequestDispatcher(view("crm/account")).forward(request, response);
+                   authorize(request.getSession(false));
+                   validate(CommonValidator.validateId(request));
+                   int id = integer.parseInt(request.getParameter("id"));
+                   Optional<Utente> optUtente = UtenteDAO.fetchUtente(id);
+                   if(optUtente.isPresent()){
+                       request.setAttribute("utente",optUtente.get());
+                       request.getRequestDispatcher(view("crm/account")).forward(request, response);
+                   }else{
+                       notFound();
+                   }
                    break;
                case "/signinAdmin":
                    request.getRequestDispatcher(view("crm/secret")).forward(request, response);
@@ -55,7 +77,7 @@ public class UtenteServlet extends Controller {
                    String redirect = utenteSession.isAdmin() ? "/Alfa/accounts/signinAdmin" : "/Alfa/accouts/signinCliente";
                    session.removeAttribute("utenteSession");
                    session.invalidate();
-                   response.sendRedirect();
+                   response.sendRedirect(redirect);
                    break;
                default:
                    notFound();                      //response.sendError(HttpServletResponse.SC_NOT_FOUND,"Risorsa non trovata");

@@ -1,5 +1,6 @@
 package Model.Utente;
 
+import Model.ConPool;
 import Model.Gestione.ConPool;
 import Model.Gestione.Paginatore;
 
@@ -96,6 +97,19 @@ public class UtenteDAO implements UtenteInterface
                     utente = new UtenteExtraction().mapping(rs);
                 }
                 return Optional.ofNullable(utente);
+            }
+        }
+    }
+
+    public int countAll() throws SQLException{
+        try(Connection con = ConPool.getConnection()){
+            try(PreparedStatement ps = con.prepareStatement("SELECT COUNT * FROM utente")){
+                ResultSet rs = ps.executeQuery();
+                int size = 0;
+                if(rs.next()){
+                    size = rs.getInt("totalUsers");
+                }
+                return  size;
             }
         }
     }
