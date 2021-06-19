@@ -1,5 +1,7 @@
 package Model.Merce;
 
+import Model.Search.Condition;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -12,4 +14,5 @@ public interface MerceInterface
     void updateMerce(String Codice,Merce merce) throws  SQLException;
     void deleteMerce(String Codice) throws SQLException;
     int countAll() throws SQLException;
+    List<Merce> search(List<Condition> conditions) throws SQLException;
 }

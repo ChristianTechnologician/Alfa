@@ -3,6 +3,8 @@ package Model.Merce;
 import Model.Colore.Colore;
 import Model.Colore.ColoreDAO;
 import Model.Gestione.Controller;
+import Model.Gestione.InvalidRequestException;
+import Model.Search.Condition;
 import Model.Taglia.Taglia;
 
 import javax.servlet.*;
@@ -14,6 +16,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet(name = "MerceServlet", value = "/merce/*")
 @MultipartConfig
@@ -30,6 +33,14 @@ public class MerceServlet extends Controller {
                 break;
             case "/deleteMerce":
                 request.getRequestDispatcher(view("crm/deleteMerce")).forward(request, response);
+                break;
+
+            case "/search":
+                List<Conditions> conditions=new MerceSearch().buildSearch(request);
+                List<Merce> searchMerci=conditions.isEmpty() ?
+                        MerceInterface.search(conditions);
+                request.setAttribute("merce", searchMerci);
+                request.getRequestDispatcher(view("site/search")).forward(request, response);
                 break;
             default:
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Risorsa non trovata");
@@ -73,6 +84,12 @@ public class MerceServlet extends Controller {
                 default:
                     break;
                 }
-            }
+            } catch (SQLException ex){
+            log(ex.getMessage());
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
+        } catch (InvalidRequestException e){
+            log(e.getMessage());
+            e.handle(request,response);
         }
     }
+}

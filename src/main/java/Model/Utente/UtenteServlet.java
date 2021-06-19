@@ -1,12 +1,8 @@
 package Model.Utente;
 
-import Model.Gestione.Alert;
-import Model.Gestione.Controller;
-import Model.Gestione.InvalidRequestException;
-import Model.Gestione.Paginatore;
+import Model.Gestione.*;
 import com.sun.jdi.request.InvalidRequestStateException;
 import com.sun.tools.javac.util.List;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -45,7 +41,7 @@ public class UtenteServlet extends Controller {
                case "/show":
                    authorize(request.getSession(false));
                    validate(CommonValidator.validateId(request));
-                   int id = integer.parseInt(request.getParameter("id"));
+                   int id = Integer.parseInt(request.getParameter("id"));
                    Optional<Utente> optUtente = UtenteDAO.fetchUtente(id);
                    if(optUtente.isPresent()){
                        request.setAttribute("utente",optUtente.get());

@@ -1,7 +1,8 @@
 package Model.Merce;
 
-import Model.ConPool;
 import Model.Gestione.ConPool;
+import Model.Gestione.ConPool;
+import Model.Search.Condition;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -133,6 +134,32 @@ public class MerceDAO implements MerceInterface{
             }
         }
     }
+
+    @Override
+    public List<Merce> search(List<Condition> conditions) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            //String query= ProductQuesry.search(conditions);
+            try (PreparedStatement ps = con.prepareStatement("SELECT *")) {
+                for (int i = 0; i < conditions.size(); i++) {
+                    ps.setObject(i + 1, conditions.get(i).getValue());
+                }
+                ResultSet rs = ps.executeQuery();
+                List<Merce> merci = new ArrayList<>();
+                while (rs.next()) {
+                    Merce merce = new MerceExtraction().mapping(rs);
+                    //Product.setCategory(new CategoryExtractor().extract(set));
+                    //Product.setCountry(new CountryExtractor().extract(set));
+                    merci.add(merce);
+                }
+                return merci;
+            }
+
+        }
+
+    }
+
+
+
 }
 
 
