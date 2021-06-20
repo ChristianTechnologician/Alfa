@@ -26,37 +26,37 @@ public class MerceServlet extends Controller {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-        String path = getPath(request);
-        switch (path) {
-            case "/insertMerce":
-                request.getRequestDispatcher(view("crm/insertMerce")).forward(request, response);
-                break;
-            case "/updateMerce":
-                request.getRequestDispatcher(view("crm/updateMerce")).forward(request, response);
-                break;
-            case "/deleteMerce":
-                request.getRequestDispatcher(view("crm/deleteMerce")).forward(request, response);
-                break;
-            case "/search":
-                MerceDAO md = new MerceDAO();
-                List<Condition> conditions = new MerceSearch().buildSearch(request);
-                List<Merce> searchMerci = conditions.isEmpty() ?
-                        md.fetchProductsWithRelations(new Paginatore(1,50)):
-                        md.search(conditions);
-                request.setAttribute("merce", searchMerci);
-                request.getRequestDispatcher(view("site/search")).forward(request, response);
-                break;
-            default:
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Risorsa non trovata");
-                break;
-        }
-        }catch(SQLException ex){
+            String path = getPath(request);
+            switch (path) {
+                case "/insertMerce":
+                    request.getRequestDispatcher(view("crm/insertMerce")).forward(request, response);
+                    break;
+                case "/updateMerce":
+                    request.getRequestDispatcher(view("crm/updateMerce")).forward(request, response);
+                    break;
+                case "/deleteMerce":
+                    request.getRequestDispatcher(view("crm/deleteMerce")).forward(request, response);
+                    break;
+                case "/search":
+                    MerceDAO md = new MerceDAO();
+                    List<Condition> conditions = new MerceSearch().buildSearch(request);
+                    List<Merce> searchMerci = conditions.isEmpty() ?
+                            md.fetchProductsWithRelations(new Paginatore(1, 50)) :
+                            md.search(conditions);
+                    request.setAttribute("merce", searchMerci);
+                    request.getRequestDispatcher(view("site/search")).forward(request, response);
+                    break;
+                default:
+                    break;
+            }
+        } catch (SQLException ex) {
             log(ex.getMessage());
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
-        } catch(InvalidRequestException e){
-            log(e.getMessage());
-            e.handle(request, response);
         }
+        /*catch (InvalidRequestException e){
+            log(e.getMessage());
+            e.handle(request,response);
+        }*/
     }
 
     @Override
