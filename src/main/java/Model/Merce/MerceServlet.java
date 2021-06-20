@@ -83,7 +83,7 @@ public class MerceServlet extends Controller {
                     Part filePart = request.getPart("upImg");
                     String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                     merce.setUpImg(fileName);
-                    if (merceDao.insertMerce(merce) && fornituraDAO.insertQuantita(quantita)/* && coloreDAO.insertColor(colore.getCod(),colore.getTipoColore()) && tagliaDao.*/) {
+                    if (merceDao.insertMerce(merce)){// && fornituraDAO.insertQuantita(quantita)/* && coloreDAO.insertColor(colore.getCod(),colore.getTipoColore()) && tagliaDao.*/) {
                         request.getRequestDispatcher("/index.jsp").forward(request, response);
                         String uploadRoot = getUploadPath();
                         merce.writeCover(uploadRoot, filePart);
@@ -99,9 +99,9 @@ public class MerceServlet extends Controller {
             } catch (SQLException ex){
             log(ex.getMessage());
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
-        } catch (InvalidRequestException e){
+        } /*catch (InvalidRequestException e){
             log(e.getMessage());
             e.handle(request,response);
-        }
+        }*/
     }
 }

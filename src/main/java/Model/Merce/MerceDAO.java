@@ -1,7 +1,6 @@
 package Model.Merce;
 
 import Model.Gestione.ConPool;
-import Model.Gestione.ConPool;
 import Model.Gestione.Paginatore;
 import Model.Search.Condition;
 
@@ -72,7 +71,7 @@ public class MerceDAO implements MerceInterface{
     }
 
     @Override
-    public void insertMerce(Merce merce) throws SQLException {
+    public Boolean insertMerce(Merce merce) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("INSERT INTO merce VALUES (?,?,?,?,?,?,?)")) {
                 ps.setString(1, merce.getCodice());
@@ -83,7 +82,8 @@ public class MerceDAO implements MerceInterface{
                 ps.setString(6, merce.getTipocategoria());
                 ps.setDouble(7, merce.getSconto());
                 ResultSet rs;
-                ps.executeUpdate();
+                int rows = ps.executeUpdate();
+                return rows == 1;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -91,7 +91,7 @@ public class MerceDAO implements MerceInterface{
     }
 
     @Override
-    public void updateMerce(String Codice, Merce merce) throws SQLException {
+    public Boolean updateMerce(String Codice, Merce merce) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("UPDATE merce VALUES (?,?,?,?,?,?,?) WHERE Codice = ?")) {
                 ps.setString(8, Codice);
@@ -103,7 +103,8 @@ public class MerceDAO implements MerceInterface{
                 ps.setString(6, merce.getTipocategoria());
                 ps.setDouble(7, merce.getSconto());
                 ResultSet rs;
-                ps.executeUpdate();
+                int rows = ps.executeUpdate();
+                return rows == 1;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -111,12 +112,13 @@ public class MerceDAO implements MerceInterface{
     }
 
     @Override
-    public void deleteMerce(String Codice) throws SQLException {
+    public Boolean deleteMerce(String Codice) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("DELETE merce WHERE Codice = ?")) {
                 ps.setString(1, Codice);
                 ResultSet rs;
-                ps.executeUpdate();
+                int rows = ps.executeUpdate();
+                return rows == 1;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -163,7 +165,7 @@ public class MerceDAO implements MerceInterface{
     public List<Merce> fetchProductsWithRelations(Paginatore paginatore) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             //String query = ProductQuery.fetchProductsWithRelations();
-            try(PreparedStatement ps = con.prepareStatement(query)){
+            try(PreparedStatement ps = con.prepareStatement("SELECT * FROM utente")){
                ps.setInt(1,paginatore.getOffset());
                ps.setInt(2,paginatore.getLimit());
                ResultSet rs = ps.executeQuery();

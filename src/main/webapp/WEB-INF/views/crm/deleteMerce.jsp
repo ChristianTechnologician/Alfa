@@ -68,12 +68,13 @@
 </form>
 </section>
 
-<%boolean operazione = (boolean) session.getAttribute("delete"); %>
-<% if(operazione){ %>
+<%//boolean operazione = (boolean) session.getAttribute("delete"); %>
+<% //if(operazione){ %>
 L'eliminazione è stata effettuata
-<% }else{%>
+<%// }else{%>
 L'eliminazione non è stata effettuata
-<%}%>
+<%//}%>
 
+<%@include file="/WEB-INF/views/partials/FooterCrm.jsp"%>
 </body>
 </html>

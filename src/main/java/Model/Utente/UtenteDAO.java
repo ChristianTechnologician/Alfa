@@ -1,10 +1,10 @@
 package Model.Utente;
 
-import Model.ConPool;
 import Model.Gestione.ConPool;
 import Model.Gestione.Paginatore;
 
-import javax.xml.transform.Result;
+
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +29,7 @@ public class UtenteDAO implements UtenteInterface
                 }
                 rs.close();
                 return utenti;
-            } catch (SQLException e) {
+            } catch (SQLException | NoSuchAlgorithmException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -37,11 +37,24 @@ public class UtenteDAO implements UtenteInterface
 
     @Override
     public Optional<Utente> fetchUtente(String email) throws SQLException {
+        try(Connection con = ConPool.getConnection()){
+            try(PreparedStatement ps = con.prepareStatement("SELECT * FROM utente WHERE Email = ?")){
+                ps.setString(1,email);
+                ResultSet rs = ps.executeQuery();
+                Utente utente = null;
+                if(rs.next()){
+                    utente = new UtenteExtraction().mapping(rs);
+                }
+                return Optional.ofNullable(utente);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+        }
         return Optional.empty();
     }
 
     @Override
-    public Integer createUtente(Utente utente) throws SQLException {
+    public Boolean createUtente(Utente utente) throws SQLException {
         try(Connection connection = ConPool.getConnection()){
             try(PreparedStatement ps = connection.prepareStatement("INSERT INTO utente(ID,Nome,Cognome,Email,PW,IsAdministration) VALUES (?,?,?,?,?,?);")){
                 ps.setInt(1,utente.getId());
@@ -50,13 +63,14 @@ public class UtenteDAO implements UtenteInterface
                 ps.setString(4,utente.getEmail());
                 ps.setString(5,utente.getPassword());
                 ps.setBoolean(6,utente.getIsAdministration());
-                return ps.executeUpdate();
+                int rows = ps.executeUpdate();
+                return rows == 1;
             }
         }
     }
 
     @Override
-    public Integer updateUtente(Utente utente) throws SQLException {
+    public Boolean updateUtente(Utente utente) throws SQLException {
         try(Connection connection = ConPool.getConnection()){
             try(PreparedStatement ps = connection.prepareStatement("UPDATE utente SET (?,?,?,?,?,?) WHERE ID=?")){
                 ps.setInt(1,utente.getId());
@@ -66,18 +80,20 @@ public class UtenteDAO implements UtenteInterface
                 ps.setString(5,utente.getPassword());
                 ps.setBoolean(6,utente.getIsAdministration());
                 ps.setInt(7,utente.getId());
-                return ps.executeUpdate();
+                int rows = ps.executeUpdate();
+                return rows == 1;
             }
         }
     }
 
     @Override
-    public Integer deleteUtente(String email) throws SQLException {
+    public Boolean deleteUtente(String email) throws SQLException {
         try(Connection con = ConPool.getConnection()) {
             try(PreparedStatement ps = con.prepareStatement("DELETE FROM utente WHERE Email = ?")){
                 ps.setString(1, email);
                 ResultSet rs;
-                return ps.executeUpdate();
+                int rows = ps.executeUpdate();
+                return rows == 1;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -97,7 +113,10 @@ public class UtenteDAO implements UtenteInterface
                     utente = new UtenteExtraction().mapping(rs);
                 }
                 return Optional.ofNullable(utente);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
             }
+            return Optional.empty();
         }
     }
 
@@ -112,5 +131,23 @@ public class UtenteDAO implements UtenteInterface
                 return  size;
             }
         }
+    }
+
+    @Override
+    public Optional<Utente> fetchUtente(int id) throws SQLException {
+        try(Connection con = ConPool.getConnection()){
+            try(PreparedStatement ps = con.prepareStatement("SELECT * FROM utente WHERE ID = ?")){
+                ps.setInt(1,id);
+                ResultSet rs = ps.executeQuery();
+                Utente utente = null;
+                if(rs.next()){
+                    utente = new UtenteExtraction().mapping(rs);
+                }
+                return Optional.ofNullable(utente);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+        }
+        return Optional.empty();
     }
 }

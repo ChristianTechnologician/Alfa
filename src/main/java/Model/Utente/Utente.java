@@ -104,4 +104,5 @@ public class Utente {
     public void setOrdineList(List<Ordine> ordineList) {
         this.ordineList = ordineList;
     }
+
 }

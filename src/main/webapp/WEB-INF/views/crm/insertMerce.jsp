@@ -47,12 +47,12 @@
         </label>
     </form>
 </section>
-<%boolean operazione = (boolean) session.getAttribute("inserimento"); %>
-<% if(operazione){ %>
+<%//boolean operazione = (boolean) session.getAttribute("inserimento"); %>
+<% //if(operazione){ %>
 Inserimento riuscito
-<% }else{%>
+<% //}else{%>
 Inserimento fallito
-<%}%>
+<%//}%>
 <%@include file="/WEB-INF/views/partials/FooterCrm.jsp"%>
 </body>
 </html>

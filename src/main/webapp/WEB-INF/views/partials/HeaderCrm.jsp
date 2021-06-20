@@ -12,9 +12,9 @@
     <div class="dropdown grid-x align-center">
         <li><a href="${pageContext.request.contextPath}/crm/merce">Gestione Merce</a>
             <div class="dropdown-content">
-                <a href="${pageContext.request.contextPath}/crm/insertMerce">Inserisci Merce</a>
-                <a href="${pageContext.request.contextPath}/crm/updateMerce">Modifica Merce</a>
-                <a href="${pageContext.request.contextPath}/crm/deleteMerce">Cancella Merce</a>
+                <a href="${pageContext.request.contextPath}/merce/insertMerce">Inserisci Merce</a>
+                <a href="${pageContext.request.contextPath}/merce/updateMerce">Modifica Merce</a>
+                <a href="${pageContext.request.contextPath}/merce/deleteMerce">Cancella Merce</a>
             </div>
         </li>
     </div>

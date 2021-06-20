@@ -19,13 +19,13 @@ public interface ErrorHandler {
     default void authorize(HttpSession session) throws InvalidRequestException{
         authenticate(session);
         UtenteSession us = (UtenteSession) session.getAttribute("utenteSession");
-        if(!UtenteSession.isAdmin()){
+        if(!us.isAdmin()){
             throw new InvalidRequestException("Errore autorizzazione", List.of("Azione non consenstita"),
                     HttpServletResponse.SC_FORBIDDEN);
         }
     }
     default void internalError() throws InvalidRequestException{
-        List<String> errors = List.off("Un erore imprevisto è accaduto", "Riprova più tardi");
+        List<String> errors = List.of("Un erore imprevisto è accaduto", "Riprova più tardi");
             throw new InvalidRequestException("Errore interno", errors, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
     default void notFound() throws InvalidRequestException{

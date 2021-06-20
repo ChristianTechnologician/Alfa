@@ -12,13 +12,15 @@ public interface UtenteInterface {
 
     Optional<Utente> fetchUtente(String email) throws SQLException;
 
-    Integer createUtente(Utente utente) throws SQLException;
+    Boolean createUtente(Utente utente) throws SQLException;
 
-    Integer updateUtente(Utente utente) throws SQLException;
+    Boolean updateUtente(Utente utente) throws SQLException;
 
-    Integer deleteUtente(String email) throws SQLException;
+    Boolean deleteUtente(String email) throws SQLException;
 
-    Optional <Utente> findUtente(String email, String password, boolean admin) throws SQLException;
+    Optional<Utente> findUtente(String email, String password, boolean admin) throws SQLException;
 
     int countAll() throws SQLException;
+
+    Optional<Utente> fetchUtente(int id) throws SQLException;
 }

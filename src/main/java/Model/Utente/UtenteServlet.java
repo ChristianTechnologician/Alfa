@@ -1,12 +1,11 @@
 package Model.Utente;
 
 import Model.Gestione.*;
-import com.sun.jdi.request.InvalidRequestStateException;
+import com.mysql.cj.Session;
 import com.sun.tools.javac.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-import javax.swing.*;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -25,9 +24,10 @@ public class UtenteServlet extends Controller {
                    validate(CommonValidator.validatePage(request));
                    int page = parsePage(request);
                    Paginatore paginator = new Paginatore(page,50);
-                   int size = UtenteDAO.countAll();
+                   UtenteDAO ud = new UtenteDAO();
+                   int size = ud.countAll();
                    request.setAttribute("pages",paginator.getPages(size));
-                   List<Utente> utenti = UtenteDAO.fetchUtenti(paginator);
+                   List<Utente> utenti = (List<Utente>) ud.fetchUtenti(paginator);
                    request.setAttribute("utenti",utenti);
                    request.getRequestDispatcher(view("crm/accounts")).forward(request, response);
                    break;
@@ -39,10 +39,13 @@ public class UtenteServlet extends Controller {
                    request.getRequestDispatcher(view("crm/account")).forward(request, response);
                    break;
                case "/show":
+                   UtenteDAO utenteDAO = new UtenteDAO();
                    authorize(request.getSession(false));
                    validate(CommonValidator.validateId(request));
                    int id = Integer.parseInt(request.getParameter("id"));
-                   Optional<Utente> optUtente = UtenteDAO.fetchUtente(id);
+                   Optional<Utente> optUtente = utenteDAO.fetchUtente(id);
+                   /*String email = request.getParameter("email");
+                   Optional<Utente> optUtente = utenteDAO.fetchUtente(email);*/
                    if(optUtente.isPresent()){
                        request.setAttribute("utente",optUtente.get());
                        request.getRequestDispatcher(view("crm/account")).forward(request, response);
@@ -57,8 +60,9 @@ public class UtenteServlet extends Controller {
                    request.getRequestDispatcher(view("site/signup")).forward(request, response);
                    break;
                case "/profile": //show profile(cliente)
-                   int profileId = getUtenteSession(request.getSession(false)).getId();
-                   Optional<Utente> profileUtente = UtenteDAO.fetchUtente(profileId);
+                   UtenteDAO udao = new UtenteDAO();
+                   int profileId = getAccountSession(request.getSession(false)).getId();
+                   Optional<Utente> profileUtente = udao.fetchUtente(profileId);
                    if(profileUtente.isPresent()){
                        request.setAttribute("profile", profileUtente.get());
                        request.getRequestDispatcher(view("site/profile")).forward(request, response);
@@ -92,28 +96,29 @@ public class UtenteServlet extends Controller {
             String path =   getPath(request);                      //(request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
             case "/signinAdmin": //login admin(ricerca nel db)
+                UtenteDAO ud = new UtenteDAO();
                 request.setAttribute("back", view("crm/secret"));
-                validate(UtenteValidator.validateSignin(request));
+                validate(UtenteValidator.validateSignIn(request));
                 Utente tmpUtente = new Utente();
                 tmpUtente.setEmail(request.getParameter("email"));
                 tmpUtente.setPassword(request.getParameter("password"));
-                Optional<Utente> optUtente = UtenteDAO.findUtente(tmpUtente.getEmail(), tmpUtente.getPassword(),true );
+                Optional<Utente> optUtente = ud.findUtente(tmpUtente.getEmail(), tmpUtente.getPassword(),true );
                 if(optUtente.isPresent()){
                     UtenteSession accountSession = new UtenteSession(optUtente.get());
                     request.getSession(true).setAttribute("accountSession", accountSession);
-                    response.sendRedirect("/Grocer/pages/dashboard");
+                    response.sendRedirect("/Alfa/crm/dashboard");
                 }else{
-                    throw new InvalidRequestStateException("Credenziali non valide",
-                            List.of(("Credenziali non valide"), HttpServletResponse.SC_BAD_REQUEST);
+                   throw new InvalidRequestException("Credenziali non valide",List.of("Credenziali non valide"),HttpServletResponse.SC_BAD_REQUEST);
                 }
                 break;
             case "/create": //create new customer
+                UtenteDAO udao = new UtenteDAO();
                 authorize(request.getSession(false));
                 request.setAttribute("back", view("crm/account"));
-                validate(UtenteValidator.validateForm(request, false);
+                validate(UtenteValidator.validateForm(request, false));
                 Utente utente = new UtenteFormMapper().map(request, false);
                 utente.setPassword(request.getParameter("password"));
-                if (UtenteDAO.createUtente(utente)){
+                if (udao.createUtente(utente)){
                     request.setAttribute("alert", new Alert(List.of("Account creato!"),"success"));
                     request.getRequestDispatcher(view("crm/account")).forward(request,response);
                 } else{
@@ -125,8 +130,9 @@ public class UtenteServlet extends Controller {
                 request.setAttribute("back",view("crm/account"));
                 validate(UtenteValidator.validateForm(request, true));
                 Utente updateUtente = new UtenteFormMapper().map(request, true);
-                if(UtenteDAO.updateUtente(updatedUtente)){
-                    request.setAttribute("account", updatedUtente);
+                UtenteDAO utenteDAO = new UtenteDAO();
+                if(utenteDAO.updateUtente(updateUtente)){
+                    request.setAttribute("account", updateUtente);
                     request.setAttribute("alert", new Alert (List.of("Account aggiornato"),"success"));
                     request.getRequestDispatcher(view("crm/account")).forward(request,response);
                 } else{
@@ -136,19 +142,21 @@ public class UtenteServlet extends Controller {
             case "/signupCliente": //registrazione cliente
                 validate(UtenteValidator.validateForm(request, false));
                 Utente customer = new UtenteFormMapper().map(request, false);
-                if(UtenteDAO.createUtente(customer)){
+                UtenteDAO utdao = new UtenteDAO();
+                if(utdao.createUtente(customer)){
                     response.sendRedirect("./accounts/signin");
                 } else{
                     internalError();
                 }
                 break;
-            case "signinCliente": // ci mancano le prime righe di codice
+            case "signinCliente":
                 request.setAttribute("back",view("site/signin"));
                 validate(UtenteValidator.validateSignIn(request));
                 Utente tmpCustomer = new Utente();
                 tmpCustomer.setEmail(request.getParameter("email"));
                 tmpCustomer.setPassword(request.getParameter("password"));
-                Optional <Utente> optCustomer = UtenteDAO.findUtente(tmpCustomer.getEmail(), tmpCustomer.getPassword(),false );
+                UtenteDAO utentedao = new UtenteDAO();
+                Optional <Utente> optCustomer = utentedao.findUtente(tmpCustomer.getEmail(), tmpCustomer.getPassword(),false );
                 if(optCustomer.isPresent()){
                     UtenteSession customerSession = new UtenteSession(optCustomer.get());
                             request.getSession(true).setAttribute("accountSession", customerSession);
@@ -159,7 +167,7 @@ public class UtenteServlet extends Controller {
                 }
                 break;
             default:
-             notAllowed();                       // response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED,"Operazione non consentita");
+             notAllowed();     // response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED,"Operazione non consentita");
         }
     } catch (SQLException | NoSuchAlgorithmException ex){
             log(ex.getMessage());
