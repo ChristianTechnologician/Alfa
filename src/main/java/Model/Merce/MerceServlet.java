@@ -4,7 +4,9 @@ import Model.Colore.Colore;
 import Model.Colore.ColoreDAO;
 import Model.Gestione.Controller;
 import Model.Gestione.InvalidRequestException;
+import Model.Gestione.Paginatore;
 import Model.Search.Condition;
+import Model.Search.MerceSearch;
 import Model.Taglia.Taglia;
 
 import javax.servlet.*;
@@ -23,6 +25,7 @@ import java.util.List;
 public class MerceServlet extends Controller {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
         String path = getPath(request);
         switch (path) {
             case "/insertMerce":
@@ -34,16 +37,25 @@ public class MerceServlet extends Controller {
             case "/deleteMerce":
                 request.getRequestDispatcher(view("crm/deleteMerce")).forward(request, response);
                 break;
-
             case "/search":
-                List<Conditions> conditions=new MerceSearch().buildSearch(request);
-                List<Merce> searchMerci=conditions.isEmpty() ?
-                        MerceInterface.search(conditions);
+                MerceDAO md = new MerceDAO();
+                List<Condition> conditions = new MerceSearch().buildSearch(request);
+                List<Merce> searchMerci = conditions.isEmpty() ?
+                        md.fetchProductsWithRelations(new Paginatore(1,50)):
+                        md.search(conditions);
                 request.setAttribute("merce", searchMerci);
                 request.getRequestDispatcher(view("site/search")).forward(request, response);
                 break;
             default:
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Risorsa non trovata");
+                break;
+        }
+        }catch(SQLException ex){
+            log(ex.getMessage());
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
+        } catch(InvalidRequestException e){
+            log(e.getMessage());
+            e.handle(request, response);
         }
     }
 

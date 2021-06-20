@@ -2,6 +2,7 @@ package Model.Merce;
 
 import Model.Gestione.ConPool;
 import Model.Gestione.ConPool;
+import Model.Gestione.Paginatore;
 import Model.Search.Condition;
 
 import java.sql.*;
@@ -159,7 +160,23 @@ public class MerceDAO implements MerceInterface{
     }
 
 
-
+    public List<Merce> fetchProductsWithRelations(Paginatore paginatore) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            //String query = ProductQuery.fetchProductsWithRelations();
+            try(PreparedStatement ps = con.prepareStatement(query)){
+               ps.setInt(1,paginatore.getOffset());
+               ps.setInt(2,paginatore.getLimit());
+               ResultSet rs = ps.executeQuery();
+               MerceExtraction merceExtraction = new MerceExtraction();
+               List<Merce> merci = new ArrayList<>();
+               while(rs.next()){
+                   Merce merce = merceExtraction.mapping(rs);
+                   merci.add(merce);
+               }
+               return merci;
+            }
+        }
+    }
 }
 
 

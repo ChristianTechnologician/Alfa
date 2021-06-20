@@ -1,5 +1,6 @@
 package Model.Merce;
 
+import Model.Gestione.Paginatore;
 import Model.Search.Condition;
 
 import java.sql.SQLException;
@@ -15,4 +16,5 @@ public interface MerceInterface
     void deleteMerce(String Codice) throws SQLException;
     int countAll() throws SQLException;
     List<Merce> search(List<Condition> conditions) throws SQLException;
+    List<Merce> fetchProductsWithRelations(Paginatore paginatore) throws SQLException;
 }
