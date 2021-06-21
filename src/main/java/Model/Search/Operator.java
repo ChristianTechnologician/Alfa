@@ -2,7 +2,7 @@ package Model.Search;
 
 public enum Operator
 {
-    GT, LT, EQ, NE, GE, LE, MATCH;
+    GT, LT, EQ, NE, GE, LE, MATCH,RANGE;
 
     public String toString()
     {
@@ -15,6 +15,7 @@ public enum Operator
                     case GT -> " > ";
                     case LE -> " <= ";
                     case MATCH -> " LIKE ";
+                    case RANGE -> ">=,<=";
                 };
     }
 }

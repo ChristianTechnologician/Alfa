@@ -139,12 +139,11 @@ public class MerceDAO implements MerceInterface{
     }
 
     @Override
-    public List<Merce> search(List<Condition> conditions) throws SQLException {
+    public List<Merce> search(List<String> query) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
-            //String query= ProductQuesry.search(conditions);
-            try (PreparedStatement ps = con.prepareStatement("SELECT *")) {
-                for (int i = 0; i < conditions.size(); i++) {
-                    ps.setObject(i + 1, conditions.get(i).getValue());
+            try (PreparedStatement ps = con.prepareStatement("?")) {
+                for (int i = 0; i < query.size(); i++) {
+                    ps.setObject(i + 1, query.get(i));
                 }
                 ResultSet rs = ps.executeQuery();
                 List<Merce> merci = new ArrayList<>();
@@ -164,8 +163,7 @@ public class MerceDAO implements MerceInterface{
 
     public List<Merce> fetchProductsWithRelations(Paginatore paginatore) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
-            //String query = ProductQuery.fetchProductsWithRelations();
-            try(PreparedStatement ps = con.prepareStatement("SELECT * FROM utente")){
+            try(PreparedStatement ps = con.prepareStatement("SELECT * FROM merce LIMIT ?,?")){
                ps.setInt(1,paginatore.getOffset());
                ps.setInt(2,paginatore.getLimit());
                ResultSet rs = ps.executeQuery();

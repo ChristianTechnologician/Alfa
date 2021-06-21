@@ -7,6 +7,7 @@ import Model.Gestione.InvalidRequestException;
 import Model.Gestione.Paginatore;
 import Model.Search.Condition;
 import Model.Search.MerceSearch;
+import Model.Search.Query;
 import Model.Taglia.Taglia;
 
 import javax.servlet.*;
@@ -18,6 +19,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "MerceServlet", value = "/merce/*")
@@ -40,9 +42,11 @@ public class MerceServlet extends Controller {
                 case "/search":
                     MerceDAO md = new MerceDAO();
                     List<Condition> conditions = new MerceSearch().buildSearch(request);
+                    Query q = new Query();
+                    List<String> query = q.selectQuery(conditions);
                     List<Merce> searchMerci = conditions.isEmpty() ?
                             md.fetchProductsWithRelations(new Paginatore(1, 50)) :
-                            md.search(conditions);
+                            md.search(query);
                     request.setAttribute("merce", searchMerci);
                     request.getRequestDispatcher(view("site/search")).forward(request, response);
                     break;

@@ -207,11 +207,14 @@
 
 <div class="row">
   <div class="column" style="float:left; width :20%">
-        <form id="filter_form" action="" method="get">
+        <form id="filter_form" action="${pageContext.request.contextPath}/merce/search" method="get">
           <ul >
              <li style="float: left">Applica un filtro</li><br><br>
-             <li style="float: left">Abito<input type="checkbox" name="checkbox1"></li><br><br>
-             <li style="float: left">Giacca<input type="checkbox" name="checkbox2"></li>
+             <li style="float: left">Abito<input type="radio" name="checkbox1"></li><br><br>
+             <li style="float: left">Giacca<input type="radio" name="checkbox2"></li>
+              <li style="float: left">Taglia<input type="" name="checkbox2"></li>
+              <li style="float: left">Prezzo<input type="" name="checkbox2"></li>
+              <li style="float: left">Scontato<input type="" name="checkbox2"></li>
           </ul>
            <br><br> <input style="float: left" type="submit" name="applica_filtro" value="Applica">
         </form>

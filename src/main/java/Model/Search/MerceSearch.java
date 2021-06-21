@@ -15,20 +15,26 @@ public class MerceSearch  implements SearchBuilder {
             String value = request.getParameter(param);
             if(value != null && !value.isBlank()){
                 switch(param){
-                    case "fullName":
-                        conditions.add(new Condition("fullName", Operator.MATCH, value));
+                    case "nome":
+                        conditions.add(new Condition("Nome", Operator.MATCH, value));
                         break;
-                    case "countryId":
-                        conditions.add(new Condition("country_fk", Operator.EQ, value));
+                    case "tipoCategoria":
+                        conditions.add(new Condition("TipoCategoria", Operator.EQ, value));
                         break;
-                    case "categoryId":
-                        conditions.add(new Condition("category_fk", Operator.EQ, value));
+                    case "taglia":
+                        conditions.add(new Condition("LTaglia", Operator.EQ, value));
                         break;
-                    case "sinPrice":
-                        conditions.add(new Condition("price", Operator.GT, value));
+                    case "Sconto":
+                        conditions.add(new Condition("Sconto", Operator.EQ, value));
+                        break;
+                    case "minPrice":
+                        conditions.add(new Condition("MinPrice", Operator.GT, value));
                         break;
                     case "maxPrice":
-                        conditions.add(new Condition("price", Operator.LT, value));
+                        conditions.add(new Condition("MaxPrice", Operator.LT, value));
+                        break;
+                    case "range":
+                        conditions.add(new Condition("Range", Operator.RANGE, value));
                         break;
                     default:
                         break;

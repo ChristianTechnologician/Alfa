@@ -15,6 +15,6 @@ public interface MerceInterface
     Boolean updateMerce(String Codice, Merce merce) throws  SQLException;
     Boolean deleteMerce(String Codice) throws SQLException;
     int countAll() throws SQLException;
-    List<Merce> search(List<Condition> conditions) throws SQLException;
+    List<Merce> search(List<String> query) throws SQLException;
     List<Merce> fetchProductsWithRelations(Paginatore paginatore) throws SQLException;
 }
