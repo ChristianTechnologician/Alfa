@@ -208,13 +208,38 @@
 <div class="row">
   <div class="column" style="float:left; width :20%">
         <form id="filter_form" action="${pageContext.request.contextPath}/merce/search" method="get">
-          <ul >
+          <ul>
              <li style="float: left">Applica un filtro</li><br><br>
-             <li style="float: left">Abito<input type="radio" name="checkbox1"></li><br><br>
-             <li style="float: left">Giacca<input type="radio" name="checkbox2"></li>
-              <li style="float: left">Taglia<input type="" name="checkbox2"></li>
-              <li style="float: left">Prezzo<input type="" name="checkbox2"></li>
-              <li style="float: left">Scontato<input type="" name="checkbox2"></li>
+              <div style="float: left">
+                  <input type="radio" id="Giacca" name="tipoCategoria" value="Giacca">
+                  <label for="Giacca">Giacca</label><br>
+                  <input type="radio" id="Abito" name="tipoCategoria" value="Abito">
+                  <label for="Abito">Abito</label><br>
+              </div><br>
+              <li style="float: left">Taglia</li>
+              <select name="taglia" style="float: left">
+                  <option>S</option>
+                  <option>M</option>
+                  <option>L</option>
+              </select><br>
+              <li style="float: left">Prezzo</li>
+              <div style="float: left">
+              <label for="minPrice">
+                  <input type="number" name="minPrice" id="minPrice" placeholder="Prezzo minimo">
+              </label>
+              <label for="maxPrice">
+                  <input type="number" name="maxPrice" id="maxPrice" placeholder="Prezzo massimo">
+              </label>
+              <label for="range">
+                  <input type="range" name="maxPrice" id="range">
+              </label>
+              </div><br>
+              <li style="float: left">Scontato</li>
+              <div style="float: left">
+                  <input type="checkbox" name="Sconto"  value="10%">
+                  <input type="checkbox" name="Sconto"  value="20%">
+                  <input type="checkbox" name="Sconto"  value="30%">
+              </div>
           </ul>
            <br><br> <input style="float: left" type="submit" name="applica_filtro" value="Applica">
         </form>
