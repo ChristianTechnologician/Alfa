@@ -78,8 +78,8 @@ public class TagliaDAO implements TagliaInterface {
     @Override
     public List<Taglia> doRetrieveAll() throws SQLException {
         try (Connection con = ConPool.getConnection()) {
-            try(PreparedStatement ps =
-                    con.prepareStatement("SELECT * FROM taglia")){
+            try (PreparedStatement ps =
+                         con.prepareStatement("SELECT * FROM taglia")) {
                 ResultSet rs = ps.executeQuery();
                 List<Taglia> taglie = new ArrayList<>();
                 TagliaExtraction te = new TagliaExtraction();
@@ -114,6 +114,25 @@ public class TagliaDAO implements TagliaInterface {
                 ResultSet rs;
                 ps.executeUpdate();
 
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
+    public Boolean checkTaglia(String LTaglia) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            Boolean flag;
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM taglia WHERE LTaglia = ?")) {
+                ps.setString(1, LTaglia);
+                ResultSet rs = ps.executeQuery();
+                if (rs == null) {
+                    flag = false;
+                } else {
+                    flag = true;
+                }
+                return flag;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

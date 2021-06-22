@@ -2,6 +2,8 @@ package Model.Merce;
 
 import Model.Colore.Colore;
 import Model.Colore.ColoreDAO;
+import Model.Fornitura.Fornitura;
+import Model.Fornitura.FornituraDAO;
 import Model.Gestione.Controller;
 import Model.Gestione.InvalidRequestException;
 import Model.Gestione.Paginatore;
@@ -9,6 +11,7 @@ import Model.Search.Condition;
 import Model.Search.MerceSearch;
 import Model.Search.Query;
 import Model.Taglia.Taglia;
+import Model.Taglia.TagliaDAO;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -31,12 +34,15 @@ public class MerceServlet extends Controller {
             String path = getPath(request);
             switch (path) {
                 case "/insertMerce":
+                    authorize(request.getSession(false));
                     request.getRequestDispatcher(view("crm/insertMerce")).forward(request, response);
                     break;
                 case "/updateMerce":
+                    authorize(request.getSession(false));
                     request.getRequestDispatcher(view("crm/updateMerce")).forward(request, response);
                     break;
                 case "/deleteMerce":
+                    authorize(request.getSession(false));
                     request.getRequestDispatcher(view("crm/deleteMerce")).forward(request, response);
                     break;
                 case "/search":
@@ -57,55 +63,105 @@ public class MerceServlet extends Controller {
             log(ex.getMessage());
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
         }
-        /*catch (InvalidRequestException e){
+        catch (InvalidRequestException e){
             log(e.getMessage());
             e.handle(request,response);
-        }*/
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String path = getPath(request);
-            switch (path) {
-                case "/create":
-                    MerceDAO merceDao = new MerceDAO();
-                    Merce merce = new Merce();
-                    merce.setCodice(request.getParameter("Codice"));
-                    merce.setNome(request.getParameter("Nome"));
-                    merce.setDescrizione(request.getParameter("Descrizione"));
-                    merce.setGenere(request.getParameter("Genere"));
-                    merce.setPrezzo(Double.parseDouble(request.getParameter("Prezzo")));
-                    merce.setTipocategoria(request.getParameter("TipoCategoria"));
-                    merce.setSconto(Double.parseDouble(request.getParameter("Sconto")));
-                    Taglia taglia = new Taglia();
-                    taglia.setlTaglia(request.getParameter("LTaglia"));
-                    Colore colore = new Colore();
-                    colore.setCod(Integer.parseInt(request.getParameter("Cod")));
-                    ColoreDAO coloreDAO = new ColoreDAO();
-                    int quantita = Integer.parseInt(request.getParameter("Quantita"));
-                    Part filePart = request.getPart("upImg");
-                    String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                    merce.setUpImg(fileName);
-                    if (merceDao.insertMerce(merce)){// && fornituraDAO.insertQuantita(quantita)/* && coloreDAO.insertColor(colore.getCod(),colore.getTipoColore()) && tagliaDao.*/) {
-                        request.getRequestDispatcher("/index.jsp").forward(request, response);
-                        String uploadRoot = getUploadPath();
-                        merce.writeCover(uploadRoot, filePart);
-                    } else {
-                        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Errore Server");
-                    }
-                    break;
-                case "/update":
-                    break;
-                default:
-                    break;
+                switch (path) {
+                    case "/create":
+                        authorize(request.getSession(false));
+                        MerceDAO merceDao = new MerceDAO();
+                        Merce merce = new Merce();
+                        merce.setCodice(request.getParameter("Codice"));
+                        merce.setNome(request.getParameter("Nome"));
+                        merce.setDescrizione(request.getParameter("Descrizione"));
+                        merce.setGenere(request.getParameter("Genere"));
+                        merce.setPrezzo(Double.parseDouble(request.getParameter("Prezzo")));
+                        merce.setTipocategoria(request.getParameter("TipoCategoria"));
+                        merce.setSconto(Double.parseDouble(request.getParameter("Sconto")));
+                        Taglia taglia = new Taglia();
+                        taglia.setlTaglia(request.getParameter("LTaglia"));
+                        TagliaDAO tagliaDAO = new TagliaDAO();
+                        Colore colore = new Colore();
+                        colore.setCod(Integer.parseInt(request.getParameter("Cod")));
+                        colore.setTipoColore(request.getParameter("TipoColore"));
+                        ColoreDAO coloreDAO = new ColoreDAO();
+                        int quantita = Integer.parseInt(request.getParameter("Quantita"));
+                        Fornitura f = new Fornitura();
+                        FornituraDAO fornituraDAO = new FornituraDAO();
+                        f.setQuantita(quantita);
+                        f.setlTaglia(taglia.getlTaglia());
+                        f.setCodColore(colore.getCod());
+                        f.setCodMerce(merce.getCodice());
+                        Part filePart = request.getPart("upImg");
+                        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                        merce.setUpImg(fileName);
+                        if (coloreDAO.doRetrieveByCode(colore.getCod()) == null) {
+                            coloreDAO.insertColor(colore.getCod(), colore.getTipoColore());
+                        }
+                        if (!tagliaDAO.checkTaglia(taglia.getlTaglia())) {
+                            tagliaDAO.insertTaglia(taglia.getlTaglia());
+                        }
+                        if (merceDao.insertMerce(merce) && fornituraDAO.insertFornitura(f)) {
+                            request.getRequestDispatcher("/index.jsp").forward(request, response);
+                            String uploadRoot = getUploadPath();
+                            merce.writeCover(uploadRoot, filePart);
+                        } else {
+                            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Errore Server");
+                        }
+                        break;
+                    case "/update":
+                        authorize(request.getSession(false));
+                        MerceDAO md = new MerceDAO();
+                        Merce m = new Merce();
+                        m.setCodice(request.getParameter("Codice"));
+                        m.setNome(request.getParameter("Nome"));
+                        m.setDescrizione(request.getParameter("Descrizione"));
+                        m.setGenere(request.getParameter("Genere"));
+                        m.setPrezzo(Double.parseDouble(request.getParameter("Prezzo")));
+                        m.setTipocategoria(request.getParameter("TipoCategoria"));
+                        m.setSconto(Double.parseDouble(request.getParameter("Sconto")));
+                        Taglia t = new Taglia();
+                        t.setlTaglia(request.getParameter("LTaglia"));
+                        TagliaDAO td = new TagliaDAO();
+                        Colore c = new Colore();
+                        c.setCod(Integer.parseInt(request.getParameter("Cod")));
+                        c.setTipoColore(request.getParameter("TipoColore"));
+                        ColoreDAO cd = new ColoreDAO();
+                        int q = Integer.parseInt(request.getParameter("Quantita"));
+                        Fornitura fornitura = new Fornitura();
+                        FornituraDAO fd = new FornituraDAO();
+                        fornitura.setQuantita(q);
+                        fornitura.setlTaglia(t.getlTaglia());
+                        fornitura.setCodColore(c.getCod());
+                        fornitura.setCodMerce(m.getCodice());
+                        Part fp = request.getPart("upImg");
+                        String fname = Paths.get(fp.getSubmittedFileName()).getFileName().toString();
+                        m.setUpImg(fname);
+                        if (md.updateMerce(m.getCodice(), m) && fd.updateFornitura(m.getCodice(), fornitura)) {
+                            request.getRequestDispatcher("/index.jsp").forward(request, response);
+                            String uploadRoot = getUploadPath();
+                            m.writeCover(uploadRoot, fp);
+                        } else {
+                            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Errore Server");
+                        }
+                        break;
+                    default:
+                        break;
                 }
-            } catch (SQLException ex){
-            log(ex.getMessage());
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
-        } /*catch (InvalidRequestException e){
-            log(e.getMessage());
-            e.handle(request,response);
-        }*/
-    }
+            } catch (SQLException ex) {
+                log(ex.getMessage());
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
+            }catch (InvalidRequestException e) {
+                log(e.getMessage());
+                e.handle(request, response);
+            }
+        }
+
 }

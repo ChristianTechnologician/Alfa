@@ -13,4 +13,5 @@ public interface TagliaInterface {
     List<Taglia> doRetrieveAll() throws SQLException;
     void insertTaglia(String LTaglia) throws SQLException;
     void deleteTaglia(String LTaglia) throws SQLException;
+    Boolean checkTaglia(String LTaglia) throws SQLException;
 }
