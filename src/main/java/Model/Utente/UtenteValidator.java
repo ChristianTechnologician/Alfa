@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 final class UtenteValidator {
     static RequestValidator validateForm(HttpServletRequest request,boolean update) {
         RequestValidator validator = new RequestValidator(request);
-        validator.assertMatch("label", Pattern.compile("^\\w{4,20}$"),"il nome utente deve avere lunghezza compresa tra i quattro e i 20 caratteri");
+        validator.assertMatch("name", Pattern.compile("^\\w{4,20}$"),"il nome utente deve iniziare con una lettera e  avere lunghezza compresa tra i 4 e i 20 caratteri");
         if(update){
             validator.assertInt("id","Id deve essere un numero intero");
         }
@@ -17,7 +17,7 @@ final class UtenteValidator {
 
     public static RequestValidator validateSignIn(HttpServletRequest request) {
         RequestValidator validator = new RequestValidator(request);
-        validator.assertEmail("label","Inserire l'email corrispondente al tuo account");
+        validator.assertEmail("email","Inserire l'email corrispondente al tuo account");
         return validator;
     }
 }

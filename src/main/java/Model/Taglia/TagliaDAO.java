@@ -98,7 +98,6 @@ public class TagliaDAO implements TagliaInterface {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("INSERT INTO taglia VALUES (?)")) {
                 ps.setString(1, LTaglia);
-                ResultSet rs;
                 ps.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -111,7 +110,6 @@ public class TagliaDAO implements TagliaInterface {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("DELETE FROM taglia WHERE LTaglia = ?")) {
                 ps.setString(1, LTaglia);
-                ResultSet rs;
                 ps.executeUpdate();
 
             } catch (SQLException e) {

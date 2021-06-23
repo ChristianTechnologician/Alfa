@@ -38,6 +38,7 @@
 
         body {
             margin: 0;
+            min-height: 100%;
         }
         .header {
             background-color: #f1f1f1;
@@ -79,8 +80,12 @@
         }
         .footer {
             background-color: #f1f1f1;
+            clear: both;
+            position: relative;
+            height: 200%;
             padding: 10px;
             text-align: center;
+            margin-top: -200px;
         }
 
         .dropbtn {

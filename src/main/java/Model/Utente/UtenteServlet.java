@@ -32,7 +32,7 @@ public class UtenteServlet extends Controller {
                    request.getRequestDispatcher(view("crm/accounts")).forward(request, response);
                    break;
                case "/signinCliente":
-                   request.getRequestDispatcher(view("account/loginform")).forward(request, response);//"site/signin"
+                   request.getRequestDispatcher(view("account/loginform")).forward(request, response);
                    break;
                case "/create":
                    authorize(request.getSession(false));
@@ -44,8 +44,7 @@ public class UtenteServlet extends Controller {
                    validate(CommonValidator.validateId(request));
                    int id = Integer.parseInt(request.getParameter("id"));
                    Optional<Utente> optUtente = utenteDAO.fetchUtente(id);
-                   /*String email = request.getParameter("email");
-                   Optional<Utente> optUtente = utenteDAO.fetchUtente(email);*/
+                   String email = request.getParameter("email");
                    if(optUtente.isPresent()){
                        request.setAttribute("utente",optUtente.get());
                        request.getRequestDispatcher(view("crm/account")).forward(request, response);
@@ -80,7 +79,7 @@ public class UtenteServlet extends Controller {
                    response.sendRedirect(redirect);
                    break;
                default:
-                   notFound();                      //response.sendError(HttpServletResponse.SC_NOT_FOUND,"Risorsa non trovata");
+                   UserError();
            }
        }catch (SQLException ex){
            log(ex.getMessage());
@@ -93,7 +92,7 @@ public class UtenteServlet extends Controller {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
-            String path =   getPath(request);                      //(request.getPathInfo() != null) ? request.getPathInfo() : "/";
+            String path = getPath(request);                      //(request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
             case "/signinAdmin": //login admin(ricerca nel db)
                 UtenteDAO ud = new UtenteDAO();
@@ -102,7 +101,7 @@ public class UtenteServlet extends Controller {
                 Utente tmpUtente = new Utente();
                 tmpUtente.setEmail(request.getParameter("email"));
                 tmpUtente.setPassword(request.getParameter("password"));
-                Optional<Utente> optUtente = ud.findUtente(tmpUtente.getEmail(), tmpUtente.getPassword(),true );
+                Optional<Utente> optUtente = ud.loginUtente(tmpUtente.getEmail(), /*tmpUtente.getPassword(),*/true );
                 if(optUtente.isPresent()){
                     UtenteSession accountSession = new UtenteSession(optUtente.get());
                     request.getSession(true).setAttribute("accountSession", accountSession);
@@ -112,8 +111,8 @@ public class UtenteServlet extends Controller {
                 }
                 break;
             case "/create": //create new customer
-                UtenteDAO udao = new UtenteDAO();
                 authorize(request.getSession(false));
+                UtenteDAO udao = new UtenteDAO();
                 request.setAttribute("back", view("crm/account"));
                 validate(UtenteValidator.validateForm(request, false));
                 Utente utente = new UtenteFormMapper().map(request, false);
@@ -156,7 +155,7 @@ public class UtenteServlet extends Controller {
                 tmpCustomer.setEmail(request.getParameter("email"));
                 tmpCustomer.setPassword(request.getParameter("password"));
                 UtenteDAO utentedao = new UtenteDAO();
-                Optional <Utente> optCustomer = utentedao.findUtente(tmpCustomer.getEmail(), tmpCustomer.getPassword(),false );
+                Optional <Utente> optCustomer = utentedao.loginUtente(tmpCustomer.getEmail(), /*tmpCustomer.getPassword(),*/false );
                 if(optCustomer.isPresent()){
                     UtenteSession customerSession = new UtenteSession(optCustomer.get());
                             request.getSession(true).setAttribute("accountSession", customerSession);
@@ -167,7 +166,7 @@ public class UtenteServlet extends Controller {
                 }
                 break;
             default:
-             notAllowed();     // response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED,"Operazione non consentita");
+                UserError();
         }
     } catch (SQLException | NoSuchAlgorithmException ex){
             log(ex.getMessage());

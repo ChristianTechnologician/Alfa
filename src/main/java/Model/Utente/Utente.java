@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.List;
 
-public class Utente {
+public class Utente{
 
     private String nome,cognome,email,password;
     private int id;
@@ -20,7 +20,6 @@ public class Utente {
     private List<Ordine> ordineList;
 
     public Utente(){
-
     }
 
     public String getNome() {
@@ -52,7 +51,7 @@ public class Utente {
     }
 
     public void setPassword(String password) throws NoSuchAlgorithmException {
-        MessageDigest digest = MessageDigest.getInstance("SMA-512");
+        MessageDigest digest = MessageDigest.getInstance("SHA-512");
         SecureRandom ss = new SecureRandom();
         byte [] salt = new byte[16];
         ss.nextBytes(salt);

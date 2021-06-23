@@ -36,4 +36,8 @@ public interface ErrorHandler {
         throw new InvalidRequestException("Operazione non consentita", List.of("Operazione non permessa"),
                 HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
+    default void UserError() throws InvalidRequestException{
+        throw new InvalidRequestException("Errore 404 Pagina non trovata",List.of("Scelta errata"),
+                HttpServletResponse.SC_NOT_FOUND);
+    }
 }
