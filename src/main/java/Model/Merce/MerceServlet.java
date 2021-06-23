@@ -34,7 +34,7 @@ public class MerceServlet extends Controller {
             String path = getPath(request);
             switch (path) {
                 case "/insertMerce":
-                    authorize(request.getSession(false));
+                    authorize(request.getSession(true));
                     request.getRequestDispatcher(view("crm/insertMerce")).forward(request, response);
                     break;
                 case "/updateMerce":

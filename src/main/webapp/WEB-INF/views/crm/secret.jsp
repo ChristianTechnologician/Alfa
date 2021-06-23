@@ -8,7 +8,12 @@
 </head>
 <body>
 
-<form action="./crm/dashboard" method="post">
+<%
+    HttpSession session1= request.getSession();
+    session1.setAttribute("admin", request.getParameter("email"));
+%>
+
+<form action="${pageContext.request.contextPath}/crm/dashboard" method="post">
     <fieldset>
         <h2>Login Pannello Admin</h2>
         <span>Email</span>
