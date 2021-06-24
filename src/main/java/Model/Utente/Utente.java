@@ -77,7 +77,7 @@ public class Utente{
     }
 
     public void setIsAdministration(boolean isAdministration) {
-        isAdministration = isAdministration;
+        this.isAdministration = isAdministration;
     }
 
     public Carrello getCarrello() {

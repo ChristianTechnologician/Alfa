@@ -96,16 +96,17 @@ public class UtenteServlet extends Controller {
         switch (path){
             case "/signinAdmin": //login admin(ricerca nel db)
                 UtenteDAO ud = new UtenteDAO();
-                request.setAttribute("back", view("crm/secret"));
+                //request.setAttribute("back", view("crm/secret"));
                 validate(UtenteValidator.validateSignIn(request));
                 Utente tmpUtente = new Utente();
                 tmpUtente.setEmail(request.getParameter("email"));
                 tmpUtente.setPassword(request.getParameter("password"));
-                Optional<Utente> optUtente = ud.loginUtente(tmpUtente.getEmail(), /*tmpUtente.getPassword(),*/true );
-                if(optUtente.isPresent()){
-                    UtenteSession accountSession = new UtenteSession(optUtente.get());
+                Utente optUtente = ud.loginUtente(tmpUtente.getEmail(), /*tmpUtente.getPassword()*/ request.getParameter("password"),true );
+                if(optUtente.getEmail().equals(tmpUtente.getEmail())){
+                    UtenteSession accountSession = new UtenteSession(optUtente);
                     request.getSession(true).setAttribute("accountSession", accountSession);
-                    response.sendRedirect("/Alfa/crm/dashboard");
+                    //response.sendRedirect("/crm/dashboard");
+                    request.getRequestDispatcher(view("crm/home")).forward(request, response);
                 }else{
                    throw new InvalidRequestException("Credenziali non valide",List.of("Credenziali non valide"),HttpServletResponse.SC_BAD_REQUEST);
                 }
@@ -155,7 +156,7 @@ public class UtenteServlet extends Controller {
                 tmpCustomer.setEmail(request.getParameter("email"));
                 tmpCustomer.setPassword(request.getParameter("password"));
                 UtenteDAO utentedao = new UtenteDAO();
-                Optional <Utente> optCustomer = utentedao.loginUtente(tmpCustomer.getEmail(), /*tmpCustomer.getPassword(),*/false );
+                /*Optional <Utente> optCustomer = utentedao.loginUtente(tmpCustomer.getEmail(), tmpCustomer.getPassword(),false );
                 if(optCustomer.isPresent()){
                     UtenteSession customerSession = new UtenteSession(optCustomer.get());
                             request.getSession(true).setAttribute("accountSession", customerSession);
@@ -163,7 +164,7 @@ public class UtenteServlet extends Controller {
                 } else{
                     throw new InvalidRequestException("Credenziali non valide",
                             List.of("Credenziali non valide"), HttpServletResponse.SC_BAD_REQUEST);
-                }
+                }*/
                 break;
             default:
                 UserError();

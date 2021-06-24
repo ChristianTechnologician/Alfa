@@ -18,7 +18,7 @@ public interface ErrorHandler {
 
     default void authorize(HttpSession session) throws InvalidRequestException{
         authenticate(session);
-        UtenteSession us = (UtenteSession) session.getAttribute("utenteSession");
+        UtenteSession us = (UtenteSession) session.getAttribute("accountSession");
         if(!us.isAdmin()){
             throw new InvalidRequestException("Errore autorizzazione", List.of("Azione non consenstita"),
                     HttpServletResponse.SC_FORBIDDEN);

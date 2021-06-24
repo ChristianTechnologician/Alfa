@@ -100,21 +100,26 @@ public class UtenteDAO implements UtenteInterface
     }
 
     @Override
-    public Optional<Utente> loginUtente(String email, boolean admin) throws SQLException {
+    public Utente loginUtente(String email, String password, boolean admin) throws SQLException {
+        Utente utente;
         try(Connection con = ConPool.getConnection()) {
-            try(PreparedStatement ps = con.prepareStatement("SELECT *  FROM utente WHERE Email=?  AND IsAdministrator = ?")){
+            try(PreparedStatement ps = con.prepareStatement("SELECT *  FROM utente WHERE Email=? AND PW=? AND IsAdministration = ?")){
                 ps.setString(1, email);
-                ps.setBoolean(2, admin);
+                ps.setString(2, password);
+                ps.setBoolean(3, admin);
                 ResultSet rs = ps.executeQuery();
-                Utente utente = null;
+
                 if(rs.next()){
                     utente = new UtenteExtraction().mapping(rs);
+                    return utente;
                 }
-                return Optional.ofNullable(utente);
+                //return Optional.ofNullable(utente);
+               // return null;
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
-            return Optional.empty();
+            //return Optional.empty();
+            return null;
         }
     }
 

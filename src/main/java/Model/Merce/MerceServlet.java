@@ -33,8 +33,17 @@ public class MerceServlet extends Controller {
         try {
             String path = getPath(request);
             switch (path) {
+                case "/merce":
+                    authorize(request.getSession(false));
+                    List<Merce> lista=new ArrayList<>();
+                    MerceDAO mdo=new MerceDAO();
+                    Paginatore pg=new Paginatore(1, 50);
+                    lista=mdo.fetchProductsWithRelations(pg);
+                    request.setAttribute("lista", lista);
+                    request.getRequestDispatcher(view("crm/merce")).forward(request,response);
+                    break;
                 case "/insertMerce":
-                    authorize(request.getSession(true));
+                    authorize(request.getSession(false));
                     request.getRequestDispatcher(view("crm/insertMerce")).forward(request, response);
                     break;
                 case "/updateMerce":

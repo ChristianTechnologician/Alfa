@@ -8,12 +8,9 @@
 </head>
 <body>
 
-<%
-    HttpSession session1= request.getSession();
-    session1.setAttribute("admin", request.getParameter("email"));
-%>
 
-<form action="${pageContext.request.contextPath}/crm/dashboard" method="post">
+
+<form action="${pageContext.request.contextPath}/utente/signinAdmin" method="post">
     <fieldset>
         <h2>Login Pannello Admin</h2>
         <span>Email</span>
