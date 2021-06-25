@@ -17,19 +17,18 @@ import java.util.List;
 public class FornituraDAO implements  FornituraInterface{
 
     @Override
-    public Fornitura doRetrieveByCode(String codice) throws SQLException {
+    public List<Fornitura> doRetrieveByCode(String codice) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
                          con.prepareStatement("SELECT * FROM fornitura WHERE CodiceMerce=?")){
                 ps.setString(1, codice);
                 ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    FornituraExtraction fe = new FornituraExtraction();
-                  Fornitura f = new Fornitura() ;
-                  f = fe.mapping(rs);
-                    return f;
+                FornituraExtraction fe = new FornituraExtraction();
+                List<Fornitura> f = new ArrayList<>();
+                while (rs.next()) {
+                  f.add(fe.mapping(rs));
                 }
-                return null;
+                return f;
             }catch(SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -91,6 +90,24 @@ public class FornituraDAO implements  FornituraInterface{
                 }
                 con.close();
                 return forniture;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
+    public List<Integer> RetriveQuantity() throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (PreparedStatement ps =
+                         con.prepareStatement("SELECT Quantità FROM fornitura")){
+                ResultSet rs = ps.executeQuery();
+                List<Integer> q = new ArrayList<>();;
+                while(rs.next()) {
+                    q.add(rs.getInt("Quantità"));
+                }
+                con.close();
+                return q;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

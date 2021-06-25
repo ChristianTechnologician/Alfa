@@ -1,6 +1,8 @@
+<%@ page import="Model.Fornitura.Fornitura" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%List<Merce> list=(List<Merce>) request.getAttribute("lista");%>
+<%List<Merce> list=(List<Merce>) request.getAttribute("merce");%>
+
 <table>
     <caption>Lista Merce</caption>
     <thead>
@@ -12,24 +14,20 @@
         <th>Prezzo</th>
         <th>Tipo categoria</th>
         <th>Sconto</th>
-        <th>Colore</th>
-        <th>Taglia</th>
-        <!--<th>Quantità</th>-->
     </tr>
     </thead>
     <tbody>
-    <% for(Merce merce : list){%>
+    <%
+    for(Merce merce : list){
+    %>
     <tr>
-        <td data-head="Codice"><%=merce.getCodice()%></td>
+        <td data-head="Codice"><a href="${pageContext.request.contextPath}/merce/dettaglio"><%=merce.getCodice()%></a></td>
         <td data-head="Nome"><%=merce.getNome()%></td>
         <td data-head="Descrizione"><%=merce.getDescrizione()%></td>
         <td data-head="Genere"><%=merce.getGenere()%></td>
         <td data-head="Prezzo"><%=merce.getPrezzo()%></td>
         <td data-head="Tipo categoria"><%=merce.getTipocategoria()%></td>
         <td data-head="Sconto"><%=merce.getSconto()%></td>
-        <td data-head="Colore"><%=merce.getColoreList()%></td>
-        <td data-head="Taglia"><%=merce.getTagliaList()%></td>
-        <!--  <td data-head="Quantità"></td>-->
     </tr>
     <%}%>
     <c:choose>

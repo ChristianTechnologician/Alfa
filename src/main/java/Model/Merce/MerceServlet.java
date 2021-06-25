@@ -35,12 +35,27 @@ public class MerceServlet extends Controller {
             switch (path) {
                 case "/merce":
                     authorize(request.getSession(false));
+                    HttpSession merceSession = request.getSession();
                     List<Merce> lista=new ArrayList<>();
                     MerceDAO mdo=new MerceDAO();
                     Paginatore pg=new Paginatore(1, 50);
                     lista=mdo.fetchProductsWithRelations(pg);
-                    request.setAttribute("lista", lista);
+                    request.setAttribute("merce", lista);
                     request.getRequestDispatcher(view("crm/merce")).forward(request,response);
+                    break;
+                case "/dettaglio":
+                    authorize(request.getSession(false));
+                    String codice = "UCO1";
+                    MerceDAO mercedao=new MerceDAO();
+                    FornituraDAO fdo=new FornituraDAO();
+                    Merce merce = mercedao.doRetrieveByCode("UCO1");
+                    List<Fornitura> fornituras = fdo.doRetrieveByCode("UCO1");
+                    ColoreDAO cdao = new ColoreDAO();
+                    List<Colore> colori = cdao.doRetrieveAll();
+                    request.setAttribute("merce",merce);
+                    request.setAttribute("fornitura",fornituras);
+                    request.setAttribute("colore",colori);
+                    request.getRequestDispatcher(view("crm/dettaglioMerce")).forward(request,response);
                     break;
                 case "/insertMerce":
                     authorize(request.getSession(false));
