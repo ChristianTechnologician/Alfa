@@ -57,4 +57,3 @@
     </c:choose>
     </tbody>
 </table>
-<h1>ciao</h1>
