@@ -21,7 +21,8 @@
     for(Merce merce : list){
     %>
     <tr>
-        <td data-head="Codice"><a href="${pageContext.request.contextPath}/merce/dettaglio"><%=merce.getCodice()%></a></td>
+        <td data-head="Codice"><a href="${pageContext.request.contextPath}/merce/dettaglio" id="dettaglio"><%=merce.getCodice()%></a></td>
+        <%request.getSession().setAttribute();%>
         <td data-head="Nome"><%=merce.getNome()%></td>
         <td data-head="Descrizione"><%=merce.getDescrizione()%></td>
         <td data-head="Genere"><%=merce.getGenere()%></td>

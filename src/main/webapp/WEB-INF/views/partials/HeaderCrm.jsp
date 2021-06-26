@@ -21,11 +21,9 @@
 
     <div class="dropdown grid-x align-center">
         <li>
-            <a href="">Gestione Ordine </a>
+            <a href="${pageContext.request.contextPath}/ordine/mostraOrdini">Gestione Ordini</a>
             <div class="dropdown-content">
-                <a href="">Visualizza Ordini</a>
-                <a href="">Inserisci Ordine</a>
-                <a href="">Cancella Merce</a>
+                <a href="${pageContext.request.contextPath}/ordine/ordine">Visualizza Ordine</a>
             </div>
         </li>
     </div>

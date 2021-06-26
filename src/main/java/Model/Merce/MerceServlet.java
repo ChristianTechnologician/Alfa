@@ -45,11 +45,11 @@ public class MerceServlet extends Controller {
                     break;
                 case "/dettaglio":
                     authorize(request.getSession(false));
-                    String codice = "UCO1";
+                    String codice = (String)request.getSession().getAttribute("codice");
                     MerceDAO mercedao=new MerceDAO();
                     FornituraDAO fdo=new FornituraDAO();
-                    Merce merce = mercedao.doRetrieveByCode("UCO1");
-                    List<Fornitura> fornituras = fdo.doRetrieveByCode("UCO1");
+                    Merce merce = mercedao.doRetrieveByCode(codice);
+                    List<Fornitura> fornituras = fdo.doRetrieveByCode(codice);
                     ColoreDAO cdao = new ColoreDAO();
                     List<Colore> colori = cdao.doRetrieveAll();
                     request.setAttribute("merce",merce);
