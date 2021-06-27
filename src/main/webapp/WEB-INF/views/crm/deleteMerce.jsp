@@ -10,22 +10,14 @@
 </head>
 <body>
  <%@include file="/WEB-INF/views/partials/HeaderCrm.jsp"%>
-
 <section class="field">
-<form action="" method="post">
+<form action="${pageContext.request.contextPath}/merce/deleteMerce" method="post">
     <label id="#id">
-    <input type="number" name="IdMerce" placeholder="ID merce">
+    <input type="text" name="IdMerce" placeholder="ID merce">
     </label>
+    <button>Elimina</button>
 </form>
 </section>
-
-<%//boolean operazione = (boolean) session.getAttribute("delete"); %>
-<% //if(operazione){ %>
-L'eliminazione è stata effettuata
-<%//else{%>
-L'eliminazione non è stata effettuata
-<%//}%>
-
 <%@include file="/WEB-INF/views/partials/FooterCrm.jsp"%>
 </body>
 </html>

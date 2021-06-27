@@ -34,7 +34,7 @@
 </table>
 
 <table>
-    <caption>Fornitura UCO1</caption>
+    <caption>Fornitura <%=list.getCodice()%></caption>
     <thead>
     <tr>
         <th>Codice</th>

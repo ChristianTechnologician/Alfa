@@ -114,7 +114,7 @@ public class MerceDAO implements MerceInterface{
     @Override
     public Boolean deleteMerce(String Codice) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("DELETE merce WHERE Codice = ?")) {
+            try (PreparedStatement ps = con.prepareStatement("DELETE FROM merce WHERE Codice = ?")) {
                 ps.setString(1, Codice);
                 ResultSet rs;
                 int rows = ps.executeUpdate();

@@ -18,11 +18,13 @@
     </thead>
     <tbody>
     <%
+        int i=0;
     for(Merce merce : list){
     %>
     <tr>
-        <td data-head="Codice"><a href="${pageContext.request.contextPath}/merce/dettaglio" id="dettaglio"><%=merce.getCodice()%></a></td>
-        <%request.getSession().setAttribute();%>
+
+        <td data-head="Codice"><form action="${pageContext.request.contextPath}/merce/dettaglio" method="get"><button><%=merce.getCodice()%><input type ="hidden" name="id" value="<%=merce.getCodice()%>"></button></form></td>
+        <%list.get(i).getCodice();%>
         <td data-head="Nome"><%=merce.getNome()%></td>
         <td data-head="Descrizione"><%=merce.getDescrizione()%></td>
         <td data-head="Genere"><%=merce.getGenere()%></td>
@@ -30,7 +32,7 @@
         <td data-head="Tipo categoria"><%=merce.getTipocategoria()%></td>
         <td data-head="Sconto"><%=merce.getSconto()%></td>
     </tr>
-    <%}%>
+    <%i++;}%>
     <c:choose>
         <c:when test="${list.isEmpty()}">
             <tr>

@@ -201,7 +201,7 @@
 </ul>
 
 <div class="row">
-    <div class="column" style="float:left;width:33%">
+    <div class="column" style="float:left;width:100%">
         <ul>
             <li style="float: left "> <div class="gallery">
                         <img src="./Images/<%=prodotto.getCodice()%>.jpg" alt="img" width="700" height="500">
@@ -210,29 +210,6 @@
         </ul>
     </div>
 </div>
-
-<div class="row">
-    <div class="column" style="float:left;width:33%">
-        <ul>
-            <li style="float: left "> <div class="gallery">
-                <%=prodotto.getDescrizione()%>
-            </div></li>
-        </ul>
-    </div>
-</div>
-
-<div class="row">
-    <div class="column" style="float:left;width:33%">
-        <ul>
-            <li style="float: left "> <div class="gallery">
-                <img src="./Images/<%=prodotto.getCodice()%>.jpg" alt="img" width="700" height="500">
-                <div class="desc"><%=prodotto.getNome()%></div>
-            </div></li>
-        </ul>
-    </div>
-</div>
-
-
 
 <div class="footer" style="width:100%">
     <p>

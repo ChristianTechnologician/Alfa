@@ -13,11 +13,11 @@ import java.sql.SQLException;
 public class DettaglioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*String codice = request.getParameter("UCA1");*/
+        String codice = request.getParameter("prodotto");
         MerceDAO wr = new MerceDAO();
         Merce ab = new Merce();
         try {
-            ab = wr.doRetrieveByCode("UCA1");
+            ab = wr.doRetrieveByCode(codice);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

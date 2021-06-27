@@ -148,4 +148,32 @@ public class FornituraDAO implements  FornituraInterface{
             }
         }
     }
+
+    public Boolean deleteFornitura(String Codice) throws SQLException {
+        int count=0;
+        try (Connection con = ConPool.getConnection()) {
+            try(PreparedStatement pss = con.prepareStatement("SELECT * FROM fornitura WHERE CodiceMerce = ?")){
+                pss.setString(1, Codice);
+                ResultSet rs=pss.executeQuery();
+                ArrayList<Fornitura> f=new ArrayList<>();
+                while (rs.next())
+                {
+                    FornituraExtraction x=new FornituraExtraction();
+                    f.add(x.mapping(rs));
+                    count++;
+                }
+                System.out.println(count);
+            }
+         catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+            try (PreparedStatement ps = con.prepareStatement("DELETE FROM fornitura WHERE CodiceMerce = ?")) {
+                ps.setString(1, Codice);
+                int rows = ps.executeUpdate();
+                return rows == count;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }

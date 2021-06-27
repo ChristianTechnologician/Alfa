@@ -256,7 +256,7 @@
          <form action="DettaglioServlet" method="get">
         <button>
           <img src="./Images/<%=g.getCodice()%>.jpg" alt="img" width="700" height="500">
-            <input type="hidden" name="<%g.getCodice();%>">
+            <input type="hidden" name="prodotto" value="<%=g.getCodice()%>">
         </button>
         <div class="desc"><%=g.getNome()%></div></form>
       </div></li>
