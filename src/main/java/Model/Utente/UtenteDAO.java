@@ -18,9 +18,10 @@ public class UtenteDAO implements UtenteInterface
     @Override
     public List<Utente> fetchUtenti(Paginatore paginatore) throws SQLException {
         try(Connection connection = ConPool.getConnection()){
-            try(PreparedStatement ps = connection.prepareStatement("SELECT * FROM utente LIMIT ?,?;")){
-                ps.setInt(1,paginatore.getOffset());
-                ps.setInt(2,paginatore.getLimit());
+            try(PreparedStatement ps = connection.prepareStatement("SELECT * FROM utente WHERE isAdministration = ? LIMIT ?,?")){
+                ps.setBoolean(1,false);
+                ps.setInt(2,paginatore.getOffset());
+                ps.setInt(3,paginatore.getLimit());
                 ResultSet rs = ps.executeQuery();
                 List<Utente> utenti = new ArrayList<>();
                 UtenteExtraction utenteExtraction = new UtenteExtraction();
@@ -36,21 +37,42 @@ public class UtenteDAO implements UtenteInterface
     }
 
     @Override
-    public Optional<Utente> fetchUtente(String email) throws SQLException {
-        try(Connection con = ConPool.getConnection()){
-            try(PreparedStatement ps = con.prepareStatement("SELECT * FROM utente WHERE Email = ?")){
-                ps.setString(1,email);
+    public List<Utente> fetchAdmin() throws SQLException {
+        try(Connection connection = ConPool.getConnection()){
+            try(PreparedStatement ps = connection.prepareStatement("SELECT * FROM utente WHERE IsAdministration = ?")){
+                ps.setBoolean(1,true);
                 ResultSet rs = ps.executeQuery();
-                Utente utente = null;
-                if(rs.next()){
-                    utente = new UtenteExtraction().mapping(rs);
+                ArrayList<Utente> utenti = new ArrayList<>();
+                UtenteExtraction utenteExtraction = new UtenteExtraction();
+                while(rs.next()){
+                    utenti.add(utenteExtraction.mapping(rs));
                 }
-                return Optional.ofNullable(utente);
+                rs.close();
+                return utenti;
+            } catch (SQLException | NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
+    @Override
+    public List<Utente> fetchUtente(String email) throws SQLException {
+        try(Connection con = ConPool.getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM utente WHERE Email = ?")) {
+                ps.setString(1, email);
+                ResultSet rs = ps.executeQuery();
+                ArrayList<Utente> utenti = new ArrayList<>();
+                UtenteExtraction utenteExtraction = new UtenteExtraction();
+                while(rs.next()){
+                    utenti.add(utenteExtraction.mapping(rs));
+                }
+                return utenti;
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
         }
-        return Optional.empty();
+        return null;
     }
 
     @Override
@@ -125,12 +147,13 @@ public class UtenteDAO implements UtenteInterface
 
     public int countAll() throws SQLException{
         try(Connection con = ConPool.getConnection()){
-            try(PreparedStatement ps = con.prepareStatement("SELECT COUNT * FROM utente")){
+            try(PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM utente")){
                 ResultSet rs = ps.executeQuery();
                 int size = 0;
                 if(rs.next()){
-                    size = rs.getInt("totalUsers");
+                    size = rs.getInt(1);
                 }
+                System.out.println(size);
                 return  size;
             }
         }

@@ -49,7 +49,6 @@ public class Utente{
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-512");
         SecureRandom ss = new SecureRandom();
@@ -80,7 +79,7 @@ public class Utente{
         this.isAdministration = isAdministration;
     }
 
-    public Carrello getCarrello() {
+   public Carrello getCarrello() {
         return carrello;
     }
 

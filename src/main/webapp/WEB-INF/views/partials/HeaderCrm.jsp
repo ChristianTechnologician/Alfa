@@ -30,10 +30,9 @@
 
     <div class="dropdown grid-x align-center">
         <li>
-            <a href="">Gestione Utente</a>
+            <a href="${pageContext.request.contextPath}/utente/visualizza">Gestione Utente</a>
             <div class="dropdown-content">
-                <a href="">Visualizza Utenti</a>
-                <a href="">Cancella Merce</a>
+                <a href="${pageContext.request.contextPath}/utente/utente">Visualizza Utente</a>
             </div>
         </li>
     </div>

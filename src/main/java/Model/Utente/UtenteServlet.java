@@ -2,13 +2,14 @@ package Model.Utente;
 
 import Model.Gestione.*;
 import com.mysql.cj.Session;
-import com.sun.tools.javac.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @WebServlet(name = "UtenteServlet", value = "/utente/*")
@@ -18,18 +19,36 @@ public class UtenteServlet extends Controller {
        try {
            String path = getPath(request);//(request.getPathInfo() != null) ? request.getPathInfo() : "/";
            switch (path) {
-               case "/":
-                   authorize(request.getSession());
-                   request.setAttribute("back",view("crm/accounts"));
-                   validate(CommonValidator.validatePage(request));
-                   int page = parsePage(request);
-                   Paginatore paginator = new Paginatore(page,50);
+               case "/prova":
+                   request.getRequestDispatcher(view("crm/prova")).forward(request, response);
+                   break;
+               case "/visualizza":
+                   authorize(request.getSession(false));
+                   //request.setAttribute("back",view("crm/home"));
+                   //validate(CommonValidator.validatePage(request));
+                   //int page = parsePage(request);
+                   Paginatore paginator = new Paginatore(1, 3);
                    UtenteDAO ud = new UtenteDAO();
                    int size = ud.countAll();
-                   request.setAttribute("pages",paginator.getPages(size));
-                   List<Utente> utenti = (List<Utente>) ud.fetchUtenti(paginator);
-                   request.setAttribute("utenti",utenti);
-                   request.getRequestDispatcher(view("crm/accounts")).forward(request, response);
+                   request.setAttribute("pages", paginator.getPages(size));
+                   List<Utente> admin = ud.fetchAdmin();
+                   System.out.println(admin.get(0).getId());
+                   request.setAttribute("admin", admin);
+                   List<Utente> utenti = ud.fetchUtenti(paginator);
+                   request.setAttribute("utenti", utenti);
+                   request.getRequestDispatcher(view("crm/utenti")).forward(request, response);
+                   break;
+               case "/utente":
+                   authorize(request.getSession(false));
+                   request.getRequestDispatcher(view("crm/utente")).forward(request, response);
+                   break;
+               case "/visualizzaUtente":
+                   authorize(request.getSession(false));
+                   String eml = request.getParameter("email");
+                   UtenteDAO utd = new UtenteDAO();
+                   List<Utente> utente = utd.fetchUtente(eml);
+                   request.setAttribute("utente",utente);
+                   request.getRequestDispatcher(view("crm/resultUtente")).forward(request, response);
                    break;
                case "/signinCliente":
                    request.getRequestDispatcher(view("account/loginform")).forward(request, response);
@@ -45,10 +64,10 @@ public class UtenteServlet extends Controller {
                    int id = Integer.parseInt(request.getParameter("id"));
                    Optional<Utente> optUtente = utenteDAO.fetchUtente(id);
                    String email = request.getParameter("email");
-                   if(optUtente.isPresent()){
-                       request.setAttribute("utente",optUtente.get());
+                   if (optUtente.isPresent()) {
+                       request.setAttribute("utente", optUtente.get());
                        request.getRequestDispatcher(view("crm/account")).forward(request, response);
-                   }else{
+                   } else {
                        notFound();
                    }
                    break;
@@ -62,10 +81,10 @@ public class UtenteServlet extends Controller {
                    UtenteDAO udao = new UtenteDAO();
                    int profileId = getAccountSession(request.getSession(false)).getId();
                    Optional<Utente> profileUtente = udao.fetchUtente(profileId);
-                   if(profileUtente.isPresent()){
+                   if (profileUtente.isPresent()) {
                        request.setAttribute("profile", profileUtente.get());
                        request.getRequestDispatcher(view("site/profile")).forward(request, response);
-                   } else{
+                   } else {
                        notFound();
                    }
                    break;
@@ -82,12 +101,12 @@ public class UtenteServlet extends Controller {
                    UserError();
            }
        }catch (SQLException ex){
-           log(ex.getMessage());
-       } catch (InvalidRequestException e){
-           log(e.getMessage());
-           e.handle(request,response);
+               log(ex.getMessage());
+           } catch (InvalidRequestException e){
+               log(e.getMessage());
+               e.handle(request,response);
+           }
        }
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
