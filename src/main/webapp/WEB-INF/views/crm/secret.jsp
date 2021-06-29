@@ -4,13 +4,14 @@
 <head>
     <jsp:include page="../partials/head.jsp">
         <jsp:param name="title" value="Login Admin"/>
+        <jsp:param name="script" value="crm,loginValidator"/>
     </jsp:include>
 </head>
 <body>
 
 
 
-<form action="${pageContext.request.contextPath}/utente/signinAdmin" method="post">
+<form action="${pageContext.request.contextPath}/utente/signinAdmin" method="post" onsubmit="validateForm()">
     <fieldset>
         <h2>Login Pannello Admin</h2>
         <span>Email</span>
