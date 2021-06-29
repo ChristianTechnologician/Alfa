@@ -39,7 +39,7 @@
 
     <div class="dropdown grid-x align-center">
         <li>
-            <a href="">Profilo</a>
+            <a href="${pageContext.request.contextPath}/utente/profileAdmin">Profilo</a>
         </li>
     </div>
 

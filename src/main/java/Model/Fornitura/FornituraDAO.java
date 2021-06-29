@@ -6,7 +6,6 @@ import Model.Merce.Merce;
 import Model.Merce.MerceExtraction;
 import Model.Ordine.Ordine;
 import Model.Ordine.OrdineExtraction;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

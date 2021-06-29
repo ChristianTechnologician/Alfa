@@ -88,6 +88,18 @@ public class UtenteServlet extends Controller {
                        notFound();
                    }
                    break;
+               case "/profileAdmin": //show profile(amministratore)
+                   UtenteDAO uDAO = new UtenteDAO();
+                   int profileID = getAccountSession(request.getSession(false)).getId();
+                   Optional<Utente> profileU = uDAO.fetchUtente(profileID);
+                   if (profileU.isPresent()) {
+                       request.setAttribute("profileAdmin", profileU.get());
+                       request.getRequestDispatcher(view("crm/profileAdmin")).forward(request, response);
+                   } else {
+                       notFound();
+                   }
+                   break;
+
                case "/logout":
                    HttpSession session = request.getSession(false);
                    authenticate(session);
@@ -135,7 +147,7 @@ public class UtenteServlet extends Controller {
                 UtenteDAO udao = new UtenteDAO();
                 request.setAttribute("back", view("crm/account"));
                 validate(UtenteValidator.validateForm(request, false));
-                Utente utente = new UtenteFormMapper().map(request, false);
+                Utente utente = new UtenteFormMapper().map(request , false, 4);
                 utente.setPassword(request.getParameter("password"));
                 if (udao.createUtente(utente)){
                     request.setAttribute("alert", new Alert(List.of("Account creato!"),"success"));
@@ -146,21 +158,27 @@ public class UtenteServlet extends Controller {
                 break;
             case "/update": //update customer info(admin)
                 authorize(request.getSession(false));
-                request.setAttribute("back",view("crm/account"));
-                validate(UtenteValidator.validateForm(request, true));
-                Utente updateUtente = new UtenteFormMapper().map(request, true);
+               // request.setAttribute("back",view("crm/account"));
+                    System.out.println("a");
+              //  validate(UtenteValidator.validateForm(request, true));
+                System.out.println("b");
+                UtenteSession us = (UtenteSession) request.getSession().getAttribute("accountSession");
+                System.out.println(us.getId());
+                Utente updateUtente = new UtenteFormMapper().map(request, true, us.getId());
                 UtenteDAO utenteDAO = new UtenteDAO();
                 if(utenteDAO.updateUtente(updateUtente)){
+                    System.out.println("d");
                     request.setAttribute("account", updateUtente);
                     request.setAttribute("alert", new Alert (List.of("Account aggiornato"),"success"));
-                    request.getRequestDispatcher(view("crm/account")).forward(request,response);
+                    request.getRequestDispatcher(view("crm/secret")).forward(request,response);
                 } else{
+                    System.out.println("e");
                     internalError();
                 }
                 break;
             case "/signupCliente": //registrazione cliente
                 validate(UtenteValidator.validateForm(request, false));
-                Utente customer = new UtenteFormMapper().map(request, false);
+                Utente customer = new UtenteFormMapper().map(request , false, 3);
                 UtenteDAO utdao = new UtenteDAO();
                 if(utdao.createUtente(customer)){
                     response.sendRedirect("./accounts/signin");

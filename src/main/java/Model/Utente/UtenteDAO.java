@@ -94,15 +94,23 @@ public class UtenteDAO implements UtenteInterface
     @Override
     public Boolean updateUtente(Utente utente) throws SQLException {
         try(Connection connection = ConPool.getConnection()){
-            try(PreparedStatement ps = connection.prepareStatement("UPDATE utente SET (?,?,?,?,?,?) WHERE ID=?")){
+            try(PreparedStatement ps = connection.prepareStatement("UPDATE utente SET ID=?, Nome=?, Cognome=?, Email=?, PW=?, IsAdministration=? WHERE ID=?")){
                 ps.setInt(1,utente.getId());
+                System.out.println(utente.getId());
                 ps.setString(2,utente.getNome());
+                System.out.println(utente.getNome());
                 ps.setString(3,utente.getCognome());
+                System.out.println(utente.getCognome());
                 ps.setString(4,utente.getEmail());
+                System.out.println(utente.getEmail());
                 ps.setString(5,utente.getPassword());
+                System.out.println(utente.getPassword());
                 ps.setBoolean(6,utente.getIsAdministration());
+                System.out.println(utente.getIsAdministration());
                 ps.setInt(7,utente.getId());
+                System.out.println(utente.getId());
                 int rows = ps.executeUpdate();
+                System.out.println(rows);
                 return rows == 1;
             }
         }
