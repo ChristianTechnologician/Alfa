@@ -10,7 +10,7 @@
             <input type="email" name="email" placeholder="E-mail">
         </label>
         <label id="#password">
-            <input type="text" name="PW" placeholder="Password">
+            <input type="password" name="PW" placeholder="Password">
         </label>
         <button>Salva</button>
     </form>

@@ -1,6 +1,8 @@
 package Model.Utente;
 
 import Model.Gestione.*;
+import Model.Merce.MerceDAO;
+import Model.Ordine.OrdineDAO;
 import com.mysql.cj.Session;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -46,7 +48,7 @@ public class UtenteServlet extends Controller {
                    authorize(request.getSession(false));
                    String eml = request.getParameter("email");
                    UtenteDAO utd = new UtenteDAO();
-                   List<Utente> utente = utd.fetchUtente(eml);
+                   Utente utente = utd.fetchUtente(eml);
                    request.setAttribute("utente",utente);
                    request.getRequestDispatcher(view("crm/resultUtente")).forward(request, response);
                    break;
@@ -99,18 +101,18 @@ public class UtenteServlet extends Controller {
                        notFound();
                    }
                    break;
-
                case "/logout":
                    HttpSession session = request.getSession(false);
                    authenticate(session);
-                   UtenteSession utenteSession = (UtenteSession) session.getAttribute("utenteSession");
-                   String redirect = utenteSession.isAdmin() ? "/Alfa/accounts/signinAdmin" : "/Alfa/accouts/signinCliente";
-                   session.removeAttribute("utenteSession");
+                   UtenteSession utenteSession = (UtenteSession) session.getAttribute("accountSession");
+                   String redirect = utenteSession.isAdmin() ? "crm/secret" : "./utente/signinCliente";
+                   session.removeAttribute("accountSession");
                    session.invalidate();
-                   response.sendRedirect(redirect);
+                   request.getRequestDispatcher(view(redirect)).forward(request, response);
                    break;
                default:
                    UserError();
+                   break;
            }
        }catch (SQLException ex){
                log(ex.getMessage());
@@ -133,10 +135,22 @@ public class UtenteServlet extends Controller {
                 tmpUtente.setEmail(request.getParameter("email"));
                 tmpUtente.setPassword(request.getParameter("password"));
                 Utente optUtente = ud.loginUtente(tmpUtente.getEmail(), /*tmpUtente.getPassword()*/ request.getParameter("password"),true );
+                MerceDAO merceDAO = new MerceDAO();
+                OrdineDAO ordineDAO = new OrdineDAO();
+                System.out.println("ok");
+                int merce = merceDAO.countAll();
+                System.out.println("ok");
+                int ordini = ordineDAO.countAll();
+                System.out.println("ok");
+                int utenti = ud.countAll();
+                System.out.println("ok");
                 if(optUtente.getEmail().equals(tmpUtente.getEmail())){
                     UtenteSession accountSession = new UtenteSession(optUtente);
                     request.getSession(true).setAttribute("accountSession", accountSession);
                     //response.sendRedirect("/crm/dashboard");
+                    request.setAttribute("merce",merce);
+                    request.setAttribute("ordini",ordini);
+                    request.setAttribute("utenti",utenti);
                     request.getRequestDispatcher(view("crm/home")).forward(request, response);
                 }else{
                    throw new InvalidRequestException("Credenziali non valide",List.of("Credenziali non valide"),HttpServletResponse.SC_BAD_REQUEST);

@@ -24,6 +24,7 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @WebServlet(name = "MerceServlet", value = "/merce/*")
 @MultipartConfig
@@ -148,14 +149,20 @@ public class MerceServlet extends Controller {
                         authorize(request.getSession(false));
                         MerceDAO md = new MerceDAO();
                         Merce m = new Merce();
-                        m.setCodice(request.getParameter("Codice"));
+                        m.setCodice((request.getParameter("Codice")));
                         m.setNome(request.getParameter("Nome"));
                         m.setDescrizione(request.getParameter("Descrizione"));
                         m.setGenere(request.getParameter("Genere"));
                         m.setPrezzo(Double.parseDouble(request.getParameter("Prezzo")));
                         m.setTipocategoria(request.getParameter("TipoCategoria"));
                         m.setSconto(Double.parseDouble(request.getParameter("Sconto")));
-                        Taglia t = new Taglia();
+                        System.out.println("0");
+                        List<Merce> lista=new ArrayList<>();
+                        MerceDAO mdo=new MerceDAO();
+                        Paginatore pg=new Paginatore(1, 50);
+                        lista=mdo.fetchProductsWithRelations(pg);
+                        request.setAttribute("merce", lista);
+                        /*Taglia t = new Taglia();
                         t.setlTaglia(request.getParameter("LTaglia"));
                         TagliaDAO td = new TagliaDAO();
                         Colore c = new Colore();
@@ -168,15 +175,19 @@ public class MerceServlet extends Controller {
                         fornitura.setQuantita(q);
                         fornitura.setlTaglia(t.getlTaglia());
                         fornitura.setCodColore(c.getCod());
-                        fornitura.setCodMerce(m.getCodice());
-                        Part fp = request.getPart("upImg");
-                        String fname = Paths.get(fp.getSubmittedFileName()).getFileName().toString();
-                        m.setUpImg(fname);
-                        if (md.updateMerce(m.getCodice(), m) && fd.updateFornitura(m.getCodice(), fornitura)) {
-                            request.getRequestDispatcher("/index.jsp").forward(request, response);
-                            String uploadRoot = getUploadPath();
-                            m.writeCover(uploadRoot, fp);
+                        fornitura.setCodMerce(m.getCodice());*/
+                        //Part fp = request.getPart("upImg");
+                        //String fname = Paths.get(fp.getSubmittedFileName()).getFileName().toString();
+                        //m.setUpImg(fname);
+                        if (md.updateMerce(m.getCodice(), m) ){//&& fd.updateFornitura(m.getCodice(), fornitura)) {
+                            System.out.println("1");
+                            request.setAttribute("codice",m.getCodice());
+                            System.out.println("2");
+                            request.getRequestDispatcher(view("crm/merce")).forward(request, response);
+                           // String uploadRoot = getUploadPath();
+                            //m.writeCover(uploadRoot, fp);
                         } else {
+                            System.out.println("3");
                             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Errore Server");
                         }
                         break;

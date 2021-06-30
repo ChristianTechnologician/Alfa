@@ -15,4 +15,5 @@ public interface OrdineInterface {
     Ordine DoRetriveByNumeroFattura (int numero_fattura) throws SQLException;
     void insertOrdine(Ordine ordine) throws SQLException;
     void deleteOrdine(int numeroFattura) throws SQLException;
+    int countAll() throws SQLException;
 }

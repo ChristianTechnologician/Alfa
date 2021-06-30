@@ -17,7 +17,7 @@ L'eliminazione è stata effettuata
 <%}else{%>
 L'eliminazione non è stata effettuata
 <%}%>
-<a href="${pageContext.request.contextPath}/crm/dashboard">Ritorna alla home</a>
+<a href="${pageContext.request.contextPath}/crm/home">Ritorna alla home</a>
 <a href="${pageContext.request.contextPath}/merce/deleteMerce">Ritorna alla delete</a>
 </body>
 </html>

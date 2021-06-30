@@ -44,7 +44,9 @@
     </tr>
     </thead>
     <tbody>
-    <%
+    <%if(forniture==null){%>
+    <tr> Non ci sono forniture per la merce seguente</tr>
+    <%}else{
         for(Fornitura fornitura : forniture){
     %>
     <tr>
@@ -62,5 +64,9 @@
         <td data-head="Quantità"><%=fornitura.getQuantita()%></td>
     </tr>
     <%}%>
+    <%}%>
     </tbody>
 </table>
+
+<form action="${pageContext.request.contextPath}/merce/updateMerce" method="get"><button>Modifica</button></form>
+<form action="${pageContext.request.contextPath}/merce/deleteMerce" method="post"><button>Elimina<input type ="hidden" name="IdMerce" value="<%=list.getCodice()%>"></button></form>

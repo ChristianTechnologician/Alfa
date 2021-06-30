@@ -12,7 +12,7 @@
 <body>
 <%@include file="/WEB-INF/views/partials/HeaderCrm.jsp"%>
 
-Inserisci il codice del prodotto che vuoi modificare
+<!--Inserisci il codice del prodotto che vuoi modificare
 
 <form action="" method="post">
     <label id="#updatecodice">
@@ -20,46 +20,35 @@ Inserisci il codice del prodotto che vuoi modificare
     </label>
 </form>
 
-<%Merce m = (Merce) session.getAttribute("merce"); %>
+<%//Merce m = (Merce) session.getAttribute("merce"); %>-->
 
 <section class="field">
-    <form action="" method="post">
+    <form action="${pageContext.request.contextPath}/merce/update" method="post">
+        <label id="#codice">
+            Inserisci il codice del prodotto che vuoi modificare
+            <input type="text" name="Codice" placeholder="Codice">
+        </label>
         <label id="#nome">
-            <input type="text" name="NomeMerce" placeholder="Nome">
+            <input type="text" name="Nome" placeholder="Nome">
         </label>
         <label id="#descrizione">
-            <input type="text" name="DescrizioneMerce" placeholder="Descrizione">
+            <input type="text" name="Descrizione" placeholder="Descrizione">
         </label>
         <label id="#genere">
-            <input type="text" name="GenereMerce" placeholder="Genere">
+            <input type="text" name="Genere" placeholder="Genere">
         </label>
         <label id="#prezzo">
-            <input type="number" name="PrezzoMerce" placeholder="Prezzo">
+            <input type="text" name="Prezzo" placeholder="Prezzo">
         </label>
         <label id="#tipoCategoria">
             <input type="text" name="TipoCategoria" placeholder="Categoria(Completo,Cappotto)">
         </label>
         <label id="#sconto">
-            <input type="number" name="Sconto" placeholder="%sconto">
+            <input type="text" name="Sconto" placeholder="%sconto">
         </label>
-        <label id="#colore">
-            <input type="text" name="Colore" placeholder="Colore">
-        </label>
-        <label id="#taglia">
-            <input type="text" name="Taglia" placeholder="Taglia">
-        </label>
-        <label id="#quantita">
-            <input type="number" name="Quantita" placeholder="Quantità">
-        </label>
+        <button>Applica modifica</button>
     </form>
 </section>
-
-<%//boolean operazione = (boolean) session.getAttribute("inserimento"); %>
-<% //if(operazione){ %>
-Inserimento riuscito
-<% //}else{%>
-Inserimento fallito
-<%//}%>
 <%@include file="/WEB-INF/views/partials/FooterCrm.jsp"%>
 </body>
 </html>

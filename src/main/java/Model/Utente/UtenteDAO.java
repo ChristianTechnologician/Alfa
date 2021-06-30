@@ -57,17 +57,17 @@ public class UtenteDAO implements UtenteInterface
 
 
     @Override
-    public List<Utente> fetchUtente(String email) throws SQLException {
+    public Utente fetchUtente(String email) throws SQLException {
         try(Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("SELECT * FROM utente WHERE Email = ?")) {
                 ps.setString(1, email);
                 ResultSet rs = ps.executeQuery();
-                ArrayList<Utente> utenti = new ArrayList<>();
+                Utente utente= new Utente();
                 UtenteExtraction utenteExtraction = new UtenteExtraction();
-                while(rs.next()){
-                    utenti.add(utenteExtraction.mapping(rs));
+                if(rs.next()){
+                    utente = utenteExtraction.mapping(rs);
                 }
-                return utenti;
+                return utente;
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }

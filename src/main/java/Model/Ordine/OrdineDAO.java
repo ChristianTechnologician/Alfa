@@ -124,4 +124,18 @@ public class OrdineDAO implements OrdineInterface{
             }
         }
     }
+
+    public int countAll() throws SQLException{
+        try(Connection con = ConPool.getConnection()){
+            try(PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM ordine")){
+                ResultSet rs = ps.executeQuery();
+                int size = 0;
+                if(rs.next()){
+                    size = rs.getInt(1);
+                }
+                return  size;
+            }
+        }
+    }
+
 }

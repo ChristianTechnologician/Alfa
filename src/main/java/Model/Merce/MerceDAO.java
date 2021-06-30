@@ -93,8 +93,7 @@ public class MerceDAO implements MerceInterface{
     @Override
     public Boolean updateMerce(String Codice, Merce merce) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("UPDATE merce VALUES (?,?,?,?,?,?,?) WHERE Codice = ?")) {
-                ps.setString(8, Codice);
+            try (PreparedStatement ps = con.prepareStatement("UPDATE merce SET Codice=?, Nome=?, Descrizione=?, Genere=?, Prezzo=?, TipoCategoria=?, Sconto=? WHERE Codice=?")) {
                 ps.setString(1, merce.getCodice());
                 ps.setString(2, merce.getNome());
                 ps.setString(3, merce.getDescrizione());
@@ -102,7 +101,7 @@ public class MerceDAO implements MerceInterface{
                 ps.setDouble(5, merce.getPrezzo());
                 ps.setString(6, merce.getTipocategoria());
                 ps.setDouble(7, merce.getSconto());
-                ResultSet rs;
+                ps.setString(8, Codice);
                 int rows = ps.executeUpdate();
                 return rows == 1;
             } catch (SQLException e) {
@@ -110,7 +109,7 @@ public class MerceDAO implements MerceInterface{
             }
         }
     }
-
+    //UPDATE merce SET(?,?,?,?,?,?,?) WHERE Codice = ?
     @Override
     public Boolean deleteMerce(String Codice) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -127,11 +126,11 @@ public class MerceDAO implements MerceInterface{
 
     public int countAll() throws SQLException{
         try(Connection con = ConPool.getConnection()){
-            try(PreparedStatement ps = con.prepareStatement("SELECT COUNT * FROM merce")){
+            try(PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM merce")){
                 ResultSet rs = ps.executeQuery();
                 int size = 0;
                 if(rs.next()){
-                    size = rs.getInt("totalProducts");
+                    size = rs.getInt(1);
                 }
                 return  size;
             }

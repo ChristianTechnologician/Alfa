@@ -5,7 +5,7 @@
 <title>Header</title>
 </head>
 <body>
-<header class="grid-x justify-center">
+<header id="logo" class="grid-x justify-center">
     <img src="${pageContext.request.contextPath}/Images/LOGO.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
 </header>
 <ul>
@@ -45,7 +45,7 @@
 
     <div class=" dropdown grid-x align-center">
         <li>
-            <a href="">Esci</a>
+            <a href="${pageContext.request.contextPath}/utente/logout">Logout</a>
         </li>
     </div>
 </ul>

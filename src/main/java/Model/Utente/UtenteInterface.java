@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface UtenteInterface {
     List<Utente> fetchUtenti(Paginatore paginatore) throws SQLException;
     List<Utente> fetchAdmin() throws SQLException;
-    List<Utente> fetchUtente(String email) throws SQLException;
+    Utente fetchUtente(String email) throws SQLException;
     Boolean createUtente(Utente utente) throws SQLException;
     Boolean updateUtente(Utente utente) throws SQLException;
     Boolean deleteUtente(String email) throws SQLException;
