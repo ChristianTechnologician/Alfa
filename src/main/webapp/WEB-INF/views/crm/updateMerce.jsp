@@ -1,4 +1,5 @@
 <%@ page import="Model.Merce.Merce" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -18,16 +19,20 @@
     <label id="#updatecodice">
         <input type="text" name="IdMerce" placeholder="ID">
     </label>
-</form>
+</form>-->
 
-<%//Merce m = (Merce) session.getAttribute("merce"); %>-->
-
+<%String s =(String)request.getAttribute("IdMerce");%>
 <section class="field">
     <form action="${pageContext.request.contextPath}/merce/update" method="post">
+        <%if(s==null){%>
         <label id="#codice">
             Inserisci il codice del prodotto che vuoi modificare
             <input type="text" name="Codice" placeholder="Codice">
+        </label><%}else{%>
+        <label id="#codice">
+            <input type="hidden" name="Codice" value="<%=s%>">
         </label>
+        <%}%>
         <label id="#nome">
             <input type="text" name="Nome" placeholder="Nome">
         </label>

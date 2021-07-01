@@ -27,6 +27,25 @@ public class ColoreDAO implements ColoreInterface {
     }
 
     @Override
+    public Colore doRetrieveByType(String Type) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM colore WHERE Cod = '" + Type + "'")) {
+                ResultSet rs;
+                rs = ps.executeQuery();
+                Colore c = new Colore();
+                if (rs.next()) {
+                    ColoreExtraction ce = new ColoreExtraction();
+                    c = ce.mapping(rs);
+                    return c;
+                }
+                return null;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
     public List<Colore> doRetrieveByMerce(String codice) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
@@ -108,14 +127,12 @@ public class ColoreDAO implements ColoreInterface {
         }
     }
 
-     public void  insertColor(int codice, String colore) throws SQLException{
+     public void  insertColor(String colore) throws SQLException{
          try (Connection con = ConPool.getConnection()) {
-             try(PreparedStatement ps = con.prepareStatement("INSERT INTO colore VALUES (?,?)")){
-                 ps.setInt(1, codice);
-                 ps.setString(2, colore);
+             try(PreparedStatement ps = con.prepareStatement("insert  into colore (TipoColore) values (?)")){
+                 ps.setString(1, colore);
                  ResultSet rs;
                  ps.executeUpdate();
-
              } catch (SQLException e) {
                  throw new RuntimeException(e);
              }

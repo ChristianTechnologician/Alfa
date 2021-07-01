@@ -12,7 +12,7 @@ public interface FornituraInterface {
     List<Fornitura> doRetrieveBySize(String lTaglia) throws SQLException;
     List<Fornitura> doRetrieveByAmount(int quantita) throws SQLException;
     List<Integer> RetriveQuantity() throws SQLException;
-    Boolean insertFornitura(Fornitura fornitura) throws SQLException;
+    void insertFornitura(Fornitura fornitura) throws SQLException;
     Boolean updateFornitura(String Codice, Fornitura fornitura) throws  SQLException;
     Boolean deleteFornitura(String Codice) throws SQLException;
 }

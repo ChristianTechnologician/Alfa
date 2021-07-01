@@ -114,16 +114,14 @@ public class FornituraDAO implements  FornituraInterface{
     }
 
     @Override
-    public Boolean insertFornitura(Fornitura fornitura) throws SQLException {
+    public void insertFornitura(Fornitura fornitura) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("INSERT INTO fornitura VALUES (?,?,?,?)")) {
+            try (PreparedStatement ps = con.prepareStatement("INSERT INTO fornitura SET CodiceMerce=?, CodColore=?, LTaglia=?, Quantità=?")) {
                 ps.setString(1,fornitura.getCodMerce());
                 ps.setInt(2, fornitura.getCodColore());
                 ps.setString(3, fornitura.getlTaglia());
                 ps.setInt(4, fornitura.getQuantita());
-                ResultSet rs;
-                int rows = ps.executeUpdate();
-                return rows == 1;
+                ps.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

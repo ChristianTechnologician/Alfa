@@ -65,6 +65,12 @@ public class MerceServlet extends Controller {
                     break;
                 case "/updateMerce":
                     authorize(request.getSession(false));
+                    String s;
+                    if(request.getParameter("IdMerce")!=null)
+                    {
+                        s=request.getParameter("IdMerce");
+                        request.setAttribute("IdMerce", s);
+                    }
                     request.getRequestDispatcher(view("crm/updateMerce")).forward(request, response);
                     break;
                 case "/deleteMerce":
@@ -112,7 +118,8 @@ public class MerceServlet extends Controller {
                         merce.setTipocategoria(request.getParameter("TipoCategoria"));
                         merce.setSconto(Double.parseDouble(request.getParameter("Sconto")));
                         System.out.println(merce.getCodice());
-                        Taglia taglia = new Taglia();
+                        String s=merce.getCodice();
+                        /*Taglia taglia = new Taglia();
                         taglia.setlTaglia(request.getParameter("Taglia"));
                         TagliaDAO tagliaDAO = new TagliaDAO();
                         System.out.println(taglia.getlTaglia());
@@ -136,10 +143,11 @@ public class MerceServlet extends Controller {
                         }
                         if (!tagliaDAO.checkTaglia(taglia.getlTaglia())) {
                             tagliaDAO.insertTaglia(taglia.getlTaglia());
-                        }
-                        if (merceDao.insertMerce(merce) && fornituraDAO.insertFornitura(f)) {
-                            request.getRequestDispatcher("crm/resultInsert").forward(request, response);
-                            String uploadRoot = getUploadPath();
+                        }*/
+                        if (merceDao.insertMerce(merce)) {
+                            request.setAttribute("Codice", s);
+                            request.getRequestDispatcher(view("crm/resultInsert")).forward(request, response);
+                            //String uploadRoot = getUploadPath();
                             //merce.writeCover(uploadRoot, filePart);
                         } else {
                             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Errore Server");
@@ -180,14 +188,16 @@ public class MerceServlet extends Controller {
                         //String fname = Paths.get(fp.getSubmittedFileName()).getFileName().toString();
                         //m.setUpImg(fname);
                         if (md.updateMerce(m.getCodice(), m) ){//&& fd.updateFornitura(m.getCodice(), fornitura)) {
-                            System.out.println("1");
-                            request.setAttribute("codice",m.getCodice());
-                            System.out.println("2");
-                            request.getRequestDispatcher(view("crm/merce")).forward(request, response);
+                            //request.setAttribute("codice",m.getCodice());
+                            List<Merce> listas=new ArrayList<>();
+                            MerceDAO mdoo=new MerceDAO();
+                            Paginatore pgg=new Paginatore(1, 50);
+                            listas=mdoo.fetchProductsWithRelations(pgg);
+                            request.setAttribute("merce", listas);
+                            request.getRequestDispatcher(view("crm/merce")).forward(request,response);
                            // String uploadRoot = getUploadPath();
                             //m.writeCover(uploadRoot, fp);
                         } else {
-                            System.out.println("3");
                             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Errore Server");
                         }
                         break;

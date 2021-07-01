@@ -81,7 +81,6 @@ public class MerceDAO implements MerceInterface{
                 ps.setDouble(5, merce.getPrezzo());
                 ps.setString(6, merce.getTipocategoria());
                 ps.setDouble(7, merce.getSconto());
-                ResultSet rs;
                 int rows = ps.executeUpdate();
                 return rows == 1;
             } catch (SQLException e) {

@@ -137,13 +137,9 @@ public class UtenteServlet extends Controller {
                 Utente optUtente = ud.loginUtente(tmpUtente.getEmail(), /*tmpUtente.getPassword()*/ request.getParameter("password"),true );
                 MerceDAO merceDAO = new MerceDAO();
                 OrdineDAO ordineDAO = new OrdineDAO();
-                System.out.println("ok");
                 int merce = merceDAO.countAll();
-                System.out.println("ok");
                 int ordini = ordineDAO.countAll();
-                System.out.println("ok");
                 int utenti = ud.countAll();
-                System.out.println("ok");
                 if(optUtente.getEmail().equals(tmpUtente.getEmail())){
                     UtenteSession accountSession = new UtenteSession(optUtente);
                     request.getSession(true).setAttribute("accountSession", accountSession);
@@ -173,20 +169,16 @@ public class UtenteServlet extends Controller {
             case "/update": //update customer info(admin)
                 authorize(request.getSession(false));
                // request.setAttribute("back",view("crm/account"));
-                    System.out.println("a");
               //  validate(UtenteValidator.validateForm(request, true));
-                System.out.println("b");
                 UtenteSession us = (UtenteSession) request.getSession().getAttribute("accountSession");
                 System.out.println(us.getId());
                 Utente updateUtente = new UtenteFormMapper().map(request, true, us.getId());
                 UtenteDAO utenteDAO = new UtenteDAO();
                 if(utenteDAO.updateUtente(updateUtente)){
-                    System.out.println("d");
                     request.setAttribute("account", updateUtente);
                     request.setAttribute("alert", new Alert (List.of("Account aggiornato"),"success"));
                     request.getRequestDispatcher(view("crm/secret")).forward(request,response);
                 } else{
-                    System.out.println("e");
                     internalError();
                 }
                 break;

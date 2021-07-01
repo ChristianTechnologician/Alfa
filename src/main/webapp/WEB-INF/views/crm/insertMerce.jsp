@@ -33,15 +33,6 @@
         <label for="Sconto">
             <input type="text" name="Sconto" id="Sconto" placeholder="%sconto">
         </label>
-        <label for="Colore">
-            <input type="text" name="Colore" id="Colore" placeholder="Colore">
-        </label>
-        <label for="Taglia">
-            <input type="text" name="Taglia" id="Taglia" placeholder="Taglia">
-        </label>
-        <label for="Quantita">
-            <input type="text" name="Quantita" id="Quantita" placeholder="Quantita">
-        </label>
         <!--<label for="upImg">
             <input type="file" name="upImg" id="upImg">
         </label>-->

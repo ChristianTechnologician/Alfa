@@ -10,6 +10,7 @@ public interface ColoreInterface
     List<Colore> doRetrieveByTaglia(String lTaglia) throws SQLException;
     List<Colore> doRetrieveByMerce_Taglia(String merce, String taglia) throws SQLException;
     List<Colore> doRetrieveAll() throws SQLException;
-    void insertColor(int codice, String colore) throws SQLException;
+    void insertColor(String colore) throws SQLException;
+    Colore doRetrieveByType(String Type) throws SQLException;
     void deleteColor(int codice) throws SQLException;
 }

@@ -1,8 +1,9 @@
 
 <%@ page import="Model.Ordine.Ordine" %>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%Ordine ordine = (Ordine)request.getAttribute("ordine");%>
+<%List<Ordine> ordini = (List<Ordine>)request.getAttribute("ordine");%>
 
 <table>
 <caption>Ordine</caption>
@@ -20,11 +21,16 @@
 </tr>
 </thead>
 <tbody>
-<%if(ordine == null){%>
+<%if(ordini == null){%>
 <tr>
-    <td>Ordine non presente</td>
+    <td>Ordini non presenti</td>
 </tr>
 <%}else{%>
+
+<%
+    for(Ordine ordine : ordini){
+%>
+
     <tr>
         <td data-head="Numero fattura"><%=ordine.getNumeroFattura()%></td>
         <td data-head="Via"><%=ordine.getVia()%></td>
@@ -36,6 +42,7 @@
         <td data-head="Stato"><%=ordine.getStato()%></td>
         <td data-head="Id utente"><%=ordine.getIdUtente()%></td>
     </tr>
+<%}%>
 <%}%>
     </tbody>
 </table>

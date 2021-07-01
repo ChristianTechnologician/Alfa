@@ -161,7 +161,6 @@ public class UtenteDAO implements UtenteInterface
                 if(rs.next()){
                     size = rs.getInt(1);
                 }
-                System.out.println(size);
                 return  size;
             }
         }
