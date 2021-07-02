@@ -29,9 +29,8 @@ public class ColoreDAO implements ColoreInterface {
     @Override
     public Colore doRetrieveByType(String Type) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM colore WHERE Cod = '" + Type + "'")) {
-                ResultSet rs;
-                rs = ps.executeQuery();
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM colore WHERE TipoColore = '" + Type + "'")) {
+                ResultSet rs = ps.executeQuery();
                 Colore c = new Colore();
                 if (rs.next()) {
                     ColoreExtraction ce = new ColoreExtraction();
@@ -129,9 +128,8 @@ public class ColoreDAO implements ColoreInterface {
 
      public void  insertColor(String colore) throws SQLException{
          try (Connection con = ConPool.getConnection()) {
-             try(PreparedStatement ps = con.prepareStatement("insert  into colore (TipoColore) values (?)")){
+             try(PreparedStatement ps = con.prepareStatement("INSERT INTO colore (TipoColore) VALUES (?)")){
                  ps.setString(1, colore);
-                 ResultSet rs;
                  ps.executeUpdate();
              } catch (SQLException e) {
                  throw new RuntimeException(e);
@@ -143,9 +141,7 @@ public class ColoreDAO implements ColoreInterface {
          try (Connection con = ConPool.getConnection()) {
              try (PreparedStatement ps = con.prepareStatement("DELETE FROM colore WHERE Cod = ?")) {
                  ps.setInt(1, codice);
-                 ResultSet rs;
                  ps.executeUpdate();
-
              } catch (SQLException e) {
                  throw new RuntimeException(e);
              }

@@ -1,5 +1,4 @@
 package Model.Colore;
-
 import Model.Merce.Merce;
 import Model.Taglia.Taglia;
 
@@ -8,11 +7,10 @@ import java.util.List;
 public class Colore {
     private int cod;
     private String tipoColore;
-    private List<Taglia> tagliaList;
-    private List<Merce> merceList;
+   // private List<Taglia> tagliaList;
+   // private List<Merce> merceList;
 
     public Colore(){
-
     }
 
     public int getCod() {
@@ -31,7 +29,7 @@ public class Colore {
         this.tipoColore = tipoColore;
     }
 
-    public List<Taglia> getTagliaList() {
+    /* public List<Taglia> getTagliaList() {
         return tagliaList;
     }
 
@@ -46,4 +44,6 @@ public class Colore {
     public void setMerceList(List<Merce> merceList) {
         this.merceList = merceList;
     }
+    */
+
 }

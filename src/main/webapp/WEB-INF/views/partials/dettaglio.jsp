@@ -67,6 +67,6 @@
     <%}%>
     </tbody>
 </table>
-
+<form action="${pageContext.request.contextPath}/fornitura/invio" method="get"><button>+<input type ="hidden" name="Codice" value="<%=list.getCodice()%>"></button></form>
 <form action="${pageContext.request.contextPath}/merce/updateMerce" method="get"><button>Modifica<input type ="hidden" name="IdMerce" value="<%=list.getCodice()%>"></button></form>
 <form action="${pageContext.request.contextPath}/merce/deleteMerce" method="post"><button>Elimina<input type ="hidden" name="IdMerce" value="<%=list.getCodice()%>"></button></form>

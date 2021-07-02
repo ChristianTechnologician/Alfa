@@ -13,7 +13,6 @@
 <body>
 <%@include file="/WEB-INF/views/partials/HeaderCrm.jsp"%>
 <div>
-    Merce inserita correttamente
     <%@include file="/WEB-INF/views/partials/insertFornitura.jsp"%>
 </div>
 <%@include file="/WEB-INF/views/partials/FooterCrm.jsp"%>

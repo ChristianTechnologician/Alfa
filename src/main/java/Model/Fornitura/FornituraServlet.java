@@ -7,7 +7,6 @@ import Model.Gestione.InvalidRequestException;
 import Model.Gestione.Paginatore;
 import Model.Merce.Merce;
 import Model.Merce.MerceDAO;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +19,34 @@ import java.util.ArrayList;
 import java.util.List;
 @WebServlet(name = "FornituraServlet", value = "/fornitura/*")
     public class FornituraServlet extends Controller {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            String path = getPath(request);
+            switch (path) {
+                case "/invio":
+                    authorize(request.getSession(false));
+                    String s = request.getParameter("Codice");
+                    request.setAttribute("Codice",s);
+                    request.getRequestDispatcher(view("crm/resultInsert")).forward(request, response);
+                    break;
+                default:
+                    break;
+            }
+        }
+        catch (InvalidRequestException e){
+            log(e.getMessage());
+            e.handle(request,response);
+        }
+    }
+
+
+
+
+
+
+
         @Override
         protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             try {
@@ -39,15 +66,12 @@ import java.util.List;
                         if (coloreDAO.doRetrieveByType(colore.getTipoColore())==null) {
                             coloreDAO.insertColor(colore.getTipoColore());
                         }
-                        System.out.println("0000");
                         colore=coloreDAO.doRetrieveByType(colore.getTipoColore());
                         f.setCodMerce(Codice);
                         f.setlTaglia(Taglia);
                         f.setQuantita(Integer.parseInt(Quantita));
                         f.setCodColore(colore.getCod());
-                        System.out.println("0000");
                         fd.insertFornitura(f);
-                        System.out.println("aaaaa");
                         List<Merce> listas=new ArrayList<>();
                         MerceDAO mdoo=new MerceDAO();
                         Paginatore pgg=new Paginatore(1, 50);
@@ -55,7 +79,6 @@ import java.util.List;
                         request.setAttribute("merce", listas);
                         request.getRequestDispatcher(view("crm/merce")).forward(request, response);
                         break;
-
                     default:
                         break;
                 }

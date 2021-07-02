@@ -117,7 +117,6 @@ public class MerceServlet extends Controller {
                         merce.setPrezzo(Double.parseDouble(request.getParameter("Prezzo")));
                         merce.setTipocategoria(request.getParameter("TipoCategoria"));
                         merce.setSconto(Double.parseDouble(request.getParameter("Sconto")));
-                        System.out.println(merce.getCodice());
                         String s=merce.getCodice();
                         /*Taglia taglia = new Taglia();
                         taglia.setlTaglia(request.getParameter("Taglia"));

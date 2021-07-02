@@ -12,9 +12,7 @@ public Fornitura(){
         return codMerce;
     }
 
-    public void setCodMerce(String codMerce) {
-        this.codMerce = codMerce;
-    }
+    public void setCodMerce(String codMerce) { this.codMerce = codMerce;}
 
     public String getlTaglia() {
         return lTaglia;

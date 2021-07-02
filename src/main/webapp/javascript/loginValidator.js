@@ -75,17 +75,15 @@ function validateForm()
     let password = document.getElementById('password').value;
     let e_pattern = new RegExp("^[a-zA-Z0-9.!#$%&´*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$");
     //Minimo otto e massimo 10 caratteri, almeno una lettera maiuscola, una lettera minuscola, un numero e un carattere speciale:
-    let p_pattern = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$");
-    var emailResult = e_pattern.test(email);
-    var passwordResult = p_pattern.test(password);
-    /*if(!emailResult && !passwordResult)
-    {
-        alert("email:"+emailResult );
-        alert("password:"+passwordResult );
-    }*/if(!emailResult){
-        alert("email:"+emailResult );
-    }else if(!passwordResult){
-        alert("password:"+passwordResult );
-    }
-
+    let p_pattern = new RegExp("^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$");
+    // let p_pattern = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,10}$");
+    let emailResult = e_pattern.test(email);
+    let passwordResult = p_pattern.test(password);
+   if(!emailResult) {
+       alert("email:" + emailResult);
+   }
+   if(!passwordResult){
+       alert("password:"+passwordResult );
+   }
+   return true;
 }

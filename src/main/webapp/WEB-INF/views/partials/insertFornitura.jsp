@@ -4,7 +4,7 @@
     <form action="${pageContext.request.contextPath}/fornitura/inserisci" method="post">
         <input type="hidden" name="Codice" value="<%=s%>">
         <label for="Colore">
-            <input type="text" name="Colore" id="Colore" placeholder="COLORE">
+            <input type="text" name="Colore" id="Colore" placeholder="Colore">
         </label>
         <label>
             <select name="Taglia">
