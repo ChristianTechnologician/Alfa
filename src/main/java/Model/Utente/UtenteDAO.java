@@ -138,9 +138,9 @@ public class UtenteDAO implements UtenteInterface
                 ps.setString(2, password);
                 ps.setBoolean(3, admin);
                 ResultSet rs = ps.executeQuery();
-
                 if(rs.next()){
                     utente = new UtenteExtraction().mapping(rs);
+
                     return utente;
                 }
                 //return Optional.ofNullable(utente);

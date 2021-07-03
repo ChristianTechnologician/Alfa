@@ -110,6 +110,10 @@ public class UtenteServlet extends Controller {
                    session.invalidate();
                    request.getRequestDispatcher(view(redirect)).forward(request, response);
                    break;
+               case "/user":
+                   RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/customer/user.jsp");
+                   dispatcher.forward(request, response);
+                   break;
                default:
                    UserError();
                    break;
@@ -192,22 +196,22 @@ public class UtenteServlet extends Controller {
                     internalError();
                 }
                 break;
-            case "signinCliente":
-                request.setAttribute("back",view("site/signin"));
+            case "/signinCliente":
+                //request.setAttribute("back",view("site/signin"));
                 validate(UtenteValidator.validateSignIn(request));
                 Utente tmpCustomer = new Utente();
                 tmpCustomer.setEmail(request.getParameter("email"));
                 tmpCustomer.setPassword(request.getParameter("password"));
                 UtenteDAO utentedao = new UtenteDAO();
-                /*Optional <Utente> optCustomer = utentedao.loginUtente(tmpCustomer.getEmail(), tmpCustomer.getPassword(),false );
-                if(optCustomer.isPresent()){
-                    UtenteSession customerSession = new UtenteSession(optCustomer.get());
-                            request.getSession(true).setAttribute("accountSession", customerSession);
-                            response.sendRedirect("/site/home");
+                Utente optCustomer = utentedao.loginUtente(tmpCustomer.getEmail(), request.getParameter("password"),false );
+                if(optCustomer.getEmail().equals(tmpCustomer.getEmail())){
+                    UtenteSession customerSession = new UtenteSession(optCustomer);
+                            request.getSession(true).setAttribute("customerSession", customerSession);
+                            request.getRequestDispatcher("/WEB-INF/views/customer/home.jsp").forward(request, response);
                 } else{
                     throw new InvalidRequestException("Credenziali non valide",
                             List.of("Credenziali non valide"), HttpServletResponse.SC_BAD_REQUEST);
-                }*/
+                }
                 break;
             default:
                 UserError();
