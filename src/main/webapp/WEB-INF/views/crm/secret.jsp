@@ -6,12 +6,13 @@
         <jsp:param name="title" value="Login Admin"/>
         <jsp:param name="script" value="crm,loginValidator"/>
     </jsp:include>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 
 
 
-<form action="${pageContext.request.contextPath}/utente/signinAdmin" method="post" onsubmit="validateForm()">
+<form action="${pageContext.request.contextPath}/utente/signinAdmin" method="post" onsubmit="event.preventDefault(); validateForm(this)">
     <fieldset>
         <h2>Login Pannello Admin</h2>
         <span>Email</span>

@@ -69,21 +69,25 @@ function assertEmail(value, msg)
     let pattern = new RegExp("^[a-zA-Z0-9.!#$%&´*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$");
     return assertMatch(value,pattern,msg);
 }*/
-function validateForm()
+function validateForm(form)
 {
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
-    let e_pattern = new RegExp("^[a-zA-Z0-9.!#$%&´*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$");
-    //Minimo otto e massimo 10 caratteri, almeno una lettera maiuscola, una lettera minuscola, un numero e un carattere speciale:
-    let p_pattern = new RegExp("^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$");
-    // let p_pattern = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,10}$");
-    let emailResult = e_pattern.test(email);
-    let passwordResult = p_pattern.test(password);
-   if(!emailResult) {
-       alert("email:" + emailResult);
-   }
-   if(!passwordResult){
-       alert("password:"+passwordResult );
-   }
-   return true;
+    //let email = document.getElementById('email').value;
+    let email = $("#email").val();
+    console.log(email);
+    let password = $("#password").val();;
+    console.log(password)
+    let e_pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    //Minimo otto e massimo 32 caratteri, almeno una lettera maiuscola, una lettera minuscola, un numero e un carattere speciale:
+    let p_pattern = /^((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$&*])).{8,32}$/;
+    if(!password.match(p_pattern)){
+        $("#password").css("background-color", "rgba(255, 0, 0, 0.5)");
+        alert("Dati password errati");
+        return false;
+    }
+    if(!email.match(e_pattern)){
+        $("#email").css("background-color", "rgba(255, 0, 0, 0.5)");
+        alert("Dati email errati");
+        return false;
+    }
+    form.submit();
 }
