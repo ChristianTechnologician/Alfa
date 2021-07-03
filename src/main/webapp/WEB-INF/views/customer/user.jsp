@@ -4,7 +4,7 @@
 <head>
     <jsp:include page="../partials/head.jsp">
         <jsp:param name="title" value="Login Utente"/>
-        <jsp:param name="script" value="loginValidator"/>
+        <jsp:param name="script" value="loginValidator,ajaxRegistrazione"/>
     </jsp:include>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -147,7 +147,8 @@
 </head>
 <body>
 <%@include file="/WEB-INF/views/partials/HeaderCustomer.jsp"%>
-<div>
+<button onclick="ajax()">Registrati</button>
+<div id="ajax">
     <form action="${pageContext.request.contextPath}/utente/signinCliente" method="post" onsubmit="event.preventDefault(); validateForm(this)">
         <fieldset>
             <h2>Login Pannello Customer</h2>

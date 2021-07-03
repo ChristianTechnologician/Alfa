@@ -12,5 +12,13 @@
 </head>
 <body>
 LOGIN
+<select name='frutto'>
+    <option value='A'>Mela</option>
+    <option value='B'>Pera</option>
+    <option value='C'>Banana</option>
+    <option value='D'>Arancia</option>
+    <option value='E'>Uva</option>
+</select>
+
 </body>
 </html>
