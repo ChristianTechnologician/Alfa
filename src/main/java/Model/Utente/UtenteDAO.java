@@ -78,13 +78,12 @@ public class UtenteDAO implements UtenteInterface
     @Override
     public Boolean createUtente(Utente utente) throws SQLException {
         try(Connection connection = ConPool.getConnection()){
-            try(PreparedStatement ps = connection.prepareStatement("INSERT INTO utente(ID,Nome,Cognome,Email,PW,IsAdministration) VALUES (?,?,?,?,?,?);")){
-                ps.setInt(1,utente.getId());
-                ps.setString(2,utente.getNome());
-                ps.setString(3,utente.getCognome());
-                ps.setString(4,utente.getEmail());
-                ps.setString(5,utente.getPassword());
-                ps.setBoolean(6,utente.getIsAdministration());
+            try(PreparedStatement ps = connection.prepareStatement("INSERT INTO utente(Nome,Cognome,Email,PW,IsAdministration) VALUES (?,?,?,?,?);")){
+                ps.setString(1,utente.getNome());
+                ps.setString(2,utente.getCognome());
+                ps.setString(3,utente.getEmail());
+                ps.setString(4,utente.getPassword());
+                ps.setBoolean(5,utente.getIsAdministration());
                 int rows = ps.executeUpdate();
                 return rows == 1;
             }

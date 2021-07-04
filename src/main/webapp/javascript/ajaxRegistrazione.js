@@ -1,10 +1,20 @@
 function ajax(){
-    const xhttp = new XMLHttpRequest();
-    xhttp.onload = function(){
-       if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("ajax").innerHTML = this.responseText;
-       }
-    }
-    xhttp.open("GET","localhost/webapp/prova.txt",true);
-    xhttp.send();
+    $.ajax({
+        // definisco il tipo della chiamata
+        type: "GET",
+        // specifico la URL della risorsa da contattare
+        url: "http://localhost:8080/Alfa_war_exploded/registrazione.html",
+        // passo dei dati alla risorsa remota
+        //data: "nome=giovanni&cognome=belelli",
+        // definisco il formato della risposta
+        dataType: "html",
+        // imposto un'azione per il caso di successo
+        success: function (risposta) {
+            $("#ajax").html(risposta);
+        },
+        // ed una per il caso di fallimento
+        error: function () {
+            alert("Chiamata fallita!!!");
+        }
+    });
 }

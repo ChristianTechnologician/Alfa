@@ -157,15 +157,20 @@ public class UtenteServlet extends Controller {
                 }
                 break;
             case "/create": //create new customer
-                authorize(request.getSession(false));
+                //authorize(request.getSession(false));
+                System.out.println("Fabio è epico");
                 UtenteDAO udao = new UtenteDAO();
-                request.setAttribute("back", view("crm/account"));
+                //request.setAttribute("back", view("crm/account"));
                 validate(UtenteValidator.validateForm(request, false));
-                Utente utente = new UtenteFormMapper().map(request , false, 4);
+                //Utente utente = new UtenteFormMapper().map(request , false);
+                Utente utente = new Utente();
+                utente.setNome(request.getParameter("nome"));
+                utente.setNome(request.getParameter("cognome"));
+                utente.setNome(request.getParameter("email"));
                 utente.setPassword(request.getParameter("password"));
                 if (udao.createUtente(utente)){
                     request.setAttribute("alert", new Alert(List.of("Account creato!"),"success"));
-                    request.getRequestDispatcher(view("crm/account")).forward(request,response);
+                    request.getRequestDispatcher("/WEB-INF/views/customer/user.jsp").forward(request,response);
                 } else{
                     internalError();
                 }
@@ -186,16 +191,16 @@ public class UtenteServlet extends Controller {
                     internalError();
                 }
                 break;
-            case "/signupCliente": //registrazione cliente
+            /*case "/signupCliente": //registrazione cliente
                 validate(UtenteValidator.validateForm(request, false));
-                Utente customer = new UtenteFormMapper().map(request , false, 3);
+                Utente customer = new UtenteFormMapper().map(request , false);
                 UtenteDAO utdao = new UtenteDAO();
                 if(utdao.createUtente(customer)){
                     response.sendRedirect("./accounts/signin");
                 } else{
                     internalError();
                 }
-                break;
+                break;*/
             case "/signinCliente":
                 //request.setAttribute("back",view("site/signin"));
                 validate(UtenteValidator.validateSignIn(request));
