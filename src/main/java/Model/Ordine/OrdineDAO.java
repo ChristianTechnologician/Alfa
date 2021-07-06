@@ -167,6 +167,10 @@ public class OrdineDAO implements OrdineInterface{
                     ordine.add(ordineExtraction.mapping(rs));
                 }
                 connection.close();
+                if(ordine.isEmpty())
+                {
+                    return ordine=null;
+                }
                 return ordine;
             } catch (SQLException e) {
                 throw new RuntimeException(e);

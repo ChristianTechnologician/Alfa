@@ -116,10 +116,10 @@ public class UtenteDAO implements UtenteInterface
     }
 
     @Override
-    public Boolean deleteUtente(String email) throws SQLException {
+    public Boolean deleteUtente(int id) throws SQLException {
         try(Connection con = ConPool.getConnection()) {
-            try(PreparedStatement ps = con.prepareStatement("DELETE FROM utente WHERE Email = ?")){
-                ps.setString(1, email);
+            try(PreparedStatement ps = con.prepareStatement("DELETE FROM utente WHERE ID = ?")){
+                ps.setInt(1, id);
                 int rows = ps.executeUpdate();
                 return rows == 1;
             } catch (SQLException e) {

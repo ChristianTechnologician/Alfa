@@ -238,6 +238,13 @@ public class UtenteServlet extends Controller {
                             List.of("Credenziali non valide"), HttpServletResponse.SC_BAD_REQUEST);
                 }
                 break;
+            case "/elimina":
+                UtenteSession ut= (UtenteSession) request.getSession().getAttribute("accountSession");
+                UtenteDAO utdao= new UtenteDAO();
+                utdao.deleteUtente(ut.getId());
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/customer/user.jsp");
+                dispatcher.forward(request, response);
+                break;
             default:
                 UserError();
         }

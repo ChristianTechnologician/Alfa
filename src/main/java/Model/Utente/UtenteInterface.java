@@ -12,7 +12,7 @@ public interface UtenteInterface {
     Utente fetchUtente(String email) throws SQLException;
     Boolean createUtente(Utente utente) throws SQLException;
     Boolean updateUtente(Utente utente) throws SQLException;
-    Boolean deleteUtente(String email) throws SQLException;
+    Boolean deleteUtente(int id) throws SQLException;
     Utente loginUtente(String email, String password, boolean admin) throws SQLException;
     int countAll() throws SQLException;
     Optional<Utente> fetchUtente(int id) throws SQLException;
