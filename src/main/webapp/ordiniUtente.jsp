@@ -1,6 +1,6 @@
 <%@ page import="Model.Ordine.Ordine" %>
 <%@ page import="java.util.List" %>
-<%List<Ordine> ordini = (List<Ordine>)request.getAttribute("ordine");%>
+
 <table>
     <caption>Lista Ordini</caption>
     <thead>

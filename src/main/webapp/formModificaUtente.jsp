@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%UtenteSession profileU = (UtenteSession) request.getSession().getAttribute("accountSession");%>
 <table>
-    <caption>Admin</caption>
+    <caption>Utente</caption>
     <thead>
     <tr>
         <th>Id</th>

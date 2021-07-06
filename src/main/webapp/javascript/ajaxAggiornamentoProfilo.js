@@ -1,12 +1,12 @@
 //$( "#button" ).click(function() {
-function ordini() {
+/*function ordini() {
     // $.ajax({
     //$("#button").onclick.toggle(
         $.ajax({
             // definisco il tipo della chiamata
             type: "GET",
             // specifico la URL della risorsa da contattare
-            url: "http://localhost:8080/Alfa_war_exploded/ordiniUtente.jsp",
+            url: "http://localhost:8080/Alfa_war/ordiniUtente.jsp",
             // passo dei dati alla risorsa remota
             //data: "nome=giovanni&cognome=belelli",
             // definisco il formato della risposta
@@ -21,14 +21,25 @@ function ordini() {
             }
         })
    // );
+}*/
+
+
+function ordini(){
+    var v = document.getElementById("ordini");
+    if(v.style.display === "block"){
+        v.style.display = "none";
+    }else{
+        v.style.display = "block";
+    }
 }
+
 
 function modifica(){
     $.ajax({
         // definisco il tipo della chiamata
         type: "GET",
         // specifico la URL della risorsa da contattare
-        url: "http://localhost:8080/Alfa_war_exploded/formModificaUtente.jsp",
+        url: "http://localhost:8080/Alfa_war/formModificaUtente.jsp",
         // passo dei dati alla risorsa remota
         //data: "nome=giovanni&cognome=belelli",
         // definisco il formato della risposta
@@ -44,12 +55,12 @@ function modifica(){
     });
 }
 
-function elimina(){
+function elimina() {
     $.ajax({
         // definisco il tipo della chiamata
         type: "GET",
         // specifico la URL della risorsa da contattare
-        url: "http://localhost:8080/Alfa_war_exploded/reg.jsp",
+        url: "http://localhost:8080/Alfa_war/Question.jsp",
         // passo dei dati alla risorsa remota
         //data: "nome=giovanni&cognome=belelli",
         // definisco il formato della risposta
