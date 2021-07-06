@@ -139,7 +139,6 @@ public class UtenteDAO implements UtenteInterface
                 ResultSet rs = ps.executeQuery();
                 if(rs.next()){
                     utente = new UtenteExtraction().mapping(rs);
-
                     return utente;
                 }
                 //return Optional.ofNullable(utente);

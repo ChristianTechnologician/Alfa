@@ -6,6 +6,7 @@
         <jsp:param name="title" value="Login Utente"/>
         <jsp:param name="script" value="loginValidator,ajaxRegistrazione"/>
     </jsp:include>
+</head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style type="text/css">

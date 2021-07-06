@@ -27,7 +27,7 @@
             <input type="text" name="quantita" placeholder="Descrizione">
         </label>
         +
-        <button>Aggiungi forniture<input type="hidden" name="Codice" value="<%=codice%>"> </button>
+        <button>Aggiungi forniture<input type="hidden" name="Codice" value="<%//=codice%>"> </button>
     </form>
 </section>-->
 <form name="su">

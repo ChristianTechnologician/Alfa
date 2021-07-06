@@ -2,8 +2,8 @@
     <fieldset>
         <h2>Registrazione</h2>
         <span>Nome</span>
-        <label for="nome">
-            <input type="text" name="nome" id="nome" placeholder="Nome">
+        <label for="name">
+            <input type="text" name="name" id="name" placeholder="Nome">
         </label>
         <span>Cognome</span>
         <label for="cognome">

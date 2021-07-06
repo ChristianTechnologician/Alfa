@@ -50,7 +50,10 @@ public class Utente{
         return password;
     }
 
-    public void setPassword(String password) throws NoSuchAlgorithmException {
+    public void setPassword(String password)  {
+        this.password = password;
+    }
+   /* public void setPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-512");
         SecureRandom ss = new SecureRandom();
         byte [] salt = new byte[16];
@@ -62,7 +65,7 @@ public class Utente{
             builder.append(String.format("%02x",bit));
         }
         this.password = builder.toString();
-    }
+    }*/
 
     public int getId() {
         return id;

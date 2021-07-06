@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class Ordine {
     private int numeroFattura,civico,stato,idUtente;
-    private String via,citta,provincia;
+    private String via,citta,provincia,CodiceMerceAcquistata;
     private double prezzoTotale;
     private LocalDate date;
     private Carrello carrello;
@@ -103,5 +103,9 @@ public class Ordine {
     public void setUtente(Utente utente) {
         this.utente = utente;
     }
+
+    public String getCodiceMerceAcquistata(){return this.CodiceMerceAcquistata;}
+
+    public void setCodiceMerceAcquistata(String CodiceMerceAcquistata){this.CodiceMerceAcquistata = CodiceMerceAcquistata;}
 
 }

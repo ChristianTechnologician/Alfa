@@ -1,3 +1,4 @@
+<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
 <div class="header">
     <a href="HomePage.html">
         <img src="${pageContext.request.contextPath}/Images/LOGO.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
@@ -23,7 +24,7 @@
     </div>
 
     <div class="dropdown" style="float: right"><form action="./utente/user" method="get">
-        <li><button class="dropbtn">Utente</button></li></form>
+        <li><button class="dropbtn" style="font-size:24px"><i class="fas fa-user-alt"></i></button></li></form>
     </div>
     <li style="float:right"><a href="#Carrello">Carrello</a></li>
     <li style="float:right"><a href="#Preferiti">Preferiti</a></li>

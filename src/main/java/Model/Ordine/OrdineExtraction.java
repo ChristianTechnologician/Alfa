@@ -17,7 +17,8 @@ public class OrdineExtraction
         o.setPrezzoTotale(rs.getDouble(6));
         o.setDate(rs.getObject( 7 , LocalDate.class ));
         o.setStato(rs.getInt(8));
-        o.setIdUtente(rs.getInt(9));
+        o.setCodiceMerceAcquistata(rs.getString(9));
+        o.setIdUtente(rs.getInt(10));
         return o;
     }
 }

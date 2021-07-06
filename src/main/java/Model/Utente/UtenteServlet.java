@@ -2,6 +2,7 @@ package Model.Utente;
 
 import Model.Gestione.*;
 import Model.Merce.MerceDAO;
+import Model.Ordine.Ordine;
 import Model.Ordine.OrdineDAO;
 import com.mysql.cj.Session;
 import javax.servlet.*;
@@ -105,10 +106,10 @@ public class UtenteServlet extends Controller {
                    HttpSession session = request.getSession(false);
                    authenticate(session);
                    UtenteSession utenteSession = (UtenteSession) session.getAttribute("accountSession");
-                   String redirect = utenteSession.isAdmin() ? "crm/secret" : "./utente/signinCliente";
+                   String redirect = utenteSession.isAdmin() ? "/WEB-INF/views/crm/secret.jsp" : "/WEB-INF/views/customer/user.jsp";
                    session.removeAttribute("accountSession");
                    session.invalidate();
-                   request.getRequestDispatcher(view(redirect)).forward(request, response);
+                   request.getRequestDispatcher(redirect).forward(request, response);
                    break;
                case "/user":
                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/customer/user.jsp");
@@ -146,6 +147,7 @@ public class UtenteServlet extends Controller {
                 int utenti = ud.countAll();
                 if(optUtente.getEmail().equals(tmpUtente.getEmail())){
                     UtenteSession accountSession = new UtenteSession(optUtente);
+                    accountSession.setEmail(optUtente.getEmail());
                     request.getSession(true).setAttribute("accountSession", accountSession);
                     //response.sendRedirect("/crm/dashboard");
                     request.setAttribute("merce",merce);
@@ -158,15 +160,14 @@ public class UtenteServlet extends Controller {
                 break;
             case "/create": //create new customer
                 //authorize(request.getSession(false));
-                System.out.println("Fabio è epico");
                 UtenteDAO udao = new UtenteDAO();
                 //request.setAttribute("back", view("crm/account"));
                 validate(UtenteValidator.validateForm(request, false));
                 //Utente utente = new UtenteFormMapper().map(request , false);
                 Utente utente = new Utente();
-                utente.setNome(request.getParameter("nome"));
-                utente.setNome(request.getParameter("cognome"));
-                utente.setNome(request.getParameter("email"));
+                utente.setNome(request.getParameter("name"));
+                utente.setCognome(request.getParameter("cognome"));
+                utente.setEmail(request.getParameter("email"));
                 utente.setPassword(request.getParameter("password"));
                 if (udao.createUtente(utente)){
                     request.setAttribute("alert", new Alert(List.of("Account creato!"),"success"));
@@ -180,13 +181,27 @@ public class UtenteServlet extends Controller {
                // request.setAttribute("back",view("crm/account"));
               //  validate(UtenteValidator.validateForm(request, true));
                 UtenteSession us = (UtenteSession) request.getSession().getAttribute("accountSession");
-                System.out.println(us.getId());
                 Utente updateUtente = new UtenteFormMapper().map(request, true, us.getId());
                 UtenteDAO utenteDAO = new UtenteDAO();
                 if(utenteDAO.updateUtente(updateUtente)){
                     request.setAttribute("account", updateUtente);
                     request.setAttribute("alert", new Alert (List.of("Account aggiornato"),"success"));
                     request.getRequestDispatcher(view("crm/secret")).forward(request,response);
+                } else{
+                    internalError();
+                }
+                break;
+            case "/updateUtente": //update customer
+                //authorize(request.getSession(false));
+                // request.setAttribute("back",view("crm/account"));
+                //validate(UtenteValidator.validateForm(request, true));
+                UtenteSession uts = (UtenteSession) request.getSession().getAttribute("accountSession");
+                Utente updateUt = new UtenteFormMapper().map(request, false, uts.getId());
+                UtenteDAO utDAO = new UtenteDAO();
+                if(utDAO.updateUtente(updateUt)){
+                    request.setAttribute("account", updateUt);
+                    request.setAttribute("alert", new Alert (List.of("Account aggiornato"),"success"));
+                    request.getRequestDispatcher("/WEB-INF/views/customer/user.jsp").forward(request,response);
                 } else{
                     internalError();
                 }
@@ -211,8 +226,13 @@ public class UtenteServlet extends Controller {
                 Utente optCustomer = utentedao.loginUtente(tmpCustomer.getEmail(), request.getParameter("password"),false );
                 if(optCustomer.getEmail().equals(tmpCustomer.getEmail())){
                     UtenteSession customerSession = new UtenteSession(optCustomer);
-                            request.getSession(true).setAttribute("customerSession", customerSession);
-                            request.getRequestDispatcher("/WEB-INF/views/customer/home.jsp").forward(request, response);
+                    customerSession.setEmail(optCustomer.getEmail());
+                            request.getSession(true).setAttribute("accountSession", customerSession);
+                            List<Ordine> ordine = new ArrayList<>();
+                            OrdineDAO oDAO = new OrdineDAO();
+                            ordine = oDAO.DoRetriveByLast(customerSession.getId());
+                            request.setAttribute("ordine",ordine);
+                            request.getRequestDispatcher("/WEB-INF/views/customer/profilo.jsp").forward(request, response);
                 } else{
                     throw new InvalidRequestException("Credenziali non valide",
                             List.of("Credenziali non valide"), HttpServletResponse.SC_BAD_REQUEST);

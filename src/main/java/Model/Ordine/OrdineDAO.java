@@ -155,4 +155,23 @@ public class OrdineDAO implements OrdineInterface{
         }
     }
 
+    @Override
+    public List<Ordine> DoRetriveByLast(int idUtente) throws SQLException {
+        try(Connection connection = ConPool.getConnection()){
+            try(PreparedStatement ps = connection.prepareStatement("SELECT * FROM ordine WHERE IDUtente = ?;")) {
+                ps.setInt(1,idUtente);
+                ResultSet rs = ps.executeQuery();
+                List<Ordine> ordine = new ArrayList<>();
+                OrdineExtraction ordineExtraction = new OrdineExtraction();
+                while(rs.next()){
+                    ordine.add(ordineExtraction.mapping(rs));
+                }
+                connection.close();
+                return ordine;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
 }
