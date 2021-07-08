@@ -49,13 +49,34 @@ public class PreferitiDAO implements PreferitiInterface {
         }
     }
 
-    public void insertPreferiti(int id_utente, int numero) throws SQLException {
+    @Override
+    public List<String> DoRetriveCodiciByUtente(int id_utente) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("UPDATE preferiti SET(?) WHERE IDutente = ?")) {
+            try (PreparedStatement ps =
+                         con.prepareStatement("SELECT preferiti.Mcodice\n" +
+                                 "FROM preferiti,utente\n" +
+                                 "WHERE utente.ID = ? AND preferiti.IDUtente = utente.ID")) {
+                ps.setInt(1, id_utente);
+                ResultSet rs = ps.executeQuery();
+                List<String> codici = new ArrayList<>();
+                while (rs.next()) {
+                    codici.add(rs.getString("Mcodice"));
+                }
+                return codici;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public boolean insertPreferiti(int id_utente, int numero,String codice) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("UPDATE preferiti SET(?,?,?)")) {
                 ps.setInt(1, numero);
                 ps.setInt(2, id_utente);
-                ResultSet rs;
-                ps.executeUpdate();
+                ps.setString(3, codice);
+                int rows = ps.executeUpdate();
+                return rows == 1;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -67,7 +88,6 @@ public class PreferitiDAO implements PreferitiInterface {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("DELETE FROM preferiti WHERE IDutente = ?")) {
                 ps.setInt(1, id_utente);
-                ResultSet rs;
                 ps.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);

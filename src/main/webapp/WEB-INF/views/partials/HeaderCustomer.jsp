@@ -1,12 +1,12 @@
-<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="header">
-    <a href="HomePage.html">
-        <img src="${pageContext.request.contextPath}/Images/LOGO.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
+    <a href="${pageContext.request.contextPath}/utente/homePage">
+        <img src="../Images/LOGO.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
     </a>
 </div>
 
 <ul>
-    <div class="dropdown"> <form action="RedirectServlet" method="get">
+    <div class="dropdown"> <form action="${pageContext.request.contextPath}/RedirectServlet" method="get">
         <li><button class="dropbtn" id="r_uomo" name="redirect_uomo">Uomo</button>
             <div class="dropdown-content">
                 <button class="key" id="redirect_uomo_abiti" name="redirect_uomo_abiti">Abiti</button>
@@ -15,7 +15,7 @@
     </form>
     </div>
 
-    <div class="dropdown"><form action="RedirectServlet" method="get">
+    <div class="dropdown"><form action="${pageContext.request.contextPath}/RedirectServlet" method="get">
         <li><button class="dropbtn" id="r_donna" name="redirect_donna">Donna</button>
             <div class="dropdown-content">
                 <button class="key" id="redirect_donna_abiti" name="redirect_donna_abiti">Abiti</button>
@@ -23,11 +23,15 @@
             </div></li></form>
     </div>
 
-    <div class="dropdown" style="float: right"><form action="./utente/user" method="get">
-        <li><button class="dropbtn" style="font-size:24px"><i class="fas fa-user-alt"></i></button></li></form>
+    <div class="dropdown" style="float: right"><form action="${pageContext.request.contextPath}/utente/user" method="get">
+        <li><button class="dropbtn">Utente</button></li></form>
     </div>
-    <li style="float:right"><a href="#Carrello">Carrello</a></li>
-    <li style="float:right"><a href="#Preferiti">Preferiti</a></li>
+    <div class="dropdown" style="float: right"><form action="${pageContext.request.contextPath}/utente/carrello" method="get">
+        <li><button class="dropbtn">Carrello</button></li></form>
+    </div>
+    <div class="dropdown" style="float: right"><form action="${pageContext.request.contextPath}/utente/preferiti" method="get">
+        <li><button class="dropbtn">Preferiti</button></li></form>
+    </div>
     <li style="float:right">
 
         <form action="research-servlet" method="get">

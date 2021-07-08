@@ -20,7 +20,6 @@
         <section id="widget_1" ><button onclick="ordini()">Ordini effettuati</button></section>
         <section id="widget_2" ><button onclick="modifica()">Modifica</button></section>
         <section id="widget_3" ><button onclick="elimina()">Elimina profilo</button></section>
-        <!--<section><a href="${pageContext.request.contextPath}/Question.jsp"><button>elimina</button></a></section>-->
         <section id="widget_4"><a href="${pageContext.request.contextPath}/utente/logout"> Logout</a></section>
     </aside>
     <section id="central">
@@ -40,7 +39,7 @@
     </section>
 
 <div id="ordini" style="display: none"><%@include file="/ordiniUtente.jsp"%></div>
-
+<div id="elimina" style="display: none"><%@include file="/Question.jsp"%></div>
 
 <%@include file="/WEB-INF/views/partials/FooterCustomer.jsp"%>
 </body>

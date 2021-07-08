@@ -17,6 +17,7 @@
 <link href="${context}/css/library.css" rel="stylesheet">
 <link href="${context}/css/crm.css" rel="stylesheet">
 <link href="${context}/css/dashboard.css" rel="stylesheet">
+<link href="${context}/css/libraryCustomer.css" rel="stylesheet">
 <c:if test="${not empty param.style}">
   <c:forTokens items="${param.styles}" delims="," var="style">
     <link rel="stylesheet" href="${context}/css/${style}.css">

@@ -178,4 +178,16 @@ public class OrdineDAO implements OrdineInterface{
         }
     }
 
+    @Override
+    public void deleteOrdini(int id_utente) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("DELETE FROM preferiti WHERE IDUtente = ?")) {
+                ps.setInt(1, id_utente);
+                ps.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
 }

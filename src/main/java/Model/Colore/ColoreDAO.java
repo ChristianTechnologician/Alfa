@@ -44,6 +44,7 @@ public class ColoreDAO implements ColoreInterface {
         }
     }
 
+
     @Override
     public List<Colore> doRetrieveByMerce(String codice) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -126,6 +127,7 @@ public class ColoreDAO implements ColoreInterface {
         }
     }
 
+    @Override
      public void  insertColor(String colore) throws SQLException{
          try (Connection con = ConPool.getConnection()) {
              try(PreparedStatement ps = con.prepareStatement("INSERT INTO colore (TipoColore) VALUES (?)")){
@@ -137,6 +139,7 @@ public class ColoreDAO implements ColoreInterface {
          }
      }
 
+    @Override
      public void deleteColor(int codice) throws SQLException{
          try (Connection con = ConPool.getConnection()) {
              try (PreparedStatement ps = con.prepareStatement("DELETE FROM colore WHERE Cod = ?")) {

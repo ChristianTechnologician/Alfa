@@ -4,7 +4,7 @@ function ajax(){
         type: "GET",
         // specifico la URL della risorsa da contattare
         //url: "http://localhost:8080/Alfa_war/registrazione.html",
-        url: "http://localhost:8080/Alfa_war/reg.jsp",
+        url: "http://localhost:8080/Alfa_war_exploded/reg.jsp",
         // passo dei dati alla risorsa remota
         //data: "nome=giovanni&cognome=belelli",
         // definisco il formato della risposta
@@ -15,7 +15,8 @@ function ajax(){
         },
         // ed una per il caso di fallimento
         error: function () {
-            alert("Chiamata fallita!!!");
+            alert("Problema del server." +
+                "Riprova più tardi!");
         }
     });
 }

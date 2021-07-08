@@ -9,6 +9,7 @@ import java.util.List;
 public interface PreferitiInterface {
     List<Preferiti> DoRetriveAll () throws SQLException;
     List<Preferiti> DoRetriveByUtente (int id_utente) throws SQLException;
-    void insertPreferiti(int id_utente, int numero) throws SQLException;
+    List<String> DoRetriveCodiciByUtente(int id_utente) throws SQLException;
+    boolean insertPreferiti(int id_utente, int numero,String codice) throws SQLException;
     void deletePreferiti(int id_utente) throws SQLException;
 }

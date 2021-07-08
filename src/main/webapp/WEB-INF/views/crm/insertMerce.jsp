@@ -4,14 +4,14 @@
 <head>
     <jsp:include page="/WEB-INF/views/partials/head.jsp">
         <jsp:param name="title" value="Alfa-DeleteMerce"/>
-        <jsp:param name="style" value="crm"/>
-        <jsp:param name="script" value="crm"/>
+        <jsp:param name="style" value="reset,crm"/>
+        <jsp:param name="script" value="validatorInsert"/>
     </jsp:include>
 </head>
 <body>
 <%@include file="/WEB-INF/views/partials/HeaderCrm.jsp"%>
 <section class="field">
-    <form action="${pageContext.request.contextPath}/merce/create" method="post">
+    <form action="${pageContext.request.contextPath}/merce/create" method="post" onsubmit="event.preventDefault(); validateInsert(this)">
         <label for="Codice">
             <input type="text" name="Codice" id="Codice" placeholder="ID">
         </label>

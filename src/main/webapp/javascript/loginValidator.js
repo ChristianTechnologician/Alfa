@@ -4,7 +4,7 @@ function validateForm(form)
     //let email = document.getElementById('email').value;
     let email = $("#email").val();
     console.log(email);
-    let password = $("#password").val();;
+    let password = $("#password").val();
     console.log(password)
     let e_pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     //Minimo otto e massimo 32 caratteri, almeno una lettera maiuscola, una lettera minuscola, un numero e un carattere speciale:
