@@ -175,14 +175,15 @@ public class UtenteServlet extends Controller {
                    MerceDAO mDAO = new MerceDAO();
                    List<Fornitura> fo = new ArrayList<>();
                    FornituraDAO fornituraDAO = new FornituraDAO();
-                   List<CarrelloSession> carrelloSession = (List<CarrelloSession>) request.getSession(false).getAttribute("carrello");
-                   if(carrelloSession!= null) {
+                   List<Carrello> carrelli = (List<Carrello>) request.getSession(false).getAttribute("carrello");
+                   //CarrelloSession carrelloSession=new CarrelloSession();
+                   if(carrelli!= null) {
                        System.out.println("2");
-                       for (CarrelloSession cs : carrelloSession) {
+                       for (Carrello cs : carrelli) {
                            System.out.println("ok");
-                           me.add(mDAO.doRetrieveByCode(cs.getMcodice()));
+                           me.add(mDAO.doRetrieveByCode(cs.getmCodice()));
                            System.out.println("pt");
-                           fo = fornituraDAO.doRetrieveByUtenteCode(cs.getIDutente(),cs.getMcodice());
+                           fo = fornituraDAO.doRetrieveByUtenteCode(cs.getIdUtente(),cs.getmCodice());
                            System.out.println("fatto");
                        }
                        for (Fornitura f : fo) {
@@ -193,14 +194,31 @@ public class UtenteServlet extends Controller {
                    }else{
                        System.out.println("3");
                         CarrelloGuest cg = (CarrelloGuest) request.getSession(false).getAttribute("carrelloGuest");
-                        List<String> str = cg.getCodiceMerce();
-                       for (String  s :  str) {
-                           me.add(mDAO.doRetrieveByCode(s));
+                       List<String> str;
+                       if(cg.getCodiceMerce().isEmpty())
+                        {
+                            str = null;
+                        }
+                        else {
+                           str = cg.getCodiceMerce();
+
+
+                           for (String s : str) {
+                               me.add(mDAO.doRetrieveByCode(s));
+                           }
+
                        }
-                       fo = cg.getFornituraList();
-                       for (Fornitura f : fo) {
-                           colore.add(coloreDAO.doRetrieveByCode(f.getCodColore()));
-                       }
+                        if(cg.getFornituraList().isEmpty())
+                        {
+                            fo=null;
+                        }
+                        else
+                        {
+                            fo = cg.getFornituraList();
+                            for (Fornitura f : fo) {
+                                colore.add(coloreDAO.doRetrieveByCode(f.getCodColore()));
+                            }
+                        }
                    }
                    if(me.isEmpty()){
                        me = null;

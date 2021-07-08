@@ -12,7 +12,6 @@ public class CarrelloExtraction
         c.setIdUtente(rs.getInt(2));
         c.setmCodice(rs.getString(3));
         c.setQuantita(rs.getInt(4));
-        c.setNumeroFattura(rs.getInt(5));
         return c;
     }
 }
