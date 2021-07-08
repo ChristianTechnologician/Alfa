@@ -14,7 +14,7 @@
     </tr>
     </thead>
     <tbody>
-    <%if(utenti == null){%>
+    <%if(utenti ==   null){%>
     <tr>
         <td>Non ci sono utenti registrati</td>
     </tr>

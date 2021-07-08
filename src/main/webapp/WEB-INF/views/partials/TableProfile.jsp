@@ -14,7 +14,7 @@
 <tbody>
 <%if(profileU == null){%>
 <tr>
-    <td>Non ci sono utenti corrispondenti</td>
+    <td>Non ci  sono utenti corrispondenti</td>
 </tr>
 <%}else{
 %>

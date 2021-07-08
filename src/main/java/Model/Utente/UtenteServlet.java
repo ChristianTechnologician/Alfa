@@ -180,7 +180,7 @@ public class UtenteServlet extends Controller {
                    if(carrelli!= null) {
                        System.out.println("2");
                        for (Carrello cs : carrelli) {
-                           System.out.println("ok");
+                              System.out.println("ok");
                            me.add(mDAO.doRetrieveByCode(cs.getmCodice()));
                            System.out.println("pt");
                            fo = fornituraDAO.doRetrieveByUtenteCode(cs.getIdUtente(),cs.getmCodice());

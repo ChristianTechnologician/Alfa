@@ -51,7 +51,7 @@ public class MerceDAO implements MerceInterface{
     }
 
     @Override
-    public Merce doRetrieveByCode(String codice) throws SQLException {
+    public Merce doRetrieveByCode(String codice)    throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
                          con.prepareStatement("SELECT * FROM merce WHERE Codice=?")){

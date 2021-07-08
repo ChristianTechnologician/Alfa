@@ -50,7 +50,7 @@ public class PreferitiDAO implements PreferitiInterface {
     }
 
     @Override
-    public List<String> DoRetriveCodiciByUtente(int id_utente) throws SQLException {
+    public List<String> DoRetriveCodiciByUtente(int id_utente)  throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
                          con.prepareStatement("SELECT preferiti.Mcodice\n" +
