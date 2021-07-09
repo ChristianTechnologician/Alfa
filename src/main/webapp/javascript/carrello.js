@@ -5,9 +5,11 @@ function rimuovi(){
         codiceM: array[0],id: array[1]  ,fcodice: array[2]
     };
 
+    alert(x);
+
     $.ajax({
         type: "get",
-        url: "http://localhost:8080/Alfa_war_exploded/carrello/rimuovi",
+        url: "http://localhost:8080/Alfa_war/carrello/rimuovi",
         contentType: "JSON", // NOT dataType!
         data:{ rimozione: JSON.stringify(rimozione)},
         success: function(response) {

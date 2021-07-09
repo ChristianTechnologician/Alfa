@@ -91,7 +91,8 @@ List<Integer> cod = cs.Fcodice();%>
     <td data-head="Prezzo"><%=merci.get(i).getPrezzo()%></td>
     <%}%>
     <%String x = ""+merci.get(i).getCodice()+","+id+","+fcodice;%>
-    <td><button name="rimuovi" id="remove" value="<%=x%>" onclick="rimuovi()">Rimuovi</button></td>
+    <%System.out.println(x);%>
+    <td><button name="rimuovi" id="remove" value="<%=x%>" onclick="rimuovi(merci.get(i).getCodice(), id, fcodice)">Rimuovi</button></td>
     <td></td>
     </tr>
     <%}%>
