@@ -31,7 +31,7 @@ public class CarrelloServlet extends Controller {
                         String key = (String) it.next(); // get key
                         Object o = jObj.get(key); // get value
                         c.add((String) o);
-                        System.out.println(key + " : " +  o); // print the key and value
+                        //System.out.println(key + " : " +  o); // print the key and value
                     }
                     CarrelloDAO carrelloDAO = new CarrelloDAO();
                     boolean b = carrelloDAO.deleteElementoCarrello(c.get(1),Integer.parseInt(c.get(0)),Integer.parseInt(c.get(2)));
