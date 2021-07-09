@@ -35,17 +35,17 @@ public class FornituraDAO implements  FornituraInterface{
     }
 
     @Override
-    public List<Fornitura> doRetrieveByUtenteCode(int id,String codice) throws SQLException {
+    public Fornitura doRetrieveByUtenteCode(int codice) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
-                         con.prepareStatement("SELECT fornitura.CodiceMerce, fornitura.CodColore, fornitura.LTaglia, fornitura.Quantità FROM fornitura, merce, utente WHERE utente.ID=? AND carrello.Mcodice=? AND utente.ID=carrello.IDutente AND carrello.Mcodice=merce.Codice AND merce.codice=Fornitura.CodiceMerce")){
-                ps.setInt(1, id);
-                ps.setString(1, codice);
+                         con.prepareStatement("SELECT DISTINCT fornitura.CodiceMerce, fornitura.CodColore, fornitura.LTaglia,fornitura.Identificatore,fornitura.Quantità FROM fornitura, merce, utente,carrello WHERE carrello.Fcodice=? AND carrello.Fcodice=fornitura.Identificatore")){
+                ps.setInt(1, codice);
                 ResultSet rs = ps.executeQuery();
                 FornituraExtraction fe = new FornituraExtraction();
-                List<Fornitura> f = new ArrayList<>();
-                while (rs.next()) {
-                    f.add(fe.mapping(rs));
+                Fornitura f = new Fornitura();
+                if(rs.next()) {
+                    f= fe.mapping(rs);
+                    System.out.println(f.getIdentificatore()+f.getCodColore()+f.getQuantita()+f.getCodMerce()+f.getlTaglia());
                 }
                 return f;
             }catch(SQLException e) {

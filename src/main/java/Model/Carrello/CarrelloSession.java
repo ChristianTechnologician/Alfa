@@ -4,12 +4,33 @@ import java.util.List;
 
 public class CarrelloSession {
     private List<String> mCodice;
-    private final int IDCarrello,IDutente,Quantita;
+    private List<Integer> Quantita,Fcodice;
+    private final int IDCarrello,IDutente;
 
-    public CarrelloSession(Carrello carrello){
-        this.IDCarrello = carrello.getIdCarrello();
-        this.IDutente = carrello.getIdUtente();
-        this.Quantita = carrello.getQuantita();
+    public CarrelloSession(int id){
+        this.IDCarrello = id;
+        this.IDutente = id;
+    }
+
+
+    public void setQuantita(int quantita){this.Quantita.add(quantita);}
+
+    public void setListQuantita(List<Integer> quantita){
+        this.Quantita=quantita;
+    }
+
+    public void setFcodice(int Fcodice){this.Fcodice.add(Fcodice);}
+
+    public void setListFcodice(List<Integer> Fcodice){
+        this.Fcodice=Fcodice;
+    }
+
+    public List<Integer> Fcodice() {
+        return Fcodice;
+    }
+
+    public List<Integer> Quantita() {
+        return Quantita;
     }
 
     public List<String> mCodice() {
@@ -24,12 +45,13 @@ public class CarrelloSession {
         return IDutente;
     }
 
-    public int getQuantita() {
-        return Quantita;
-    }
-
     public void setmCodice(String mCodice) {
         this.mCodice.add(mCodice);
     }
+
+    public void setmCodice(List<String> codici) {
+        this.mCodice=codici;
+    }
+
 
 }

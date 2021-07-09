@@ -5,6 +5,7 @@ public class Fornitura {
     private String lTaglia;
     private int codColore;
     private int quantita;
+    private int identificatore;
 
 public Fornitura(){
 }
@@ -38,4 +39,11 @@ public Fornitura(){
         this.quantita = quantita;
     }
 
+    public int getIdentificatore() {
+        return identificatore;
+    }
+
+    public void setIdentificatore(int identificatore) {
+        this.identificatore = identificatore;
+    }
 }

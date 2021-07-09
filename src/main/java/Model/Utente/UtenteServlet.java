@@ -175,21 +175,26 @@ public class UtenteServlet extends Controller {
                    MerceDAO mDAO = new MerceDAO();
                    List<Fornitura> fo = new ArrayList<>();
                    FornituraDAO fornituraDAO = new FornituraDAO();
-                   List<Carrello> carrelli = (List<Carrello>) request.getSession(false).getAttribute("carrello");
+                   CarrelloSession carrello = (CarrelloSession) request.getSession(false).getAttribute("carrello");
+                   System.out.println(carrello);
                    //CarrelloSession carrelloSession=new CarrelloSession();
-                   if(carrelli!= null) {
+                   if(carrello!= null) {
                        System.out.println("2");
-                       for (Carrello cs : carrelli) {
-                              System.out.println("ok");
-                           me.add(mDAO.doRetrieveByCode(cs.getmCodice()));
+                      //for (CarrelloSession cs : carrello) {
+                       for (String s : carrello.mCodice()) {
+                           System.out.println("ok");
+                           me.add(mDAO.doRetrieveByCode(s));
                            System.out.println("pt");
-                           fo = fornituraDAO.doRetrieveByUtenteCode(cs.getIdUtente(),cs.getmCodice());
-                           System.out.println("fatto");
                        }
-                       for (Fornitura f : fo) {
-                           System.out.println("ecco");
-                           colore.add(coloreDAO.doRetrieveByCode(f.getCodColore()));
+                       System.out.println("qui");
+                       int x = 0 ;
+                           for (int i : carrello.Fcodice()) {
+                               System.out.println("super");
+                           fo.add(fornituraDAO.doRetrieveByUtenteCode(i));
+                           System.out.println("fatto");
+                           colore.add(coloreDAO.doRetrieveByCode(fo.get(x).getCodColore()));
                            System.out.println("risolto");
+                           x++;
                        }
                    }else{
                        System.out.println("3");
@@ -229,24 +234,32 @@ public class UtenteServlet extends Controller {
                    if(colore.isEmpty()){
                        colore = null;
                    }
+                   System.out.println("wahoooo");
                    request.setAttribute("carrelloMerce",me);
                    request.setAttribute("carrelloFornitura",fo);
                    request.setAttribute("carrelloColori",colore);
+                   System.out.println("rssaxdwqcbh");
                    request.getRequestDispatcher("/WEB-INF/views/customer/shoppingcart.jsp").forward(request,response);
                    break;
                default:
                    UserError();
                    break;
-           }
-       }catch (SQLException ex){
+           }} catch (SQLException e) {
+           System.out.println("errore");
+           e.printStackTrace();
+       } catch (InvalidRequestException invalidRequestException) {
+           System.out.println("siumproblem");
+           invalidRequestException.printStackTrace();
+       }
+   /* }catch (SQLException ex){
                log(ex.getMessage());
            } catch (InvalidRequestException e){
                log(e.getMessage());
                e.handle(request,response);
-           }
+           }*/
        }
 
-    @Override
+        @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
             String path = getPath(request);                      //(request.getPathInfo() != null) ? request.getPathInfo() : "/";
@@ -354,10 +367,19 @@ public class UtenteServlet extends Controller {
                     PreferitiSession ps = new PreferitiSession(customerSession.getId());
                     ps.setCodici(pD.DoRetriveCodiciByUtente(customerSession.getId()));
                     request.getSession().setAttribute("preferiti",ps);
-                    List<Carrello> carrello = new ArrayList<>();
                     CarrelloDAO carrelloDAO = new CarrelloDAO();
-                    carrello = carrelloDAO.DoRetrieveByUtente(customerSession.getId());
-                    request.getSession().setAttribute("carrello",carrello);
+                    System.out.println("davide");
+                    List<Integer> Fcodici = carrelloDAO.DoRetrieveFcodice(customerSession.getId());
+                    CarrelloSession carrelloSession=new CarrelloSession(customerSession.getId());
+                    System.out.println("ererrrr");
+                    carrelloSession.setListFcodice(Fcodici);
+                    System.out.println("magasium");
+                    carrelloSession.setListQuantita(carrelloDAO.DoRetrieveQuantita(customerSession.getId()));
+                    carrelloSession.setmCodice(carrelloDAO.DoRetrieveCodici(customerSession.getId()));
+                    /*List<Carrello> carrello = new ArrayList<>();
+                    CarrelloDAO carrelloDAO = new CarrelloDAO();
+                    carrello = carrelloDAO.DoRetrieveByUtente(customerSession.getId());*/
+                    request.getSession().setAttribute("carrello",carrelloSession);
                     request.setAttribute("ordine",ordine);
                     request.getRequestDispatcher("/WEB-INF/views/customer/profilo.jsp").forward(request, response);
                 } else{

@@ -6,10 +6,11 @@ import java.sql.SQLException;
 public class FornituraExtraction {
     public Fornitura mapping (ResultSet rs) throws SQLException {
         Fornitura f = new Fornitura();
-        f.setCodMerce(rs.getString(1));
-        f.setCodColore(rs.getInt(2));
-        f.setlTaglia(rs.getString(3));
-        f.setQuantita(rs.getInt(4));
+        f.setCodMerce(rs.getString("CodiceMerce"));
+        f.setCodColore(rs.getInt("CodColore"));
+        f.setlTaglia(rs.getString("LTaglia"));
+        f.setIdentificatore(rs.getInt("Identificatore"));
+        f.setQuantita(rs.getInt("Quantità"));
         return f;
     }
 

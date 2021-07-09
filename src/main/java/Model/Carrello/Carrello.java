@@ -5,7 +5,7 @@ import Model.Ordine.Ordine;
 import Model.Utente.Utente;
 
 public class Carrello {
-    private int idCarrello,idUtente,quantita;
+    private int idCarrello,idUtente,quantita,fCodice;
     private String mCodice;
     private Utente utente;
     private Ordine ordine;
@@ -13,6 +13,14 @@ public class Carrello {
 
     public Carrello(){
 
+    }
+
+    public int getfCodice() {
+        return fCodice;
+    }
+
+    public void setfCodice(int fCodice) {
+        this.fCodice = fCodice;
     }
 
     public int  getIdCarrello() {

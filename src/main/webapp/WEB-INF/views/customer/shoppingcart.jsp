@@ -5,9 +5,10 @@
     <jsp:include page="/WEB-INF/views/partials/head.jsp">
         <jsp:param name="title" value="Alfa-Carrello"/>
         <jsp:param name="style" value="reset,libraryCustomer"/>
-        <jsp:param name="script" value=""/>
+        <jsp:param name="script" value="carrello"/>
     </jsp:include>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <body>
 <%@include file="/WEB-INF/views/partials/HeaderCustomer.jsp"%>
 <div>
