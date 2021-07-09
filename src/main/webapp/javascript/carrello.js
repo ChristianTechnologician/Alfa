@@ -1,9 +1,8 @@
 function rimuovi(){
-    var s = $("#prodotto").val();
-    var q = $("#idUtente").val();
-    var x = $("#fcodice").val();
+    var s = $("#remove").val();
+    const array=s.split(",")
     var rimozione = {
-        codiceM: s,id: q  ,fcodice: x
+        codiceM: array[0],id: array[1]  ,fcodice: array[2]
     };
 
     $.ajax({

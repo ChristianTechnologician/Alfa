@@ -41,6 +41,9 @@ List<Integer> cod = cs.Fcodice();%>
     </tr>
     <%}else{
         for(int i = 0;i<merci.size();i++){
+            String code ="";
+            int id=0;
+            int fcodice=0;
     %>
     <tr id="riga">
         <td data-head="Immagine"><img src="../Images/<%=merci.get(i).getCodice()%>.jpg" alt="img" width="200" height="150"></td>
@@ -71,7 +74,7 @@ List<Integer> cod = cs.Fcodice();%>
         <%if(f.getCodMerce().equals(merci.get(i).getCodice())){%>
         <%for(int codice: cod){
         if(f.getIdentificatore()==codice){%>
-            <input type="hidden" id="fcodice" value="<%=codice%>">
+    <%fcodice=codice;%>
     <% c = f.getlTaglia();break;}%>
         <%}%>
     <%break;}%>
@@ -80,14 +83,15 @@ List<Integer> cod = cs.Fcodice();%>
 
     <%for(int q=0;q<cs.Quantita().size();q++){
     if(cs.mCodice().get(q).equals(merci.get(i).getCodice())){%>
-     <input type="hidden" id="idUtente" value="<%=cs.getIDutente()%>">
+     <%id=cs.getIDutente();%>
     <% s =cs.Quantita().get(q);break;}%><%}%>
 
     <td data-head="Quantità"><%=s%></td>
 
     <td data-head="Prezzo"><%=merci.get(i).getPrezzo()%></td>
     <%}%>
-    <td><button name="rimuovi" value="<%=merci.get(i).getCodice()%>" onclick="rimuovi()">Rimuovi</button></td>
+    <%String x = ""+merci.get(i).getCodice()+","+id+","+fcodice;%>
+    <td><button name="rimuovi" id="remove" value="<%=x%>" onclick="rimuovi()">Rimuovi</button></td>
     <td></td>
     </tr>
     <%}%>
