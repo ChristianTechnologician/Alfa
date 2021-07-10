@@ -111,7 +111,7 @@ public class OrdineDAO implements OrdineInterface{
     @Override
     public void insertOrdine(Ordine ordine) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps =con.prepareStatement("INSERT INTO ordine VALUES (?,?,?,?,?,?,?,?,?)")){
+            try (PreparedStatement ps =con.prepareStatement("INSERT INTO ordine VALUES (?,?,?,?,?,?,?,?,?,?,?)")){
                 ps.setInt(1, ordine.getNumeroFattura());
                 ps.setString(2, ordine.getVia());
                 ps.setInt(3, ordine.getCivico());
@@ -120,7 +120,9 @@ public class OrdineDAO implements OrdineInterface{
                 ps.setDouble(6, ordine.getPrezzoTotale());
                 ps.setObject(7, ordine.getDate());
                 ps.setInt(8, ordine.getStato());
-                ps.setInt(9, ordine.getIdUtente());
+                ps.setString(9, ordine.getCodiceMerceAcquistata());
+                ps.setInt(10, ordine.getIdUtente());
+                ps.setInt(11, ordine.getIdCarrello());
                 ResultSet rs;
                 ps.executeUpdate();
             } catch(SQLException e){

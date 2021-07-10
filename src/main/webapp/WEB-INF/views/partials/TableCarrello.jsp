@@ -52,6 +52,7 @@ List<Integer> cod = cs.Fcodice();%>
             String code ="";
             int id=0;
             int fcodice=0;
+            int s=0;
     %>
     <tr id="<%=i%>">
         <td data-head="Immagine"><img src="../Images/<%=merci.get(i).getCodice()%>.jpg" alt="img" width="200" height="150"></td>
@@ -62,7 +63,6 @@ List<Integer> cod = cs.Fcodice();%>
         <td data-head="Prezzo"><%=merci.get(i).getPrezzo()%></td>
         </tr>
         <%}else{
-            int s = 0;
             String c ="";
             for(Fornitura f : forniture){
         %>
@@ -98,7 +98,7 @@ List<Integer> cod = cs.Fcodice();%>
 
     <td data-head="Prezzo"><%=merci.get(i).getPrezzo()%></td>
     <%}%>
-    <%String x = ""+merci.get(i).getCodice()+","+id+","+fcodice;%>
+    <%String x = ""+merci.get(i).getCodice()+","+id+","+fcodice+","+s+"";%>
     <td><button name="rimuovi" id="remove" value="<%=x%>" onclick="rimuovi('<%=x%>','<%=i%>', '<%=merci.get(i).getPrezzo()%>','<%=prezzoTotale%>')">Rimuovi</button></td>
     <td></td>
     </tr>
@@ -114,6 +114,6 @@ List<Integer> cod = cs.Fcodice();%>
     <h2>Procedi all'ordine</h2>
     <h3>Prezzo Totale</h3>
         <h2 id="prezzototale">€<%=prezzoTotale%></h2>
-        <button>Procedi all'acquisto</button>
+        <form action="${pageContext.request.contextPath}/carrello/ordine" method="get"><button>Procedi all'acquisto</button></form>
     </div>
 </div>

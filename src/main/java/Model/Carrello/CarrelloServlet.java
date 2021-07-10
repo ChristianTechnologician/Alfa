@@ -2,6 +2,13 @@ package Model.Carrello;
 
 import Model.Gestione.Controller;
 import Model.Gestione.InvalidRequestException;
+import Model.Merce.Merce;
+import Model.Merce.MerceDAO;
+import Model.Ordine.Ordine;
+import Model.Ordine.OrdineDAO;
+import Model.Preferiti.PreferitiDAO;
+import Model.Preferiti.PreferitiSession;
+import Model.Utente.UtenteSession;
 import org.json.JSONObject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,8 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 @WebServlet(name = "CarrelloServlet", value = "/carrello/*")
 public class CarrelloServlet extends Controller {
@@ -35,10 +45,131 @@ public class CarrelloServlet extends Controller {
                     }
                     CarrelloDAO carrelloDAO = new CarrelloDAO();
                     boolean b = carrelloDAO.deleteElementoCarrello(c.get(1),Integer.parseInt(c.get(0)),Integer.parseInt(c.get(2)));
+                    CarrelloSession cs= (CarrelloSession) request.getSession().getAttribute("carrello");
+                    int i=0;
+                    for (String s: cs.mCodice())
+                    {
+                        if(s.equals(c.get(1)))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            i++;
+                        }
+                    }
+                    int j=0;
+                    for (int x: cs.Fcodice())
+                    {
+                        if(x==Integer.parseInt(c.get(2)))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            j++;
+                        }
+                    }
+                    int p=0;
+                    for (int x: cs.Quantita())
+                    {
+                        if(x==Integer.parseInt(c.get(3)))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            p++;
+                        }
+                    }
+                    cs.Fcodice().remove(j);
+                    cs.mCodice().remove(i);
+                    cs.Quantita().remove(p);
                     request.setAttribute("conferma", b);
+                    break;
+
+                case "/ordine":
+                    UtenteSession utenteSession= (UtenteSession) request.getSession().getAttribute("accountSession");
+                    CarrelloDAO carrelloDAOo = new CarrelloDAO();
+                    System.out.println("Sto procedendo");
+                    System.out.println(utenteSession.getId());
+                    List<Integer> Fcodici = carrelloDAOo.DoRetrieveFcodice(utenteSession.getId());
+                    CarrelloSession carrelloSession=new CarrelloSession(utenteSession.getId());
+                    carrelloSession.setListFcodice(Fcodici);
+                    carrelloSession.setListQuantita(carrelloDAOo.DoRetrieveQuantita(utenteSession.getId()));
+                    carrelloSession.setmCodice(carrelloDAOo.DoRetrieveCodici(utenteSession.getId()));
+                    ArrayList<Merce> listamerci=new ArrayList<>();
+                    MerceDAO md=new MerceDAO();
+                    for (String s: carrelloSession.mCodice())
+                    {
+                        listamerci.add(md.doRetrieveByCode(s));
+                    }
+                    request.setAttribute("merci", listamerci);
+                    request.getSession(true).setAttribute("accountSession", utenteSession);
+                    request.getRequestDispatcher("/WEB-INF/views/customer/ordine.jsp").forward(request, response);
                     break;
             }
         } catch (SQLException ex){
+            log(ex.getMessage());
+        }
+    }
+
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            String path = getPath(request);
+            switch (path) {
+                case "/acquista":
+                    UtenteSession customerSession= (UtenteSession) request.getSession().getAttribute("accountSession");
+                    List<Ordine> ordine = new ArrayList<>();
+                    OrdineDAO oDAO = new OrdineDAO();
+                    PreferitiDAO pD = new PreferitiDAO();
+                    ordine = oDAO.DoRetriveByLast(customerSession.getId());
+                    PreferitiSession ps = new PreferitiSession(customerSession.getId());
+                    ps.setCodici(pD.DoRetriveCodiciByUtente(customerSession.getId()));
+                    request.getSession().getAttribute("preferiti");
+                    CarrelloDAO carrelloDAO = new CarrelloDAO();
+                    List<Integer> Fcodici = carrelloDAO.DoRetrieveFcodice(customerSession.getId());
+                    CarrelloSession carrelloSession = new CarrelloSession(customerSession.getId());
+                    carrelloSession.setListFcodice(Fcodici);
+                    carrelloSession.setListQuantita(carrelloDAO.DoRetrieveQuantita(customerSession.getId()));
+                    carrelloSession.setmCodice(carrelloDAO.DoRetrieveCodici(customerSession.getId()));
+                    request.getSession().getAttribute("carrello");
+                    request.setAttribute("ordine", ordine);
+                    String Via = request.getParameter("Via");
+                    String NumeroCivico = request.getParameter("NumeroCivico");
+                    String Citta = request.getParameter("Città");
+                    String Provincia = request.getParameter("Provincia");
+                    //request.setAttribute("accountSession", customerSession);
+                    Random generatore = new Random();
+                    List<Integer> d=new ArrayList<>();
+                    for (int i=0; i<25; i++)
+                    {
+                        d.add(generatore.nextInt(10));
+                    }
+                    String fattura= String.valueOf(d);
+                    System.out.println(fattura);
+                    int f=Integer.parseInt(fattura);
+                    System.out.println(f);
+                    Ordine nuovo=new Ordine();
+                    OrdineDAO od=new OrdineDAO();
+                    nuovo.setNumeroFattura(f);
+                    nuovo.setIdUtente(customerSession.getId());
+                    nuovo.setVia(Via);
+                    nuovo.setProvincia(Provincia);
+                    nuovo.setCivico(Integer.parseInt(NumeroCivico));
+                    System.out.println("b");
+                    nuovo.setCitta(Citta);
+                    nuovo.setDate(LocalDate.now());
+                    nuovo.setPrezzoTotale(Double.parseDouble(request.getParameter("total")));
+                    nuovo.setStato(0);
+                    nuovo.setIdCarrello(0);
+                    List<Merce> m= (List<Merce>) request.getAttribute("lista");
+                    nuovo.setCodiceMerceAcquistata(String.valueOf(m));
+                    request.getRequestDispatcher("/WEB-INF/views/customer/profilo.jsp").forward(request, response);
+                    break;
+            }
+        }catch (SQLException ex){
             log(ex.getMessage());
         }
     }

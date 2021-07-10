@@ -3,7 +3,7 @@ function rimuovi(s, i, n, q){
     //var y=i;
     const array=s.split(",")
     var rimozione = {
-        codiceM: array[0],id: array[1]  ,fcodice: array[2]
+        codiceM: array[0],id: array[1]  ,fcodice: array[2], quantità: array[3]
     };
     $.ajax({
         type: "get",

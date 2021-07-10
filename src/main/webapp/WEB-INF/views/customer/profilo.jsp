@@ -30,9 +30,6 @@
                 <%}else{
                     int i = ordini.size()-1;
                 %>
-                <div>
-                    <img src="./Images/<%=ordini.get(i).getCodiceMerceAcquistata()%>.jpg" alt="nessuna immagine disponibile">
-                </div>
                 Prezzo totale:<%=ordini.get(i).getPrezzoTotale()%> Stato consegna:<%if(ordini.get(i).getStato()==1){%>Consegna effettuata<%}else{%>Consegna ancora non effettuata<%}%>
                 <%}%>
         </div>

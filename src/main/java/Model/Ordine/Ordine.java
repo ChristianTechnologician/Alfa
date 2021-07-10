@@ -5,12 +5,14 @@ import Model.Utente.Utente;
 import java.time.LocalDate;
 
 public class Ordine {
-    private int numeroFattura,civico,stato,idUtente;
+    private int numeroFattura,civico,stato,idUtente, idCarrello;
     private String via,citta,provincia,CodiceMerceAcquistata;
     private double prezzoTotale;
     private LocalDate date;
     private Carrello carrello;
     private Utente utente;
+
+
 
     public Ordine(){
 
@@ -107,5 +109,9 @@ public class Ordine {
     public String getCodiceMerceAcquistata(){return this.CodiceMerceAcquistata;}
 
     public void setCodiceMerceAcquistata(String CodiceMerceAcquistata){this.CodiceMerceAcquistata = CodiceMerceAcquistata;}
+
+    public int getIdCarrello() { return idCarrello; }
+
+    public void setIdCarrello(int idCarrello) { this.idCarrello = idCarrello; }
 
 }
