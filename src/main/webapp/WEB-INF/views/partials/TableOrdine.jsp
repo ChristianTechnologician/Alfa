@@ -15,7 +15,6 @@
             <p><h4>Di cui iva: €<%=prezzo=(prezzo/100)*22%></h4></p>
         </section>
     </div>
-    <%request.setAttribute("total", prezzo);%>
 </div>
 <div class="row">
     <div class="column" style="float:right">
@@ -36,7 +35,7 @@
                 <label for="Carta di credito">
                     <input type="number" name="Carta di credito" id="Carta di credito" placeholder="Carta di credito">
                 </label>
-                <button>ACQUISTA</button>
+                <button>ACQUISTA<input type="hidden" value="<%=prezzo%>" name="total"></button>
             </form>
         </section>
     </div>

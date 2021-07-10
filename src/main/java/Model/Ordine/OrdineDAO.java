@@ -123,7 +123,6 @@ public class OrdineDAO implements OrdineInterface{
                 ps.setString(9, ordine.getCodiceMerceAcquistata());
                 ps.setInt(10, ordine.getIdUtente());
                 ps.setInt(11, ordine.getIdCarrello());
-                ResultSet rs;
                 ps.executeUpdate();
             } catch(SQLException e){
                 throw new RuntimeException(e);

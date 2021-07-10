@@ -39,7 +39,7 @@ function modifica(){
         // definisco il tipo della chiamata
         type: "GET",
         // specifico la URL della risorsa da contattare
-        url: "http://localhost:8080/Alfa_war_exploded/formModificaUtente.jsp",
+        url: "http://localhost:8080/Alfa_war/formModificaUtente.jsp",
         // passo dei dati alla risorsa remota
         //data: "nome=giovanni&cognome=belelli",
         // definisco il formato della risposta
@@ -88,7 +88,7 @@ function elimina() {
         // definisco il tipo della chiamata
         type: "GET",
         // specifico la URL della risorsa da contattare
-        url: "http://localhost:8080/Alfa_war_exploded/Question.jsp",
+        url: "http://localhost:8080/Alfa_war/Question.jsp",
         // passo dei dati alla risorsa remota
         //data: "Alert.render('You look very pretty today.')",
         // definisco il formato della risposta

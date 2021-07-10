@@ -91,8 +91,6 @@ public class CarrelloServlet extends Controller {
                 case "/ordine":
                     UtenteSession utenteSession= (UtenteSession) request.getSession().getAttribute("accountSession");
                     CarrelloDAO carrelloDAOo = new CarrelloDAO();
-                    System.out.println("Sto procedendo");
-                    System.out.println(utenteSession.getId());
                     List<Integer> Fcodici = carrelloDAOo.DoRetrieveFcodice(utenteSession.getId());
                     CarrelloSession carrelloSession=new CarrelloSession(utenteSession.getId());
                     carrelloSession.setListFcodice(Fcodici);
@@ -142,15 +140,15 @@ public class CarrelloServlet extends Controller {
                     String Provincia = request.getParameter("Provincia");
                     //request.setAttribute("accountSession", customerSession);
                     Random generatore = new Random();
-                    List<Integer> d=new ArrayList<>();
-                    for (int i=0; i<25; i++)
+                    //List<String> d=new ArrayList<>();
+                    String fattura="";
+                    for (int i=0; i<5; i++)
                     {
-                        d.add(generatore.nextInt(10));
+                        fattura+=""+generatore.nextInt(10);
+                        //d.add(String.valueOf(generatore.nextInt(10)));
                     }
-                    String fattura= String.valueOf(d);
-                    System.out.println(fattura);
+                    //String fattura= String.valueOf(d);
                     int f=Integer.parseInt(fattura);
-                    System.out.println(f);
                     Ordine nuovo=new Ordine();
                     OrdineDAO od=new OrdineDAO();
                     nuovo.setNumeroFattura(f);
@@ -158,14 +156,16 @@ public class CarrelloServlet extends Controller {
                     nuovo.setVia(Via);
                     nuovo.setProvincia(Provincia);
                     nuovo.setCivico(Integer.parseInt(NumeroCivico));
-                    System.out.println("b");
                     nuovo.setCitta(Citta);
                     nuovo.setDate(LocalDate.now());
                     nuovo.setPrezzoTotale(Double.parseDouble(request.getParameter("total")));
                     nuovo.setStato(0);
                     nuovo.setIdCarrello(0);
-                    List<Merce> m= (List<Merce>) request.getAttribute("lista");
+                    List<Merce> m= (List<Merce>) request.getSession().getAttribute("")
+                    System.out.println("h");
                     nuovo.setCodiceMerceAcquistata(String.valueOf(m));
+                    System.out.println(nuovo.getCodiceMerceAcquistata());
+                    od.insertOrdine(nuovo);
                     request.getRequestDispatcher("/WEB-INF/views/customer/profilo.jsp").forward(request, response);
                     break;
             }
