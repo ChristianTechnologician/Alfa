@@ -7,11 +7,12 @@
         <jsp:param name="style" value="reset,crm"/>
         <jsp:param name="script" value="validatorInsert"/>
     </jsp:include>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 <%@include file="/WEB-INF/views/partials/HeaderCrm.jsp"%>
 <section class="field">
-    <form action="${pageContext.request.contextPath}/merce/create" method="post" onsubmit="event.preventDefault(); validateInsert(this)">
+    <form action="${pageContext.request.contextPath}/merce/create" enctype=multipart/form-data method="post">
         <label for="Codice">
             <input type="text" name="Codice" id="Codice" placeholder="ID">
         </label>
@@ -25,17 +26,17 @@
             <input type="text" name="Genere" id="Genere" placeholder="Genere">
         </label>
         <label for="Prezzo">
-            <input type="text" name="Prezzo" id="Prezzo" placeholder="Prezzo">
+            <input type="number" name="Prezzo" id="Prezzo" placeholder="Prezzo">
         </label>
         <label for="TipoCategoria">
             <input type="text" name="TipoCategoria" id="TipoCategoria" placeholder="Categoria(Completo,Cappotto)">
         </label>
         <label for="Sconto">
-            <input type="text" name="Sconto" id="Sconto" placeholder="%sconto">
+            <input min="0" max="100" type="number" name="Sconto" id="Sconto" placeholder="%Sconto">
         </label>
-        <!--<label for="upImg">
+        <label for="upImg">
             <input type="file" name="upImg" id="upImg">
-        </label>-->
+        </label>
         <button>Inserisci</button>
     </form>
 </section>

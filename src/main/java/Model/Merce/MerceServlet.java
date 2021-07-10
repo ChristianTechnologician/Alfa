@@ -118,6 +118,22 @@ public class MerceServlet extends Controller {
                         merce.setTipocategoria(request.getParameter("TipoCategoria"));
                         merce.setSconto(Double.parseDouble(request.getParameter("Sconto")));
                         String s=merce.getCodice();
+                        //Costruiamo il path completo della cartella in cui salvare temporaneamente l'immagine
+                        String appPath = request.getServletContext().getRealPath("");
+                        String savePath = appPath + SAVE_DIR;
+                        System.out.println("LOL " + savePath);
+                        File fileSaveDir = new File(savePath + merce.getCodice());
+                        if (!fileSaveDir.exists()) {	//Se la cartella non esiste la si crea
+                            fileSaveDir.mkdir();
+                        }
+                        for (Part part : request.getParts()) {		//Si prende l'immagine dalla richiesta
+                            String fileName = request.getParameter("Codice") + ".jpg";	//Si prende il path dell'immagine
+                            System.out.println(request.getParameter("Codice"));
+                            if (fileName != null && !fileName.equals("")) {
+                                part.write(savePath + File.separator + fileName);	//si inserisce la foto nella cartella temporanea
+                                System.out.println(savePath + File.separator + fileName);
+                            }
+                        }
                         /*Taglia taglia = new Taglia();
                         taglia.setlTaglia(request.getParameter("Taglia"));
                         TagliaDAO tagliaDAO = new TagliaDAO();
@@ -148,6 +164,7 @@ public class MerceServlet extends Controller {
                             request.getRequestDispatcher(view("crm/resultInsert")).forward(request, response);
                             //String uploadRoot = getUploadPath();
                             //merce.writeCover(uploadRoot, filePart);
+
                         } else {
                             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Errore Server");
                         }
@@ -215,12 +232,34 @@ public class MerceServlet extends Controller {
                         break;
                 }
             } catch (SQLException ex) {
+                System.out.println(ex);
                 log(ex.getMessage());
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
             }catch (InvalidRequestException e) {
+                System.out.println(e);
                 log(e.getMessage());
                 e.handle(request, response);
+            }catch (Exception e){
+                System.out.println(e);
             }
         }
+
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+
+        for (String s : items) {
+
+            if (s.trim().startsWith("filename")) {
+
+                return s.substring(s.indexOf("=") + 2, s.length()-1);
+
+            }
+        }
+
+        return "";
+    }
+
+    static String SAVE_DIR ="Images";
 
 }

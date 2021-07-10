@@ -4,8 +4,6 @@
         Alfa, Via Inventina 290(PT), P.I  IT 11257691002, Alfa S.r.l© Copyright 2021 Alfa.
         Tutti i diritti riservati;<br>
 
-
-
         Info sull’autore:
         Capone,  Caruso, Coticelli;<br>
 

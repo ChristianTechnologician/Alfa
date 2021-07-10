@@ -18,6 +18,9 @@ final class UtenteValidator {
     public static RequestValidator validateSignIn(HttpServletRequest request) {
         RequestValidator validator = new RequestValidator(request);
         validator.assertEmail("email","Inserire l'email corrispondente al tuo account");
+        validator.assertPassword("password", "Inserire la password corrispondente al tuo account");
+        System.out.println("email " + request.getParameter("email"));
+        System.out.println("password " + request.getParameter("password"));
         return validator;
     }
 }

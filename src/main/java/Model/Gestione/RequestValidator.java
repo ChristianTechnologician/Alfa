@@ -54,9 +54,15 @@ public class RequestValidator {
     }
 
     public boolean assertEmail(String value,String msg){
-        Pattern pattern = Pattern.compile("^[a-zA-Z0-9.!#$%&´*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$");
+        Pattern pattern = Pattern.compile("^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$");
         return assertMatch(value,pattern,msg);
     }
+
+    public boolean assertPassword(String value,String msg){
+        Pattern pattern = Pattern.compile("^((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$&*])).{8,32}$");
+        return assertMatch(value,pattern,msg);
+    }
+
 
     public boolean assertInts(String values,String msg){
         String[] params = request.getParameterValues(values);

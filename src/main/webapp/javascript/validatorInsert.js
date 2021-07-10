@@ -1,4 +1,4 @@
-function validateInsert(form)
+function validateInsert()
 {
     //let email = document.getElementById('email').value;
     let codice = $("#Codice").val();
