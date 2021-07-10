@@ -136,7 +136,7 @@ public class CarrelloServlet extends Controller {
                     request.setAttribute("ordine", ordine);
                     String Via = request.getParameter("Via");
                     String NumeroCivico = request.getParameter("NumeroCivico");
-                    String Citta = request.getParameter("Città");
+                    String Citta = request.getParameter("Citta");
                     String Provincia = request.getParameter("Provincia");
                     //request.setAttribute("accountSession", customerSession);
                     Random generatore = new Random();
@@ -161,10 +161,23 @@ public class CarrelloServlet extends Controller {
                     nuovo.setPrezzoTotale(Double.parseDouble(request.getParameter("total")));
                     nuovo.setStato(0);
                     nuovo.setIdCarrello(0);
-                    List<Merce> m= (List<Merce>) request.getSession().getAttribute("")
-                    System.out.println("h");
-                    nuovo.setCodiceMerceAcquistata(String.valueOf(m));
+                    String mer="";
+                    //List<Merce> m= (List<Merce>) carrelloSession.mCodice();
+                    for (String merc: carrelloSession.mCodice()) {
+                        mer+=merc+",";
+                    }
+                    nuovo.setCodiceMerceAcquistata(mer);
+                    System.out.println(nuovo.getNumeroFattura());
+                    System.out.println(nuovo.getVia());
+                    System.out.println(nuovo.getCivico());
+                    System.out.println(nuovo.getCitta());
+                    System.out.println(nuovo.getProvincia());
+                    System.out.println(nuovo.getPrezzoTotale());
+                    System.out.println(nuovo.getDate());
+                    System.out.println(nuovo.getStato());
                     System.out.println(nuovo.getCodiceMerceAcquistata());
+                    System.out.println(nuovo.getIdUtente());
+                    System.out.println(nuovo.getIdCarrello());
                     od.insertOrdine(nuovo);
                     request.getRequestDispatcher("/WEB-INF/views/customer/profilo.jsp").forward(request, response);
                     break;
