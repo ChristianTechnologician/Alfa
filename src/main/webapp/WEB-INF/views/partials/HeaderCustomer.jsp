@@ -1,9 +1,8 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 <div class="header">
     <a href="${pageContext.request.contextPath}/utente/homePage">
         <img src="../Images/LOGO.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
     </a>
-</div>
 
 <ul>
     <div class="dropdown"> <form action="${pageContext.request.contextPath}/RedirectServlet" method="get">
@@ -34,3 +33,4 @@
     </div>
     <li style="float:right">
 </ul>
+</div>
