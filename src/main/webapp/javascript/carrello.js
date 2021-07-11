@@ -36,4 +36,11 @@ function rimuovi(s, i, n, q){
         alert('Rimozione non riuscita');
     }
     });
+
+    function controllo(c){
+        if(c===0){
+            alert("Registrazione o login necessaria per aquistare");
+        }
+    }
+
 }

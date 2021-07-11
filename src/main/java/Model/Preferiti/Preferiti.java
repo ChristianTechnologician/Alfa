@@ -4,13 +4,21 @@ import Model.Merce.Merce;
 import Model.Utente.Utente;
 
 public class Preferiti {
-    private int numeroPreferiti,idUtente;
+    private int numeroPreferiti,idUtente,Fcodice;
     private String mCodice;
     private Utente utente;
     private Merce merce;
 
     public Preferiti(){
 
+    }
+
+    public int getFcodice() {
+        return Fcodice;
+    }
+
+    public void setFcodice(int fcodice) {
+        Fcodice = fcodice;
     }
 
     public int getNumeroPreferiti() {

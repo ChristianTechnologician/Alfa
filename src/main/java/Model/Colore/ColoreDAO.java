@@ -17,6 +17,7 @@ public class ColoreDAO implements ColoreInterface {
                 if (rs.next()) {
                     ColoreExtraction ce = new ColoreExtraction();
                     c = ce.mapping(rs);
+                    System.out.println(c);
                     return c;
                 }
                 return null;

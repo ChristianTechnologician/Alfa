@@ -1,8 +1,12 @@
 function aggiungi(s){
     const array=s.split(",")
     var aggiunta = {
-        codiceM: array[0],id: array[1]  ,fcodice: array[2],registrato: array[3]
+        codiceM: array[0],id: array[1]  ,fcodice: array[2], quantita: array[3],registrato: array[4]
     };
+    alert(array[2])
+    /*var aggiunta = {
+        codiceM: array[0],id: array[1]  ,fcodice: array[2],registrato: array[3]
+    };*/
     $.ajax({
         type: "get",
         url: "http://localhost:8080/Alfa_war_exploded/preferiti/aggiungiCarrello",
@@ -22,7 +26,7 @@ function rimuovi(s, i){
     //var y=i;
     const array=s.split(",")
     var rimozione = {
-        codiceM: array[0],id: array[1]  ,fcodice: array[2]
+        codiceM: array[0],id: array[1]  ,fcodice: array[2], quantita: array[3],registrato: array[4]
     };
     $.ajax({
         type: "get",
@@ -31,11 +35,7 @@ function rimuovi(s, i){
         data:{ rimozione: JSON.stringify(rimozione)},
         success: function(response) {
            // $('tr').each()
-            if(i==0){
-                $("#modifica").html("Non ci sono elementi nei preferiti")
-            }else{
                 $("#"+i).remove()
-            }
         },
         error: function(response) {
             alert('Rimozione non riuscita');

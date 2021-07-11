@@ -113,7 +113,7 @@ List<Integer> cod = cs.Fcodice();%>
     <h2>Procedi all'ordine</h2>
     <h3>Prezzo Totale</h3>
         <div id="prezzototale">€<%=prezzoTotale%></div>
-        <form action="${pageContext.request.contextPath}/carrello/ordine" method="get"><button>Procedi all'acquisto</button></form>
+        <form action="${pageContext.request.contextPath}/carrello/ordine" method="get"onsubmit="controllo('<%=cs.getRegistrato()%>')"><button >Procedi all'acquisto</button></form>
     </div>
 </div>
 <%}%>

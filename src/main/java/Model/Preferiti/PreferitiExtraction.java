@@ -11,6 +11,7 @@ public class PreferitiExtraction
         p.setNumeroPreferiti(rs.getInt(1));
         p.setIdUtente(rs.getInt(2));
         p.setmCodice(rs.getString(3));
+        p.setFcodice(rs.getInt(4));
         return p;
     }
 }

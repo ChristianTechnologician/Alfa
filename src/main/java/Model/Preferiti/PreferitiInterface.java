@@ -14,4 +14,7 @@ public interface PreferitiInterface {
     boolean insertPreferiti(int id_utente, int numero,String codice) throws SQLException;
     void deletePreferiti(int id_utente) throws SQLException;
     boolean deleteElementoPreferiti(String codice,int id,int fcodice) throws SQLException;
+    Preferiti findElement(int id, String Mcodice, int Fcodice) throws SQLException;
+    boolean insertElemento(int numeroPreferiti ,int id,String Mcodice,int Fcodice) throws SQLException;
+    boolean updateQuantita(int numeroPreferiti,int id,String Mcodice,int Fcodice) throws SQLException;
 }

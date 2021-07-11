@@ -1,10 +1,11 @@
 package Model.Carrello;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarrelloSession {
-    private List<String> mCodice;
-    private List<Integer> Quantita,Fcodice;
+    private List<String> mCodice = new ArrayList<>();
+    private List<Integer> Quantita = new ArrayList<>(),Fcodice = new ArrayList<>();
     private final int IDCarrello,IDutente,registrato;
 
     public CarrelloSession(int id,int reg){
@@ -23,7 +24,7 @@ public class CarrelloSession {
         this.Quantita=quantita;
     }
 
-    public void setFcodice(int Fcodice){this.Fcodice.add(Fcodice);}
+    public void setFcodice(int Fcodice){System.out.println(Fcodice);this.Fcodice.add(Fcodice);System.out.println(this.Fcodice.get(0));}
 
     public void setListFcodice(List<Integer> Fcodice){
         this.Fcodice=Fcodice;
@@ -52,6 +53,8 @@ public class CarrelloSession {
     public void setmCodice(String mCodice) {
         this.mCodice.add(mCodice);
     }
+
+
 
     public void setmCodice(List<String> codici) {
         this.mCodice=codici;

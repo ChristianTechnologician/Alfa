@@ -94,24 +94,71 @@ public class CarrelloServlet extends Controller {
                     cs.Quantita().remove(p);
                     request.setAttribute("conferma", b);
                     break;
-
-                case "/ordine":
-                    UtenteSession utenteSession= (UtenteSession) request.getSession().getAttribute("accountSession");
-                    CarrelloDAO carrelloDAOo = new CarrelloDAO();
-                    List<Integer> Fcodici = carrelloDAOo.DoRetrieveFcodice(utenteSession.getId());
-                    CarrelloSession carrelloSession=new CarrelloSession(utenteSession.getId(),1);
-                    carrelloSession.setListFcodice(Fcodici);
-                    carrelloSession.setListQuantita(carrelloDAOo.DoRetrieveQuantita(utenteSession.getId()));
-                    carrelloSession.setmCodice(carrelloDAOo.DoRetrieveCodici(utenteSession.getId()));
-                    ArrayList<Merce> listamerci=new ArrayList<>();
-                    MerceDAO md=new MerceDAO();
-                    for (String s: carrelloSession.mCodice())
-                    {
-                        listamerci.add(md.doRetrieveByCode(s));
+                case "/aggiungi":
+                    JSONObject jObjecto = new JSONObject(request.getParameter("aggiunta"));
+                    Iterator itero = jObjecto.keys(); //gets all the keys
+                    ArrayList<String> stro = new ArrayList<>();
+                    while (itero.hasNext()) {
+                        String key = (String) itero.next(); // get key
+                        Object o = jObjecto.get(key); // get value
+                        stro.add((String) o);
+                        System.out.println(key + " : " +  o); // print the key and value
                     }
-                    request.setAttribute("merci", listamerci);
-                    request.getSession(true).setAttribute("accountSession", utenteSession);
-                    request.getRequestDispatcher("/WEB-INF/views/customer/ordine.jsp").forward(request, response);
+                    System.out.println("rieccoci");
+                    if(Integer.parseInt(stro.get(0))==1) {
+                        CarrelloDAO carrelloDAOs = new CarrelloDAO();
+                        UtenteSession ut = (UtenteSession) request.getSession().getAttribute("accountSession");
+                        Carrello car = carrelloDAOs.findElement(ut.getId(),stro.get(2),Integer.parseInt(stro.get(3)));
+                        if(car != null){
+                            System.out.println("bro");
+                            int r = car.getQuantita()+1;
+                            carrelloDAOs.updateQuantita(r,ut.getId(),stro.get(3),Integer.parseInt(stro.get(4)));
+                            CarrelloSession carrelloSession = (CarrelloSession) request.getSession().getAttribute("carrello");
+                            carrelloSession.setmCodice(stro.get(3));
+                            carrelloSession.setFcodice(Integer.parseInt(stro.get(4)));
+                            carrelloSession.setQuantita(1);
+                            request.getSession().setAttribute("carrello",carrelloSession);
+                        }else{
+                            carrelloDAOs.insertElemento(ut.getId(), stro.get(3),Integer.parseInt(stro.get(4)),1);
+                        }
+                    }else {
+                        System.out.println("mazinga");
+                        CarrelloSession carrelloSession = (CarrelloSession) request.getSession().getAttribute("carrello");
+                        System.out.println(stro.get(3));
+                        carrelloSession.setmCodice(stro.get(3));
+                        System.out.println("robot");
+                        System.out.println(Integer.parseInt(stro.get(4)));
+                        carrelloSession.setFcodice(Integer.parseInt(stro.get(4)));
+                        System.out.println("razzomissile");
+                        carrelloSession.setQuantita(1);
+                        System.out.println("dove");
+                        request.getSession().removeAttribute("carrello");
+                        request.getSession(true).setAttribute("carrello",carrelloSession);
+                    }
+                    break;
+                case "/ordine":
+                    CarrelloSession control = (CarrelloSession)request.getSession().getAttribute("carrello");
+                    System.out.println("arrivati");
+                    if(control.getRegistrato()==1) {
+                        System.out.println("vamos");
+                        UtenteSession utenteSession = (UtenteSession) request.getSession().getAttribute("accountSession");
+                        CarrelloDAO carrelloDAOo = new CarrelloDAO();
+                        List<Integer> Fcodici = carrelloDAOo.DoRetrieveFcodice(utenteSession.getId());
+                        CarrelloSession carrelloSession = new CarrelloSession(utenteSession.getId(), 1);
+                        carrelloSession.setListFcodice(Fcodici);
+                        carrelloSession.setListQuantita(carrelloDAOo.DoRetrieveQuantita(utenteSession.getId()));
+                        carrelloSession.setmCodice(carrelloDAOo.DoRetrieveCodici(utenteSession.getId()));
+                        ArrayList<Merce> listamerci = new ArrayList<>();
+                        MerceDAO md = new MerceDAO();
+                        for (String s : carrelloSession.mCodice()) {
+                            listamerci.add(md.doRetrieveByCode(s));
+                        }
+                        request.setAttribute("merci", listamerci);
+                        request.getSession(true).setAttribute("accountSession", utenteSession);
+                        request.getRequestDispatcher("/WEB-INF/views/customer/ordine.jsp").forward(request, response);
+                    }else{
+                        request.getRequestDispatcher("/WEB-INF/views/customer/user.jsp").forward(request, response);
+                    }
                     break;
             }
         } catch (SQLException ex){
@@ -186,6 +233,10 @@ public class CarrelloServlet extends Controller {
                     System.out.println(nuovo.getIdUtente());
                     System.out.println(nuovo.getIdCarrello());
                     od.insertOrdine(nuovo);
+                    List<Ordine> ordines = new ArrayList<>();
+                    OrdineDAO oDAOs = new OrdineDAO();
+                    ordines = oDAOs.DoRetriveByLast(customerSession.getId());
+                    request.setAttribute("ordine", ordines);
                     request.getRequestDispatcher("/WEB-INF/views/customer/profilo.jsp").forward(request, response);
                     break;
             }

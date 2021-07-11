@@ -172,6 +172,7 @@ public class UtenteServlet extends Controller {
                ColoreDAO coloreDAO = new ColoreDAO();
                MerceDAO mDAO = new MerceDAO();
                List<Fornitura> fo = new ArrayList<>();
+               List<Integer> quantita = new ArrayList<>();
                FornituraDAO fornituraDAO = new FornituraDAO();
                PreferitiSession preferiti = (PreferitiSession) request.getSession(false).getAttribute("preferiti");
                System.out.println(preferiti);
@@ -191,17 +192,21 @@ public class UtenteServlet extends Controller {
                    if (preferiti.Fcodice() == null/*cg.Fcodice().isEmpty()*/) {
                        fo = null;
                        colore=null;
+                       quantita=null;
                        System.out.println("8");
                    }else {
-                       int x = 0;
                        for (int i : preferiti.Fcodice()) {
                            System.out.println("super");
                            fo.add(fornituraDAO.doRetrieveByUtenteCode(i));
                            System.out.println("fatto");
+                       }
+                       for (int x = 0; x < fo.size(); x++) {
                            colore.add(coloreDAO.doRetrieveByCode(fo.get(x).getCodColore()));
-                           System.out.println(colore.get(x));
                            System.out.println("risolto");
-                           x++;
+                       }
+                       for (int w :preferiti.Quantita()) {
+                           quantita.add(w);
+                           System.out.println("risolto");
                        }
                    }
                } else {
@@ -227,14 +232,18 @@ public class UtenteServlet extends Controller {
                        System.out.println("8");
                    } else {
                        System.out.println("9");
-                       int x = 0;
+
                        for (int i : preferiti.Fcodice()) {
                            System.out.println("robertoooo");
                            fo.add(fornituraDAO.doRetrieveByUtenteCode(i));
-                           System.out.println("fatto");
+                       }
+                       for (int x = 0; x < fo.size(); x++) {
                            colore.add(coloreDAO.doRetrieveByCode(fo.get(x).getCodColore()));
                            System.out.println("risolto");
-                           x++;
+                       }
+                       for (int w :preferiti.Quantita()) {
+                           quantita.add(w);
+                           System.out.println("risolto");
                        }
                    }
                }
@@ -244,6 +253,7 @@ public class UtenteServlet extends Controller {
                request.setAttribute("preferitiMerce",me);
                request.setAttribute("preferitiFornitura",fo);
                request.setAttribute("preferitiColore",colore);
+               request.setAttribute("preferitiQuantita",quantita);
                System.out.println("rssaxdwqcbh");
                request.getRequestDispatcher("/WEB-INF/views/customer/favorites.jsp").forward(request,response);
                break;
@@ -275,14 +285,15 @@ public class UtenteServlet extends Controller {
                            colores=null;
                            System.out.println("8");
                        }else {
-                           int x = 0;
                            for (int i : carrello.Fcodice()) {
                                System.out.println("super");
                                fos.add(fornituraDAOs.doRetrieveByUtenteCode(i));
                                System.out.println("fatto");
+                           }
+                           for (int x = 0; x < fos.size(); x++) {
+                               System.out.println(fos.get(x).getCodColore());
                                colores.add(coloreDAOs.doRetrieveByCode(fos.get(x).getCodColore()));
                                System.out.println("risolto");
-                               x++;
                            }
                        }
                    } else {
@@ -307,14 +318,18 @@ public class UtenteServlet extends Controller {
                            System.out.println("8");
                        } else {
                            System.out.println("9");
-                           int x = 0;
+                           int xt =0;
                            for (int i : carrello.Fcodice()) {
+                               System.out.println(i);
                                System.out.println("robertoooo");
                                fos.add(fornituraDAOs.doRetrieveByUtenteCode(i));
-                               System.out.println("fatto");
+                               System.out.println(fos.get(xt).getCodColore());
+                               xt++;
+                           }
+                           for (int x = 0; x < fos.size(); x++) {
+                               System.out.println(fos.get(x).getCodColore());
                                colores.add(coloreDAOs.doRetrieveByCode(fos.get(x).getCodColore()));
                                System.out.println("risolto");
-                               x++;
                            }
                        }
                    }
@@ -337,12 +352,6 @@ public class UtenteServlet extends Controller {
            System.out.println("siumproblem");
            invalidRequestException.printStackTrace();
        }
-   /* }catch (SQLException ex){
-               log(ex.getMessage());
-           } catch (InvalidRequestException e){
-               log(e.getMessage());
-               e.handle(request,response);
-           }*/
        }
 
         @Override
@@ -450,24 +459,66 @@ public class UtenteServlet extends Controller {
                     OrdineDAO oDAO = new OrdineDAO();
                     PreferitiDAO pD = new PreferitiDAO();
                     ordine = oDAO.DoRetriveByLast(customerSession.getId());
-                    PreferitiSession ps = new PreferitiSession(customerSession.getId(),1);
-                    ps.setCodici(pD.DoRetriveCodiciByUtente(customerSession.getId()));
-                    ps.setListFcodice(pD.DoRetriveFCodiciByUtente(customerSession.getId()));
-                    request.getSession().setAttribute("preferiti",ps);
+                    PreferitiSession preferitiSession = (PreferitiSession)request.getSession(false).getAttribute("preferiti");
+                    if(preferitiSession == null) {
+                        PreferitiSession ps = new PreferitiSession(customerSession.getId(), 1);
+                        ps.setCodici(pD.DoRetriveCodiciByUtente(customerSession.getId()));
+                        ps.setListFcodice(pD.DoRetriveFCodiciByUtente(customerSession.getId()));
+                        request.getSession(false).removeAttribute("preferiti");
+                        request.getSession().setAttribute("preferiti", ps);
+                    }else{
+                        System.out.println("siamo forti");
+                        PreferitiSession ps = new PreferitiSession(customerSession.getId(), 1);
+                        ps.setCodici(pD.DoRetriveCodiciByUtente(customerSession.getId()));
+                        ps.setListFcodice(pD.DoRetriveFCodiciByUtente(customerSession.getId()));
+                        for (String c:preferitiSession.mCodice()) {
+                            ps.setmCodice(c);
+                        }
+                        for (int fcodici:preferitiSession.Fcodice()) {
+                            ps.setFcodice(fcodici);
+                        }
+                        request.getSession(false).removeAttribute("preferiti");
+                        request.getSession().setAttribute("preferiti", ps);
+                    }
                     CarrelloDAO carrelloDAO = new CarrelloDAO();
                     System.out.println("davide");
-                    List<Integer> Fcodici = carrelloDAO.DoRetrieveFcodice(customerSession.getId());
-                    CarrelloSession carrelloSession=new CarrelloSession(customerSession.getId(),1);
-                    System.out.println("ererrrr");
-                    carrelloSession.setListFcodice(Fcodici);
-                    System.out.println("magasium");
-                    carrelloSession.setListQuantita(carrelloDAO.DoRetrieveQuantita(customerSession.getId()));
-                    carrelloSession.setmCodice(carrelloDAO.DoRetrieveCodici(customerSession.getId()));
+                    CarrelloSession carrelloSessione = (CarrelloSession) request.getSession().getAttribute("carrello");
+                    if(carrelloSessione == null) {
+                        List<Integer> Fcodici = carrelloDAO.DoRetrieveFcodice(customerSession.getId());
+                        CarrelloSession carrelloSession = new CarrelloSession(customerSession.getId(), 1);
+                        System.out.println("ererrrr");
+                        carrelloSession.setListFcodice(Fcodici);
+                        System.out.println("magasium");
+                        carrelloSession.setListQuantita(carrelloDAO.DoRetrieveQuantita(customerSession.getId()));
+                        carrelloSession.setmCodice(carrelloDAO.DoRetrieveCodici(customerSession.getId()));
                     /*List<Carrello> carrello = new ArrayList<>();
                     CarrelloDAO carrelloDAO = new CarrelloDAO();
                     carrello = carrelloDAO.DoRetrieveByUtente(customerSession.getId());*/
-                    request.getSession(false).removeAttribute("carrello");
-                    request.getSession().setAttribute("carrello",carrelloSession);
+                        request.getSession(false).removeAttribute("carrello");
+                        request.getSession().setAttribute("carrello", carrelloSession);
+                    }else{
+                        List<Integer> Fcodici = carrelloDAO.DoRetrieveFcodice(customerSession.getId());
+                        CarrelloSession carrelloSession = new CarrelloSession(customerSession.getId(), 1);
+                        System.out.println("ererrrr");
+                        carrelloSession.setListFcodice(Fcodici);
+                        System.out.println("magasium");
+                        carrelloSession.setListQuantita(carrelloDAO.DoRetrieveQuantita(customerSession.getId()));
+                        carrelloSession.setmCodice(carrelloDAO.DoRetrieveCodici(customerSession.getId()));
+                        for (String c:carrelloSessione.mCodice()) {
+                            carrelloSession.setmCodice(c);
+                        }
+                        for (int fcodici:carrelloSessione.Fcodice()) {
+                            carrelloSession.setFcodice(fcodici);
+                        }
+                        for (int quantita:carrelloSessione.Quantita()) {
+                            carrelloSession.setQuantita(quantita);
+                        }
+                    /*List<Carrello> carrello = new ArrayList<>();
+                    CarrelloDAO carrelloDAO = new CarrelloDAO();
+                    carrello = carrelloDAO.DoRetrieveByUtente(customerSession.getId());*/
+                        request.getSession(false).removeAttribute("carrello");
+                        request.getSession().setAttribute("carrello", carrelloSession);
+                    }
                     request.setAttribute("ordine",ordine);
                     request.getRequestDispatcher("/WEB-INF/views/customer/profilo.jsp").forward(request, response);
                 } else{

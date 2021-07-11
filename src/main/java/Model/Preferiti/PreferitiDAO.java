@@ -1,5 +1,7 @@
 package Model.Preferiti;
 
+import Model.Carrello.Carrello;
+import Model.Carrello.CarrelloExtraction;
 import Model.Gestione.ConPool;
 
 import java.sql.Connection;
@@ -122,6 +124,59 @@ public class PreferitiDAO implements PreferitiInterface {
                 ps.setString(1, codice);
                 ps.setInt(2, id);
                 ps.setInt(3, fcodice);
+                int rows = ps.executeUpdate();
+                return rows == 1;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
+    public Preferiti findElement(int id, String Mcodice, int Fcodice) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM carrello WHERE IDutente=? AND Mcodice=? AND Fcodice=?")) {
+                ps.setInt(1, id);
+                ps.setString(2, Mcodice);
+                ps.setInt(3, Fcodice);
+                ResultSet rs = ps.executeQuery();
+                if(rs.next()){
+                    Preferiti p = new Preferiti();
+                    PreferitiExtraction preferitiExtraction = new PreferitiExtraction();
+                    p = preferitiExtraction.mapping(rs);
+                    return  p;
+                }
+                return  null;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
+    public boolean insertElemento(int numeroPreferiti ,int id,String Mcodice,int Fcodice) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("INSERT INTO carrello (NumeroPreferiti,IDutente,Mcodice,Fcodice) VALUES(?,?,?,?)")) {
+                ps.setInt(1, numeroPreferiti);
+                ps.setInt(2, id);
+                ps.setString(3, Mcodice);
+                ps.setInt(4, Fcodice);
+                int rows = ps.executeUpdate();
+                return rows == 1;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
+    public boolean updateQuantita(int numeroPreferiti,int id,String Mcodice,int Fcodice) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("UPDATE carrello SET NumeroPreferiti=? WHERE IDutente=? AND Mcodice=? AND Fcodice=?")) {
+                ps.setInt(1, numeroPreferiti);
+                ps.setInt(2, id);
+                ps.setString(3, Mcodice);
+                ps.setInt(4, Fcodice);
                 int rows = ps.executeUpdate();
                 return rows == 1;
             } catch (SQLException e) {
