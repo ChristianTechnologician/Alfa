@@ -1,6 +1,7 @@
 package Model.Carrello;
 
 import Model.Gestione.ConPool;
+import Model.Merce.Merce;
 import Model.Ordine.Ordine;
 import Model.Ordine.OrdineExtraction;
 
@@ -102,6 +103,58 @@ public class CarrelloDAO implements CarrelloInterface
                     return cod=null;
                 }
                 return cod;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    @Override
+    public Carrello findElement(int id,String Mcodice,int Fcodice) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM carrello WHERE IDutente=? AND Mcodice=? AND Fcodice=?")) {
+                ps.setInt(1, id);
+                ps.setString(2, Mcodice);
+                ps.setInt(3, Fcodice);
+               ResultSet rs = ps.executeQuery();
+                if(rs.next()){
+                    Carrello c = new Carrello();
+                    CarrelloExtraction carrelloExtraction = new CarrelloExtraction();
+                    c = carrelloExtraction.mapping(rs);
+                    return  c;
+                }
+                return  null;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
+    public boolean updateQuantita(int quantita,int id,String Mcodice,int Fcodice) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("UPDATE carrello SET Quantita=? WHERE IDutente=? AND Mcodice=? AND Fcodice=?")) {
+                ps.setInt(1, quantita);
+                ps.setInt(2, id);
+                ps.setString(3, Mcodice);
+                ps.setInt(4, Fcodice);
+                int rows = ps.executeUpdate();
+                return rows == 1;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
+    public boolean insertElemento(int id,String Mcodice,int Fcodice,int quantita) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("INSERT INTO carrello (IDutente,Mcodice,Fcodice,Quantita) VALUES(?,?,?,?)")) {
+                ps.setInt(1, id);
+                ps.setString(2, Mcodice);
+                ps.setInt(3, Fcodice);
+                ps.setInt(4, quantita);
+                int rows = ps.executeUpdate();
+                return rows == 1;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

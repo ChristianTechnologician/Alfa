@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CarrelloGuest {
     private List<String> codiceMerce;
-    private List<Fornitura> fornituraList;
+    private List<Fornitura> codiciFornitura;
 
     public CarrelloGuest(){
     }
@@ -15,8 +15,8 @@ public class CarrelloGuest {
         this.codiceMerce.add(codice);
     }
 
-    public void setFornitura(Fornitura fornitura){
-        this.fornituraList.add(fornitura);
+    public void setCodiciFornitura(Fornitura fornitura){
+        this.codiciFornitura.add(fornitura);
     }
 
     public List<String> getCodiceMerce() {
@@ -27,11 +27,11 @@ public class CarrelloGuest {
         this.codiceMerce = codiceMerce;
     }
 
-    public List<Fornitura> getFornituraList() {
-        return fornituraList;
+    public List<Fornitura> getCodiciFornituraList() {
+        return codiciFornitura;
     }
 
-    public void setFornituraList(List<Fornitura> fornituraList) {
-        this.fornituraList = fornituraList;
+    public void setcodiciFornituraList(List<Fornitura> fornituraList) {
+        this.codiciFornitura = fornituraList;
     }
 }

@@ -33,6 +33,7 @@ public class CarrelloServlet extends Controller {
             switch (path) {
                 case "/rimuovi":
                     // this parses the json
+                    System.out.println("siamo qui");
                     JSONObject jObj = new JSONObject(request.getParameter("rimozione"));
                     Iterator it = jObj.keys(); //gets all the keys
                     ArrayList<String> c = new ArrayList<>();
@@ -41,15 +42,20 @@ public class CarrelloServlet extends Controller {
                         String key = (String) it.next(); // get key
                         Object o = jObj.get(key); // get value
                         c.add((String) o);
-                        //System.out.println(key + " : " +  o); // print the key and value
+                        System.out.println(key + " : " +  o); // print the key and value
                     }
+                    System.out.println("welalala");
                     CarrelloDAO carrelloDAO = new CarrelloDAO();
-                    boolean b = carrelloDAO.deleteElementoCarrello(c.get(1),Integer.parseInt(c.get(0)),Integer.parseInt(c.get(2)));
+                    System.out.println("azzo");
+                    boolean b = carrelloDAO.deleteElementoCarrello(c.get(2),Integer.parseInt(c.get(0)),Integer.parseInt(c.get(3)));
+                    System.out.println("pazzo");
                     CarrelloSession cs= (CarrelloSession) request.getSession().getAttribute("carrello");
+                    System.out.println("oleee");
                     int i=0;
+                    System.out.println("problema");
                     for (String s: cs.mCodice())
                     {
-                        if(s.equals(c.get(1)))
+                        if(s.equals(c.get(2)))
                         {
                             break;
                         }
@@ -61,7 +67,7 @@ public class CarrelloServlet extends Controller {
                     int j=0;
                     for (int x: cs.Fcodice())
                     {
-                        if(x==Integer.parseInt(c.get(2)))
+                        if(x==Integer.parseInt(c.get(3)))
                         {
                             break;
                         }
@@ -73,7 +79,7 @@ public class CarrelloServlet extends Controller {
                     int p=0;
                     for (int x: cs.Quantita())
                     {
-                        if(x==Integer.parseInt(c.get(3)))
+                        if(x==Integer.parseInt(c.get(1)))
                         {
                             break;
                         }
@@ -82,6 +88,7 @@ public class CarrelloServlet extends Controller {
                             p++;
                         }
                     }
+                    System.out.println("opelala");
                     cs.Fcodice().remove(j);
                     cs.mCodice().remove(i);
                     cs.Quantita().remove(p);
@@ -92,7 +99,7 @@ public class CarrelloServlet extends Controller {
                     UtenteSession utenteSession= (UtenteSession) request.getSession().getAttribute("accountSession");
                     CarrelloDAO carrelloDAOo = new CarrelloDAO();
                     List<Integer> Fcodici = carrelloDAOo.DoRetrieveFcodice(utenteSession.getId());
-                    CarrelloSession carrelloSession=new CarrelloSession(utenteSession.getId());
+                    CarrelloSession carrelloSession=new CarrelloSession(utenteSession.getId(),1);
                     carrelloSession.setListFcodice(Fcodici);
                     carrelloSession.setListQuantita(carrelloDAOo.DoRetrieveQuantita(utenteSession.getId()));
                     carrelloSession.setmCodice(carrelloDAOo.DoRetrieveCodici(utenteSession.getId()));
@@ -123,16 +130,16 @@ public class CarrelloServlet extends Controller {
                     OrdineDAO oDAO = new OrdineDAO();
                     PreferitiDAO pD = new PreferitiDAO();
                     ordine = oDAO.DoRetriveByLast(customerSession.getId());
-                    PreferitiSession ps = new PreferitiSession(customerSession.getId());
+                    PreferitiSession ps = new PreferitiSession(customerSession.getId(),1);
                     ps.setCodici(pD.DoRetriveCodiciByUtente(customerSession.getId()));
-                    request.getSession().getAttribute("preferiti");
+                    request.getSession().setAttribute("preferiti",ps);
                     CarrelloDAO carrelloDAO = new CarrelloDAO();
                     List<Integer> Fcodici = carrelloDAO.DoRetrieveFcodice(customerSession.getId());
-                    CarrelloSession carrelloSession = new CarrelloSession(customerSession.getId());
+                    CarrelloSession carrelloSession = new CarrelloSession(customerSession.getId(),1);
                     carrelloSession.setListFcodice(Fcodici);
                     carrelloSession.setListQuantita(carrelloDAO.DoRetrieveQuantita(customerSession.getId()));
                     carrelloSession.setmCodice(carrelloDAO.DoRetrieveCodici(customerSession.getId()));
-                    request.getSession().getAttribute("carrello");
+                    request.getSession().setAttribute("carrello",carrelloSession);
                     request.setAttribute("ordine", ordine);
                     String Via = request.getParameter("Via");
                     String NumeroCivico = request.getParameter("NumeroCivico");

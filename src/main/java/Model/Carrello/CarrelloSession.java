@@ -5,13 +5,17 @@ import java.util.List;
 public class CarrelloSession {
     private List<String> mCodice;
     private List<Integer> Quantita,Fcodice;
-    private final int IDCarrello,IDutente;
+    private final int IDCarrello,IDutente,registrato;
 
-    public CarrelloSession(int id){
+    public CarrelloSession(int id,int reg){
         this.IDCarrello = id;
         this.IDutente = id;
+        this.registrato = reg;
     }
 
+    public int getRegistrato() {
+        return registrato;
+    }
 
     public void setQuantita(int quantita){this.Quantita.add(quantita);}
 

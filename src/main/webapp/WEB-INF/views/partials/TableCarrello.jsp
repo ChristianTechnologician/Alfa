@@ -11,6 +11,10 @@ List<Integer> cod = cs.Fcodice();%>
 <%List<Fornitura> forniture = (List<Fornitura>) request.getAttribute("carrelloFornitura");%>
 <%List<Colore> colori = (List<Colore>) request.getAttribute("carrelloColori");%>
 <%double prezzoTotale=0;%>
+<div id="modifica">
+<%if(merci == null){%>
+    Non ci sono abiti nel carrello
+<%}else{%>
 <%
     for (Merce m: merci)
     {
@@ -43,11 +47,7 @@ List<Integer> cod = cs.Fcodice();%>
     <%}%>
     </thead>
     <tbody>
-    <%if(merci == null ){%>
-    <tr>
-        <td>Non ci sono ancora merci nel carrello</td>
-    </tr>
-    <%}else{
+    <%
         for(int i = 0;i<merci.size();i++){
             String code ="";
             int id=0;
@@ -103,7 +103,6 @@ List<Integer> cod = cs.Fcodice();%>
     <td></td>
     </tr>
     <%}%>
-    <%}%>
     </tbody>
 </table>
     </div>
@@ -113,7 +112,9 @@ List<Integer> cod = cs.Fcodice();%>
     <div class="column" style="float:right; width: 30%" >
     <h2>Procedi all'ordine</h2>
     <h3>Prezzo Totale</h3>
-        <h2 id="prezzototale">€<%=prezzoTotale%></h2>
+        <div id="prezzototale">€<%=prezzoTotale%></div>
         <form action="${pageContext.request.contextPath}/carrello/ordine" method="get"><button>Procedi all'acquisto</button></form>
     </div>
+</div>
+<%}%>
 </div>
