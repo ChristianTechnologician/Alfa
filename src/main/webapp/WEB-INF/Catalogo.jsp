@@ -19,28 +19,27 @@
 <header>
 <%@include file="/WEB-INF/views/partials/HeaderCustomer.jsp"%>
 </header>
-<section>
-  <div class="row">
-  <div class="column" style="float:right;width:80%">
+  <div class="column" style="width:100%">
+      <div style="text-align: center">
     <ul>
     <% for(Merce g : generale){
         if (g != null ){
     %>
      <li style="float: left "> <div class="gallery">
          <form action="DettaglioServlet" method="get">
-        <button>
-          <img src="./Images/<%=g.getCodice()%>.jpg" alt="img" width="700" height="500">
+        <button style="width: 400px; height: 600px; border: none">
+          <img src="./Images/<%=g.getCodice()%>.jpg" alt="img" width="100%" height="auto">
             <input type="hidden" name="prodotto" value="<%=g.getCodice()%>">
+            <div class="desc"><%=g.getNome()%></div>
         </button>
-        <div class="desc"><%=g.getNome()%></div></form>
+        </form>
       </div></li>
         <%}%>
         <%}%>
      
     </ul>
+      </div>
   </div>
-</div>
-</section>
 <footer>
 <%@include file="/WEB-INF/views/partials/FooterCustomer.jsp"%>
 </footer>

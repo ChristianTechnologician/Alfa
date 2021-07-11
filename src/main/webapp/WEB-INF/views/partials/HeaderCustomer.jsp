@@ -1,9 +1,9 @@
 <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 <div class="header">
+    <div style="text-align: center">
     <a href="${pageContext.request.contextPath}/utente/homePage">
-        <img src="../Images/LOGO.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
-    </a>
-
+    <img src="../Images/LOGO.jpg" alt="Impossibile caricare l'immagine" style="width: 215px; height: 100px; position: center">
+    </a></div>
 <ul>
     <div class="dropdown"> <form action="${pageContext.request.contextPath}/RedirectServlet" method="get">
         <li><button class="dropbtn" id="r_uomo" name="redirect_uomo">Uomo</button>

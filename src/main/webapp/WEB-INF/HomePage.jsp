@@ -8,8 +8,18 @@
     </jsp:include>
    <!-- <meta name="viewport" content="width=device-width, user-scalable=no">-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+<style>
+
+    body {
+        background-image: url("/Images/SFONDO.jpg");
+    }
+
+</style>
+
+
+
 </head>
 
 <body>
@@ -17,8 +27,9 @@
 <%@include file="/WEB-INF/views/partials/HeaderCustomer.jsp"%>
 </header>
 
+
 <div class="row">
-    <div class="column" style="float:left">
+    <div class="column">
         <h2>Abbigliamento Maschile</h2>
         <form action="${pageContext.request.contextPath}/RedirectServlet" method="get">
             <button style="border: none">
@@ -29,7 +40,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="column" style="float:right">
+    <div class="column">
         <h2>Abbigliamento Femminile</h2>
         <form action="${pageContext.request.contextPath}/RedirectServlet" method="get">
             <button style="border: none">
@@ -39,6 +50,7 @@
         </form>
     </div>
 </div>
+
 <footer>
 <%@include file="/WEB-INF/views/partials/FooterCustomer.jsp"%>
 </footer>

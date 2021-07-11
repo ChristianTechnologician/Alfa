@@ -4,7 +4,7 @@
 <head>
     <jsp:include page="/WEB-INF/views/partials/head.jsp">
         <jsp:param name="title" value="Alfa-DeleteMerce"/>
-        <jsp:param name="style" value="reset,crm"/>
+        <jsp:param name="style" value="reset,crm, reset,libraryCustomer"/>
         <jsp:param name="script" value="validatorInsert"/>
     </jsp:include>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

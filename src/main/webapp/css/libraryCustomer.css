@@ -2,6 +2,7 @@
     font-family: 'Merryweather' ;
     font-style:normal;
     font-weight: normal;
+    background-color:  #f1f1f1;
 }
 /*
 margin: 0;
@@ -11,12 +12,29 @@ font-size: 100%;
 font: inherit;
 vertical-align: baseline;*/
 
-@media only screen and (max-width: 620px) {
+@media only screen and ( max-width: 600px) {
     /* For mobile phones: */
-    ul, li, .row, .dropdown{
+    .dropdown , .dropbtn{
         width: 100%;
+        background-color: #f1f1f1;
+        text-align: center;
     }
+
 }
+
+    @media only screen and (max-width: 600px) {
+        /* For mobile phones: */
+         .row, .column {
+            width: 100%;
+            float: left;
+             text-align: center;
+        }
+    }
+
+
+
+
+
     body {
         box-sizing: border-box;
         margin: 0;
@@ -34,9 +52,9 @@ vertical-align: baseline;*/
 
 .footer {
 
-    /*position: relative;*/
+   position: page;
 
-    margin-top: 50px;
+    margin-top: 20px;
 
     left: 0;
 
@@ -47,6 +65,7 @@ vertical-align: baseline;*/
     background-color: #f1f1f1;
 
     text-align: center;
+
     border: none;
 
 }
@@ -98,6 +117,7 @@ vertical-align: baseline;*/
 
     .row{
         border: none;
+        width: 100%;
     }
 
 
@@ -136,14 +156,13 @@ vertical-align: baseline;*/
     }
 
     .dropdown {
-        position: relative;
+
         display: inline-block;
     }
 
     .dropdown-content {
         display: none;
         position: fixed;
-        overflow: no-display;
         background-color: #f9f9f9;
         min-width: 160px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -157,8 +176,11 @@ vertical-align: baseline;*/
         display: block;
     }
 
+.dropdown:hover .dropdown-content {display: block;}
+
+
     .dropdown-content a:hover {
-        background-color: #4CAF50
+        background-color: #f5e2cd;
     }
 
     .dropdown:hover .dropdown-content {
@@ -166,7 +188,7 @@ vertical-align: baseline;*/
     }
 
     .dropdown:hover .dropbtn {
-        background-color: #3e8e41;
+        background-color: #f5e2cd;
     }
 
     .key {
@@ -180,7 +202,7 @@ vertical-align: baseline;*/
     }
 
     .key:hover {
-        background-color: #4CAF50
+        background-color: #f5e2cd;
     }
 
     #search_form {
@@ -213,18 +235,21 @@ vertical-align: baseline;*/
 
     #gallery {
         width: 100%;
-        max-width: 100%
+        height: auto;
+        max-width: 100%;
     }
 
     img {
         width: 50%;
         height: auto;
     }
+
     .h {
         font-size: 10vw;
     }
 
     .a{
+        width: 100%;
         margin: 0;
         overflow: hidden;
         border: none;

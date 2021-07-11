@@ -6,11 +6,13 @@
 </head>
 <body>
 <header id="logo" class="grid-x justify-center">
-    <img src="${pageContext.request.contextPath}/Images/LOGO.jpg" alt="Impossibile caricare l'immagine" width="215" height="100">
+    <div style="text-align: center">
+            <img src="../Images/LOGO.jpg" alt="Impossibile caricare l'immagine" style="width: 215px; height: 100px; position: center">
+    </div>
 </header>
 <ul>
-    <div class="dropdown grid-x align-center">
-        <li><a href="${pageContext.request.contextPath}/merce/merce">Gestione Merce</a>
+    <div class="dropdown">
+        <li><button class="dropbtn"><a href="${pageContext.request.contextPath}/merce/merce">Gestione Merce</a></button>
             <div class="dropdown-content">
                 <a href="${pageContext.request.contextPath}/merce/insertMerce">Inserisci Merce</a>
                 <a href="${pageContext.request.contextPath}/merce/updateMerce">Modifica Merce</a>
@@ -19,33 +21,33 @@
         </li>
     </div>
 
-    <div class="dropdown grid-x align-center">
+    <div class="dropdown">
         <li>
-            <a href="${pageContext.request.contextPath}/ordine/mostraOrdini">Gestione Ordini</a>
+            <button class="dropbtn"><a href="${pageContext.request.contextPath}/ordine/mostraOrdini">Gestione Ordini</a></button>
             <div class="dropdown-content">
                 <a href="${pageContext.request.contextPath}/ordine/ordine">Visualizza Ordine</a>
             </div>
         </li>
     </div>
 
-    <div class="dropdown grid-x align-center">
+    <div class="dropdown">
         <li>
-            <a href="${pageContext.request.contextPath}/utente/visualizza">Gestione Utente</a>
+            <button class="dropbtn"> <a href="${pageContext.request.contextPath}/utente/visualizza">Gestione Utente</a></button>
             <div class="dropdown-content">
                 <a href="${pageContext.request.contextPath}/utente/utente">Visualizza Utente</a>
             </div>
         </li>
     </div>
 
-    <div class="dropdown grid-x align-center">
+    <div class="dropdown">
         <li>
-            <a href="${pageContext.request.contextPath}/utente/profileAdmin">Profilo</a>
-        </li>
+            <button class="dropbtn"><a href="${pageContext.request.contextPath}/utente/profileAdmin">Profilo</a></button>
+            </li>
     </div>
 
-    <div class=" dropdown grid-x align-center">
+    <div class=" dropdown">
         <li>
-            <a href="${pageContext.request.contextPath}/utente/logout">Logout</a>
+            <button class="dropbtn"><a href="${pageContext.request.contextPath}/utente/logout">Logout</a></button>
         </li>
     </div>
 </ul>
