@@ -33,9 +33,4 @@
         <li><button class="dropbtn">Preferiti</button></li></form>
     </div>
     <li style="float:right">
-
-        <form action="research-servlet" method="get">
-            <input id="search_input" size="20"name="keyword" placeholder="Barra di ricerca"/>
-            <button style="border: none;cursor: pointer"><i  style="font-size:25px;padding-top: 10px" class="fa">&#xf002;</i></button>
-        </form></li>
 </ul>
