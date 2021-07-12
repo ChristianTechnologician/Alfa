@@ -13,11 +13,15 @@
 <%boolean operazione1 = (boolean) request.getAttribute("deletem"); %>
 <%boolean operazione2 = (boolean) request.getAttribute("deletef"); %>
 <%if(operazione1 && operazione2){ %>
-L'eliminazione è stata effettuata
+<h4>L'eliminazione è stata effettuata</h4>
 <%}else{%>
-L'eliminazione non è stata effettuata
+<h4>L'eliminazione non è stata effettuata</h4>
 <%}%>
+<h4>
 <a href="${pageContext.request.contextPath}/crm/home">Ritorna alla home</a>
+</h4>
+<h4>
 <a href="${pageContext.request.contextPath}/merce/deleteMerce">Ritorna alla delete</a>
+</h4>
 </body>
 </html>

@@ -8,8 +8,8 @@
     <div class="dropdown"> <form action="${pageContext.request.contextPath}/RedirectServlet" method="get">
         <li><button class="dropbtn" id="r_uomo" name="redirect_uomo">Uomo</button>
             <div class="dropdown-content">
-                <button class="key" id="redirect_uomo_abiti" name="redirect_uomo_abiti">Abiti</button>
-                <button class="key" id="redirect_uomo_giacche" name="redirect_uomo_giacche">Giacche</button>
+                <button class="key" id="redirect_uomo_abiti" name="redirect_uomo_abiti">Completi</button>
+                <button class="key" id="redirect_uomo_giacche" name="redirect_uomo_giacche">Cappotti</button>
             </div></li>
     </form>
     </div>
@@ -17,8 +17,8 @@
     <div class="dropdown"><form action="${pageContext.request.contextPath}/RedirectServlet" method="get">
         <li><button class="dropbtn" id="r_donna" name="redirect_donna">Donna</button>
             <div class="dropdown-content">
-                <button class="key" id="redirect_donna_abiti" name="redirect_donna_abiti">Abiti</button>
-                <button class="key" id="redirect_donna_giacche" name="redirect_donna_giacche">Giacche</button>
+                <button class="key" id="redirect_donna_abiti" name="redirect_donna_abiti">Completi</button>
+                <button class="key" id="redirect_donna_giacche" name="redirect_donna_giacche">Cappotti</button>
             </div></li></form>
     </div>
 
