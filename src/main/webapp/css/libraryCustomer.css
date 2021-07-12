@@ -191,6 +191,11 @@ vertical-align: baseline;*/
         background-color: #f8e8b3;
     }
 
+.collegamento:hover {
+    background-color: yellow;
+}
+
+
     .key {
         color: black;
         padding: 12px 16px;

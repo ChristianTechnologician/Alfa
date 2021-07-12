@@ -10,6 +10,7 @@
             <img src="../Images/LOGO.jpg" alt="Impossibile caricare l'immagine" style="width: 215px; height: 100px; position: center">
     </div>
 </header>
+
 <ul>
     <div class="dropdown"> <form action="${pageContext.request.contextPath}/merce/merce" method="get">
         <li><button class="dropbtn">Gestione Merce</button>
@@ -34,7 +35,7 @@
     <div class="dropdown"> <form action="${pageContext.request.contextPath}/utente/visualizza" method="get">
         <li><button class="dropbtn">Gestione Utente</button>
             <div class="dropdown-content">
-                <a href="${pageContext.request.contextPath}/utente/utente">Visualizza Utente</a>
+                <a  href="${pageContext.request.contextPath}/utente/utente">Visualizza Utente</a>
             </div></li>
     </form>
     </div>
@@ -44,7 +45,7 @@
     </form>
     </div>
 
-    <div class="dropdown"> <form action="${pageContext.request.contextPath}/utente/logout" method="get">
+    <div  class="dropdown"> <form action="${pageContext.request.contextPath}/utente/logout" method="get">
         <li><button class="dropbtn">Logout</button></li>
     </form>
     </div>
