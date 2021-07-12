@@ -138,6 +138,9 @@ public class PreferitiServlet extends Controller {
                         }
                     }else {
                         PreferitiSession preferitiSession = (PreferitiSession) request.getSession().getAttribute("preferiti");
+                        System.out.println(str.get(3));
+                        System.out.println(Integer.parseInt(str.get(4)));
+                        System.out.println(Integer.parseInt(str.get(2)));
                         preferitiSession.setmCodice(str.get(3));
                         preferitiSession.setFcodice(Integer.parseInt(str.get(4)));
                         preferitiSession.setQuantita(Integer.parseInt(str.get(2)));

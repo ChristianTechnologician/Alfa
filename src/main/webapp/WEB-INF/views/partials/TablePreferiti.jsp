@@ -44,14 +44,14 @@ Non ci sono ancora preferiti
         </td>
         <%for (Fornitura f : forniture) {
             if (f.getCodMerce().equals(merci.get(i).getCodice())) {
-                for (Colore color : colori) {
-                    if (f.getCodColore() == color.getCod()) {
-                        c = color.getTipoColore();
-                        break;
+                if(f.getIdentificatore()==cs.Fcodice().get(i)) {
+                    for (Colore color : colori) {
+                        if (f.getCodColore() == color.getCod()) {
+                            c = color.getTipoColore();
+                            break;
+                        }
                     }
                 }
-        %>
-        <%
                 break;
             }
         %>
@@ -61,11 +61,12 @@ Non ci sono ancora preferiti
         <%for (Fornitura f : forniture) {%>
         <%if (f.getCodMerce().equals(merci.get(i).getCodice())) {%>
         <%
-            for (int codice : cod) {
-                if (f.getIdentificatore() == codice) {
+            if(f.getIdentificatore()==cs.Fcodice().get(i)) {
+            //for (int codice : cod) {
+               // if (f.getIdentificatore() == codice) {
         %>
         <%rc = quantita.get(i);%>
-        <%fcodice = codice;%>
+        <%fcodice = cs.Fcodice().get(i);%>
         <% c = f.getlTaglia();
             break;
         }%>
@@ -74,7 +75,6 @@ Non ci sono ancora preferiti
                 break;
             }
         %>
-        <%}%>
         <td data-head="Taglia"><%=c%>
         </td>
         <td data-head="Prezzo"><%=merci.get(i).getPrezzo()%>

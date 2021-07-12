@@ -131,6 +131,10 @@ public class UtenteServlet extends Controller {
                    session.removeAttribute("preferiti");
                    session.removeAttribute("carrello");
                    //session.invalidate();
+                   PreferitiSession preferitiGuests = new PreferitiSession(0,0);
+                   request.getSession(true).setAttribute("preferiti", preferitiGuests);
+                   CarrelloSession carrelloGuests = new CarrelloSession(0,0);
+                   request.getSession(true).setAttribute("carrello", carrelloGuests);
                    request.getRequestDispatcher(redirect).forward(request, response);
                    break;
                case "/user":
@@ -221,6 +225,7 @@ public class UtenteServlet extends Controller {
                        System.out.println("forse");
                        str = preferiti.mCodice();
                        for (String s : str) {
+                           System.out.println(s);
                            me.add(mDAO.doRetrieveByCode(s));
                            System.out.println("6");
                        }
@@ -232,20 +237,28 @@ public class UtenteServlet extends Controller {
                        System.out.println("8");
                    } else {
                        System.out.println("9");
-
                        for (int i : preferiti.Fcodice()) {
                            System.out.println("robertoooo");
                            fo.add(fornituraDAO.doRetrieveByUtenteCode(i));
                        }
                        for (int x = 0; x < fo.size(); x++) {
+                           System.out.println(fo.get(x).getCodColore());
+                           System.out.println(fo.get(x).getIdentificatore());
                            colore.add(coloreDAO.doRetrieveByCode(fo.get(x).getCodColore()));
                            System.out.println("risolto");
                        }
                        for (int w :preferiti.Quantita()) {
+                           System.out.println(w);
                            quantita.add(w);
                            System.out.println("risolto");
                        }
                    }
+               }
+               for(int i = 0;i<preferiti.Fcodice().size();i++){
+                   System.out.println(preferiti.Fcodice().get(i));
+               }
+               for(int i = 0;i<preferiti.Fcodice().size();i++){
+                   System.out.println(preferiti.Fcodice().get(i));
                }
                System.out.println(me);
                System.out.println(fo);
@@ -542,6 +555,10 @@ public class UtenteServlet extends Controller {
                 session.removeAttribute("preferiti");
                 session.removeAttribute("carrello");
                 //session.invalidate();
+                PreferitiSession preferitiGuest = new PreferitiSession(0,0);
+                request.getSession(true).setAttribute("preferiti", preferitiGuest);
+                CarrelloSession carrelloGuest = new CarrelloSession(0,0);
+                request.getSession(true).setAttribute("carrello", carrelloGuest);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/customer/user.jsp");
                 dispatcher.forward(request, response);
                 break;

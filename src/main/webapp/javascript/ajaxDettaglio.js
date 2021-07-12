@@ -1,6 +1,5 @@
 function aggiungiPreferiti(s){
     let q  = $("#quantita").val();
-    alert("rr")
     let c = $("#Fornitura").val();
     const array=s.split(",")
     var aggiunta = {
@@ -22,7 +21,6 @@ function aggiungiPreferiti(s){
 
 function aggiungiCarrello(s){
     let q  =  $("#quantita").val();
-    alert("gg")
     let c = $("#Fornitura").val();
     const array=s.split(",")
     var aggiunta = {

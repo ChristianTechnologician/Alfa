@@ -38,7 +38,7 @@ public class FornituraDAO implements  FornituraInterface{
     public Fornitura doRetrieveByUtenteCode(int codice) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
-                         con.prepareStatement("SELECT DISTINCT fornitura.CodiceMerce, fornitura.CodColore, fornitura.LTaglia,fornitura.Identificatore,fornitura.Quantità FROM fornitura,carrello WHERE fornitura.Identificatore=?")){
+                         con.prepareStatement("SELECT DISTINCT fornitura.CodiceMerce, fornitura.CodColore, fornitura.LTaglia,fornitura.Identificatore,fornitura.Quantità FROM fornitura WHERE fornitura.Identificatore=?")){
                 ps.setInt(1, codice);
                 System.out.println(codice);
                 ResultSet rs = ps.executeQuery();
@@ -49,6 +49,8 @@ public class FornituraDAO implements  FornituraInterface{
                     System.out.println("wwww");
                     f= fe.mapping(rs);
                     System.out.println("eeeeee");
+                    System.out.println(f.getCodColore());
+                    System.out.println(f.getQuantita());
                     System.out.println(f.getIdentificatore()+f.getCodColore()+f.getQuantita()+f.getCodMerce()+f.getlTaglia());
                     System.out.println("rrrrrr");
                 }
