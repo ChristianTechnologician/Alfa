@@ -207,6 +207,7 @@ public class CarrelloServlet extends Controller {
                         for (String s : carrelloSession.mCodice()) {
                             listamerci.add(md.doRetrieveByCode(s));
                         }
+                        request.setAttribute("interi", carrelloSession);
                         request.setAttribute("merci", listamerci);
                         request.getSession(true).setAttribute("accountSession", utenteSession);
                         request.getRequestDispatcher("/WEB-INF/views/customer/ordine.jsp").forward(request, response);

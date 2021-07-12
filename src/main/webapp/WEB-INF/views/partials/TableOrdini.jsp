@@ -11,7 +11,7 @@
         <th>Numero fattura</th>
         <th>Via</th>
         <th>Numero civico</th>
-        <th>Città</th>
+        <th>Citta</th>
         <th>Provincia</th>
         <th>Prezzo totale</th>
         <th>Data fattura</th>

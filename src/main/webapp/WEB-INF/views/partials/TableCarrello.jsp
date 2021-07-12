@@ -100,7 +100,7 @@ List<Integer> cod = cs.Fcodice();%>
 <div class="row">
     <div class="column" style="float:right; width: 50%; height: 600px" >
     <h2>Procedi all'ordine</h2>
-        <form action="${pageContext.request.contextPath}/carrello/ordine" method="get"onsubmit="controllo('<%=cs.getRegistrato()%>')"><button class="premi">Procedi all'acquisto</button></form>
+        <form action="${pageContext.request.contextPath}/carrello/ordine" method="get"><button class="premi">Procedi all'acquisto</button></form>
     </div>
 </div>
 <%}%>

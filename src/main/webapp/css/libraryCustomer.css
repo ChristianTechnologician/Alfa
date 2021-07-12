@@ -23,25 +23,47 @@ font-size: 100%;
 font: inherit;
 vertical-align: baseline;*/
 
-@media only screen and ( max-width: 600px) {
-    /* For mobile phones: */
-    .dropdown , .dropbtn{
+@media
+only screen and
+(min-width: 320px) and (max-width: 480px)
+{
+    .dropdown , .dropbtn, ul{
         width: 100%;
         background-color: #f1f1f1;
         text-align: center;
     }
 
+    .row, .column {
+        height: auto;
+        width: 100%;
+        float: left;
+        text-align: center;
+    }
+
+    img{
+        width: 100%;
+    }
+
+
 }
 
-    @media only screen and (max-width: 600px) {
-        /* For mobile phones: */
-         .row, .column {
-             height: auto;
-            width: 100%;
-            float: left;
-             text-align: center;
-        }
-    }
+
+
+@media
+only screen and
+(min-width: 481px) and (max-width: 768px)
+{
+
+
+}
+
+
+
+@media only screen and ( max-width: 769px) {
+    /* For mobile phones: */
+
+
+}
 
 table {
     width: 100%;
@@ -57,7 +79,7 @@ thead {
 /* Media Query per il No More Tables */
 
 @media
-only screen and (max-width: 760px),
+only screen and (max-width: 769px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
 
     /* Force table to not be like tables anymore */
