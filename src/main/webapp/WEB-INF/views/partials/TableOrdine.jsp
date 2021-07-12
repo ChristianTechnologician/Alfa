@@ -37,7 +37,7 @@
                     <input type="number" name="Carta di credito" id="Carta di credito" placeholder="Carta di credito">
                 </label>
                 <input type="hidden" value="<%=prezzo%>" name="total">
-                <button>ACQUISTA</button>
+                <button class="premi">ACQUISTA</button>
             </form>
         </section>
     </div>

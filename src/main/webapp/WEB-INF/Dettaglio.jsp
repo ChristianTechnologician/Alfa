@@ -15,6 +15,7 @@
         <jsp:param name="script" value="ajaxDettaglio"/>
     </jsp:include>
 </head>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <body>
@@ -28,7 +29,7 @@
 <header>
 <%@include file="/Headermini.jsp"%>
 </header>
-    <div class="column" style="float:left;width:50%; height: 600px">
+    <div class="column" style="width:50%; height: 500px">
         <ul>
             <li style="float: left "> <div class="gallery">
                         <img src="./Images/<%=prodotto.getCodice()%>.jpg" alt="img" width="100" height="auto">
@@ -36,9 +37,7 @@
             </div></li>
         </ul>
     </div>
-
-
-        <div class="column" style="float:right;width:50%; height: 600px">
+        <div class="column" style="width:50%; height: 500px">
             <ul>
                 <li style="float: right "> <div class="gallery">
                     <div class="descrizione"><h3>Descrizione</h3><br><h3><%=prodotto.getDescrizione()%></h3></div>
@@ -65,9 +64,6 @@
                 </div></li>
             </ul>
         </div>
-
-
-
 <footer>
  <%@include file="/WEB-INF/views/partials/FooterCustomer.jsp"%>
 </footer>
