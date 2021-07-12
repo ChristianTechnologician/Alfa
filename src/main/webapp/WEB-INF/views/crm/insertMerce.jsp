@@ -37,7 +37,7 @@
         <label for="upImg">
             <input type="file" name="upImg" id="upImg">
         </label>
-        <button>Inserisci</button>
+        <button class="premi">Inserisci</button>
     </form>
 </section>
 <%@include file="/WEB-INF/views/partials/FooterCrm.jsp"%>

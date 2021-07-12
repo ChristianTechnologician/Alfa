@@ -11,44 +11,42 @@
     </div>
 </header>
 <ul>
-    <div class="dropdown">
-        <li><button class="dropbtn"><a href="${pageContext.request.contextPath}/merce/merce">Gestione Merce</a></button>
+    <div class="dropdown"> <form action="${pageContext.request.contextPath}/merce/merce" method="get">
+        <li><button class="dropbtn">Gestione Merce</button>
             <div class="dropdown-content">
                 <a href="${pageContext.request.contextPath}/merce/insertMerce">Inserisci Merce</a>
                 <a href="${pageContext.request.contextPath}/merce/updateMerce">Modifica Merce</a>
                 <a href="${pageContext.request.contextPath}/merce/deleteMerce">Cancella Merce</a>
-            </div>
-        </li>
+            </div></li>
+    </form>
     </div>
 
-    <div class="dropdown">
-        <li>
-            <button class="dropbtn"><a href="${pageContext.request.contextPath}/ordine/mostraOrdini">Gestione Ordini</a></button>
+
+    <div class="dropdown"> <form action="${pageContext.request.contextPath}/ordine/mostraOrdini" method="get">
+        <li><button class="dropbtn">Gestione Ordini</button>
             <div class="dropdown-content">
                 <a href="${pageContext.request.contextPath}/ordine/ordine">Visualizza Ordine</a>
-            </div>
-        </li>
+            </div></li>
+    </form>
     </div>
 
-    <div class="dropdown">
-        <li>
-            <button class="dropbtn"> <a href="${pageContext.request.contextPath}/utente/visualizza">Gestione Utente</a></button>
+
+    <div class="dropdown"> <form action="${pageContext.request.contextPath}/utente/visualizza" method="get">
+        <li><button class="dropbtn">Gestione Utente</button>
             <div class="dropdown-content">
                 <a href="${pageContext.request.contextPath}/utente/utente">Visualizza Utente</a>
-            </div>
-        </li>
+            </div></li>
+    </form>
     </div>
 
-    <div class="dropdown">
-        <li>
-            <button class="dropbtn"><a href="${pageContext.request.contextPath}/utente/profileAdmin">Profilo</a></button>
-            </li>
+    <div class="dropdown"> <form action="${pageContext.request.contextPath}/utente/profileAdmin" method="get">
+        <li><button class="dropbtn">Profilo</button></li>
+    </form>
     </div>
 
-    <div class=" dropdown">
-        <li>
-            <button class="dropbtn"><a href="${pageContext.request.contextPath}/utente/logout">Logout</a></button>
-        </li>
+    <div class="dropdown"> <form action="${pageContext.request.contextPath}/utente/logout" method="get">
+        <li><button class="dropbtn">Logout</button></li>
+    </form>
     </div>
 </ul>
 </body>

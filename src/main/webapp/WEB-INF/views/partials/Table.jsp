@@ -23,7 +23,7 @@
     %>
     <tr>
 
-        <td data-head="Codice"><form action="${pageContext.request.contextPath}/merce/dettaglio" method="get"><button><%=merce.getCodice()%><input type ="hidden" name="id" value="<%=merce.getCodice()%>"></button></form></td>
+        <td data-head="Codice"><form action="${pageContext.request.contextPath}/merce/dettaglio" method="get"><button class="premi"><%=merce.getCodice()%><input type ="hidden" name="id" value="<%=merce.getCodice()%>"></button></form></td>
         <%list.get(i).getCodice();%>
         <td data-head="Nome"><%=merce.getNome()%></td>
         <td data-head="Descrizione"><%=merce.getDescrizione()%></td>

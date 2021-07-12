@@ -15,7 +15,7 @@
         <label>
             <input type="text" name="email" placeholder="Email">
         </label>
-        <button>Invia</button>
+        <button class="premi">Invia</button>
     </form>
 </div>
 <%@include file="/WEB-INF/views/partials/FooterCrm.jsp"%>

@@ -12,6 +12,6 @@
         <label id="#password">
             <input type="password" name="PW" placeholder="Password">
         </label>
-        <button>Salva</button>
+        <button class="premi">Salva</button>
     </form>
 </section>

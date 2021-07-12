@@ -18,6 +18,6 @@
         <label for="Quantita">
             <input type="text" name="Quantita" id="Quantita" placeholder="QUANTITA'">
         </label>
-        <button>Inserisci</button>
+        <button class="premi">Inserisci</button>
     </form>
 </section>

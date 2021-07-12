@@ -51,7 +51,7 @@
         <label id="#sconto">
             <input type="text" name="Sconto" placeholder="%sconto">
         </label>
-        <button>Applica modifica</button>
+        <button class="premi">Applica modifica</button>
     </form>
 </section>
 <%@include file="/WEB-INF/views/partials/FooterCrm.jsp"%>

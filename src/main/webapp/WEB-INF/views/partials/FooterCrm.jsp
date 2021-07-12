@@ -1,12 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
 <footer class="info">
-    Copyright 2021.
+    <p>
+        <br><br>
+        Administration page.<br>
+        Copyright 2021.<br>
+        Alfa.
+        <br><br>
+    </p>
 </footer>
-</body>
-</html>
+

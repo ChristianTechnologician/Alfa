@@ -17,10 +17,10 @@
 <%List<Ordine> ordini = (List<Ordine>)request.getAttribute("ordine");%>
 <%@include file="/WEB-INF/views/partials/HeaderCustomer.jsp"%>
     <aside id="sidebar">
-        <section id="widget_1" ><button onclick="ordini()">Ordini effettuati</button></section>
-        <section id="widget_2" ><button onclick="modifica()">Modifica</button></section>
-        <section id="widget_3" ><button onclick="elimina()">Elimina profilo</button></section>
-        <section id="widget_4"><a href="${pageContext.request.contextPath}/utente/logout"> Logout</a></section>
+        <section id="widget_1" ><button class="premi" onclick="ordini()">Ordini effettuati</button></section>
+        <section id="widget_2" ><button class="premi" onclick="modifica()">Modifica</button></section>
+        <section id="widget_3" ><button class="premi" onclick="elimina()">Elimina profilo</button></section>
+        <section id="widget_4"><a class="premix" href="${pageContext.request.contextPath}/utente/logout"> Logout</a></section>
     </aside>
     <section id="central">
         <h3>Ultimo acquisto</h3>

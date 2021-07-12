@@ -13,7 +13,7 @@
 </head>
 <body>
 <%@include file="/WEB-INF/views/partials/HeaderCustomer.jsp"%>
-<button onclick="ajax()">Registrati</button>
+<button class="premi" onclick="ajax()">Registrati</button>
 <div id="ajax">
     <form action="${pageContext.request.contextPath}/utente/signinCliente" method="post" onsubmit="event.preventDefault(); validateForm(this)">
         <fieldset>
@@ -26,7 +26,7 @@
             <label for="password">
                 <input type="password" name="password" id="password" placeholder="Password">
             </label>
-            <button type="submit">Accedi</button>
+            <button class="premi" type="submit">Accedi</button>
         </fieldset>
     </form>
 </div>

@@ -18,6 +18,6 @@
         <label for="password">
             <input type="password" name="password" id="password" placeholder="Password">
         </label>
-        <button>Registrati</button>
+        <button class="premi">Registrati</button>
     </fieldset>
 </form>

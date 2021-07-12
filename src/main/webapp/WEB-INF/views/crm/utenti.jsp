@@ -16,7 +16,6 @@
 <div>
     <%@include file="/WEB-INF/views/partials/TableUtenti.jsp"%>
 </div>
-<%@include file="/WEB-INF/views/partials/paginator.jsp"%>
 <%@include file="/WEB-INF/views/partials/FooterCrm.jsp"%>
 </body>
 </html>

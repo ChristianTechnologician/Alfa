@@ -17,7 +17,7 @@
     List<Merce> generale = (List<Merce>) request.getAttribute("generale");
 %>
 <header>
-<%@include file="/WEB-INF/views/partials/HeaderCustomer.jsp"%>
+    <%@include file="/Headermini.jsp"%>
 </header>
   <div class="column" style="width:100%">
       <div style="text-align: center">

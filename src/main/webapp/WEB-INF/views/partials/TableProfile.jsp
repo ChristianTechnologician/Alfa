@@ -27,5 +27,5 @@
 <%}%>
 </tbody>
 </table>
-    <button type="button" id="b" onclick="Modifica()">Modifica</button>
+    <button class="premi" type="button" id="b" onclick="Modifica()">Modifica</button>
 <div id="modifica" style="display: none"><%@include file="/WEB-INF/views/crm/updateProfile.jsp"%></div>

@@ -15,7 +15,7 @@
     <label id="#id">
     <input type="text" name="IdMerce" placeholder="ID merce">
     </label>
-    <button>Elimina</button>
+    <button class="premi">Elimina</button>
 </form>
 </section>
 <%@include file="/WEB-INF/views/partials/FooterCrm.jsp"%>

@@ -91,7 +91,7 @@ vertical-align: baseline;*/
         /*padding: 0;*/
         overflow: hidden;
         border: none;
-        background-color: #f3f3f3;
+        background-color: #f1f1f1;
     }
 
     li {
@@ -107,7 +107,7 @@ vertical-align: baseline;*/
     }
 
     li a:hover:not(.active) {
-        background-color: #dddddd;
+        background-color: #f1f1f1;
     }
 
     /*li a.active {
@@ -180,7 +180,7 @@ vertical-align: baseline;*/
 
 
     .dropdown-content a:hover {
-        background-color: #f5e2cd;
+        background-color: #f8e8b3;
     }
 
     .dropdown:hover .dropdown-content {
@@ -188,7 +188,7 @@ vertical-align: baseline;*/
     }
 
     .dropdown:hover .dropbtn {
-        background-color: #f5e2cd;
+        background-color: #f8e8b3;
     }
 
     .key {
@@ -202,7 +202,7 @@ vertical-align: baseline;*/
     }
 
     .key:hover {
-        background-color: #f5e2cd;
+        background-color: #f8e8b3;
     }
 
     #search_form {
@@ -222,13 +222,13 @@ vertical-align: baseline;*/
         font-size: medium;
         alignment: center;
     }
-
+/*
     p {
-        font-size: 1em; /*    16px / 16px  = 1em              */
-        line-height: 1.125em; /*    18px  / 16px = 1.125em    */
-        padding: 0 6.25%; /* 20px  / 320px = 6.25 */
+        font-size: 1em;
+        line-height: 1.125em;
+        padding: 0 6.25%;
     }
-
+*/
     #contenitore {
         max-width: 60em /*    960px / 16px  = 60em     */
     }
@@ -254,10 +254,48 @@ vertical-align: baseline;*/
         overflow: hidden;
         border: none;
     }
-/*
-list-style-type: none;
-margin: 0;
-padding: 0;
-overflow: hidden;
-border: 1px solid #e7e7e7;
-background-color: #f3f3f3;*/
+
+.premi {
+    background-color: #45F55C;
+    border: none;
+    color: black;
+    padding: 12px 28px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.premix {
+    background-color: #f55050;
+    border: none;
+    color: black;
+    padding: 12px 28px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+
+td{
+    font-size: larger;
+}
+
+h1, h2, h3, h4, h5, h6 {font-size: larger;}
+
+input[type="text"] input[type="email"] input[type="password"] input[type="number"] input[type="file"]{
+    padding: 7px 7px;
+}
+
+input{
+    padding: 7px 7px;
+}
+
+select#Fornitura {
+    padding: 4px 20px;
+}
