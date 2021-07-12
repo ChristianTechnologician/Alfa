@@ -10,16 +10,11 @@
 List<Integer> cod = cs.Fcodice();%>
 <%List<Fornitura> forniture = (List<Fornitura>) request.getAttribute("carrelloFornitura");%>
 <%List<Colore> colori = (List<Colore>) request.getAttribute("carrelloColori");%>
-<%double prezzoTotale=0;%>
+
 <div id="modifica">
-<%if(merci == null){%>
+<%if(merci == null || merci.isEmpty()){%>
     Non ci sono abiti nel carrello
 <%}else{%>
-<%
-    for (Merce m: merci)
-    {
-        prezzoTotale+=m.getPrezzo();
-    }%>
 <div class="row">
     <div class="column" style="float:left; width: 50%; height: 600px">
 <table>
@@ -50,7 +45,6 @@ List<Integer> cod = cs.Fcodice();%>
     <%
         for(int i = 0;i<merci.size();i++){
             String code ="";
-            int id=0;
             int fcodice=0;
             int s=0;
     %>
@@ -65,41 +59,36 @@ List<Integer> cod = cs.Fcodice();%>
         <%}else{
             String c ="";
             for(Fornitura f : forniture){
-        %>
-        <%if(f.getCodMerce().equals(merci.get(i).getCodice())){
-            for(Colore color : colori){
-                if(f.getCodColore()==color.getCod()){
-                    c =color.getTipoColore();
-                    break;
+            if(f.getCodMerce().equals(merci.get(i).getCodice())){
+                if(f.getIdentificatore()==cs.Fcodice().get(i)) {
+                    for(Colore color : colori) {
+                        if (f.getCodColore() == color.getCod()) {
+                            c = color.getTipoColore();
+                            break;
+                        }
+                     }
                 }
-            }%>
-        <%break;
+            }
         }%>
-        <%}%>
     <td data-head="Colore"><%=c%></td>
 
-    <%for(Fornitura f : forniture){%>
-        <%if(f.getCodMerce().equals(merci.get(i).getCodice())){%>
-        <%for(int codice: cod){
-        if(f.getIdentificatore()==codice){%>
-    <%fcodice=codice;%>
-    <% c = f.getlTaglia();break;}%>
+    <%for(Fornitura f : forniture){
+        if(f.getCodMerce().equals(merci.get(i).getCodice())){
+            if(f.getIdentificatore()==cs.Fcodice().get(i)) {
+                //for(int codice: cod){
+        //if(f.getIdentificatore()==codice){
+                s =cs.Quantita().get(i);
+                    fcodice=cs.Fcodice().get(i);
+                     c = f.getlTaglia();break;}%>
         <%}%>
-    <%break;}%>
     <%}%>
     <td data-head="Taglia"><%=c%></td>
-
-    <%for(int q=0;q<cs.Quantita().size();q++){
-    if(cs.mCodice().get(q).equals(merci.get(i).getCodice())){%>
-     <%id=cs.getIDutente();%>
-    <% s =cs.Quantita().get(q);break;}%><%}%>
 
     <td data-head="Quantità"><%=s%></td>
 
     <td data-head="Prezzo"><%=merci.get(i).getPrezzo()%></td>
-    <%}%>
-    <%String x = ""+merci.get(i).getCodice()+","+id+","+fcodice+","+s+"";%>
-    <td><button name="rimuovi" id="remove" value="<%=x%>" onclick="rimuovi('<%=x%>','<%=i%>', '<%=merci.get(i).getPrezzo()%>','<%=prezzoTotale%>')">Rimuovi</button></td>
+    <%String x = ""+merci.get(i).getCodice()+","+cs.getIDutente()+","+fcodice+","+s;%>
+    <td><button name="rimuovi" id="remove" value="<%=x%>" onclick="rimuovi('<%=x%>','<%=i%>', '<%=merci.get(i).getPrezzo()%>')">Rimuovi</button></td>
     <td></td>
     </tr>
     <%}%>
@@ -111,10 +100,9 @@ List<Integer> cod = cs.Fcodice();%>
 <div class="row">
     <div class="column" style="float:right; width: 50%; height: 600px" >
     <h2>Procedi all'ordine</h2>
-    <h3>Prezzo Totale</h3>
-        <div id="prezzototale">€<%=prezzoTotale%></div>
         <form action="${pageContext.request.contextPath}/carrello/ordine" method="get"onsubmit="controllo('<%=cs.getRegistrato()%>')"><button class="premi">Procedi all'acquisto</button></form>
     </div>
 </div>
 <%}%>
 </div>
+<%}%>

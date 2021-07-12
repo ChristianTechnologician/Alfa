@@ -52,4 +52,15 @@ public class PreferitiSession {
     public List<Integer> Quantita() {
         return Quantita;
     }
+
+    @Override
+    public String toString() {
+        return "PreferitiSession{" +
+                "mCodice=" + mCodice +
+                ", Quantita=" + Quantita +
+                ", Fcodice=" + Fcodice +
+                ", idUtente=" + idUtente +
+                ", registrato=" + registrato +
+                '}';
+    }
 }

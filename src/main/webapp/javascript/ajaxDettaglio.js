@@ -5,6 +5,7 @@ function aggiungiPreferiti(s){
     var aggiunta = {
         codiceM: array[0],id: array[1]  ,fcodice: c, quantita: q,registrato: array[2]
     };
+    alert(q)
     $.ajax({
         type: "get",
         url: "http://localhost:8080/Alfa_war_exploded/preferiti/aggiungiPreferiti",
@@ -39,15 +40,3 @@ function aggiungiCarrello(s){
         }
     });
 }
-
-/*<div id="coloreWrapper">Colore
-    <select id="colore">
-        <%int q = 0;
-        for (Fornitura f:fornituras) {
-        for (Colore c:colores) {
-        if(f.getCodColore()==c.getCod()){%>
-        <option name="<%=q%>" value="<%=f.getCodColore()%>"><%=c.getTipoColore()%></option>
-        <input type="hidden" name="<%=q%>" value="<%=f.getIdentificatore()%>">
-        <%}}q++;}%>
-        </select>
-        </div>*/

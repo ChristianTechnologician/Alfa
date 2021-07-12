@@ -36,13 +36,40 @@ public class PreferitiDAO implements PreferitiInterface {
             try (PreparedStatement ps =
                          con.prepareStatement("SELECT preferiti.NumeroPreferiti\n" +
                                  "FROM preferiti,utente\n" +
-                                 "WHERE utente.ID = ? AND preferiti.IDUtente = utente.ID")) {
+                                 "WHERE utente.ID = ? AND preferiti.IDutente = utente.ID")) {
                 ps.setInt(1, id_utente);
                 ResultSet rs = ps.executeQuery();
                 List<Preferiti> preferiti = new ArrayList<>();
                 PreferitiExtraction pe = new PreferitiExtraction();
                 while (rs.next()) {
                     preferiti.add(pe.mapping(rs));
+                }
+                if(preferiti == null || preferiti.isEmpty()){
+                    return null;
+                }
+                return preferiti;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
+    public List<Preferiti> DoRetrieveByUtente(int id_utente) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (PreparedStatement ps =
+                         con.prepareStatement("SELECT *\n" +
+                                 "FROM preferiti,utente\n" +
+                                 "WHERE utente.ID = ? AND preferiti.IDutente = utente.ID")) {
+                ps.setInt(1, id_utente);
+                ResultSet rs = ps.executeQuery();
+                List<Preferiti> preferiti = new ArrayList<>();
+                PreferitiExtraction pe = new PreferitiExtraction();
+                while (rs.next()) {
+                    preferiti.add(pe.mapping(rs));
+                }
+                if(preferiti.isEmpty()){
+                    return null;
                 }
                 return preferiti;
             } catch (SQLException e) {
@@ -135,7 +162,7 @@ public class PreferitiDAO implements PreferitiInterface {
     @Override
     public Preferiti findElement(int id, String Mcodice, int Fcodice) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM carrello WHERE IDutente=? AND Mcodice=? AND Fcodice=?")) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM preferiti WHERE IDutente=? AND Mcodice=? AND Fcodice=?")) {
                 ps.setInt(1, id);
                 ps.setString(2, Mcodice);
                 ps.setInt(3, Fcodice);
@@ -156,7 +183,7 @@ public class PreferitiDAO implements PreferitiInterface {
     @Override
     public boolean insertElemento(int numeroPreferiti ,int id,String Mcodice,int Fcodice) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("INSERT INTO carrello (NumeroPreferiti,IDutente,Mcodice,Fcodice) VALUES(?,?,?,?)")) {
+            try (PreparedStatement ps = con.prepareStatement("INSERT INTO preferiti (NumeroPreferiti,IDutente,Mcodice,Fcodice) VALUES(?,?,?,?)")) {
                 ps.setInt(1, numeroPreferiti);
                 ps.setInt(2, id);
                 ps.setString(3, Mcodice);
@@ -172,7 +199,7 @@ public class PreferitiDAO implements PreferitiInterface {
     @Override
     public boolean updateQuantita(int numeroPreferiti,int id,String Mcodice,int Fcodice) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("UPDATE carrello SET NumeroPreferiti=? WHERE IDutente=? AND Mcodice=? AND Fcodice=?")) {
+            try (PreparedStatement ps = con.prepareStatement("UPDATE preferiti SET NumeroPreferiti=? WHERE IDutente=? AND Mcodice=? AND Fcodice=?")) {
                 ps.setInt(1, numeroPreferiti);
                 ps.setInt(2, id);
                 ps.setString(3, Mcodice);

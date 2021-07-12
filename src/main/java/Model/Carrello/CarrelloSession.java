@@ -54,11 +54,19 @@ public class CarrelloSession {
         this.mCodice.add(mCodice);
     }
 
-
-
     public void setmCodice(List<String> codici) {
         this.mCodice=codici;
     }
 
-
+    @Override
+    public String toString() {
+        return "CarrelloSession{" +
+                "mCodice=" + mCodice +
+                ", Quantita=" + Quantita +
+                ", Fcodice=" + Fcodice +
+                ", IDCarrello=" + IDCarrello +
+                ", IDutente=" + IDutente +
+                ", registrato=" + registrato +
+                '}';
+    }
 }

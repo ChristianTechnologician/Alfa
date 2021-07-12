@@ -1,4 +1,4 @@
-function rimuovi(s, i, n, q){
+function rimuovi(s, i){
     //var s = $("#remove").val();
     //var y=i;
     const array=s.split(",")
@@ -11,26 +11,7 @@ function rimuovi(s, i, n, q){
         contentType: "JSON", // NOT dataType!
         data:{ rimozione: JSON.stringify(rimozione)},
         success: function(response) {
-            if(i===0){
-                $("#modifica").html("Non ci sono elementi nel carrello")
-            }else{
                 $("#"+i).remove()
-            }
-           /* var result=q-n;
-            var w = document.getElementById("prezzototale").nodeValue
-            alert(w)
-            if(w===q)
-            {
-                $("#prezzototale").html(result)
-                alert(result)
-            }
-            else
-            {
-                var u=w-n
-                alert(u)
-                $("#prezzototale").html(u)
-            }*/
-
         },
         error: function(response) {
         alert('Rimozione non riuscita');
@@ -44,3 +25,15 @@ function rimuovi(s, i, n, q){
     }
 
 }
+
+
+
+/*<%for(Fornitura f : forniture){
+    if(f.getCodMerce().equals(merci.get(i).getCodice())){
+        if(f.getIdentificatore()==cs.Fcodice().get(i)) {
+            //for(int q=0;q<cs.Quantita().size();q++){}
+            //if(cs.mCodice().get(q).equals(merci.get(i).getCodice())){
+            <%id=cs.getIDutente();%>
+                <% s =cs.Quantita().get(i);break;}%>
+    <%}%>
+<%}%>*/

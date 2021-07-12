@@ -120,30 +120,91 @@ public class PreferitiServlet extends Controller {
                         PreferitiDAO preferitiDAO1 = new PreferitiDAO();
                         UtenteSession ut = (UtenteSession) request.getSession().getAttribute("accountSession");
                         Preferiti pref = preferitiDAO1.findElement(ut.getId(),str.get(3),Integer.parseInt(str.get(4)));
+                        System.out.println("insert");
                         if(pref != null){
-                            int r = pref.getNumeroPreferiti()+Integer.parseInt(str.get(2));
-                            preferitiDAO1.updateQuantita(r,ut.getId(),str.get(3),Integer.parseInt(str.get(4)));
+                            System.out.println("bum");
+                            //int r = pref.getNumeroPreferiti()+Integer.parseInt(str.get(2));
+                            //preferitiDAO1.updateQuantita(r,ut.getId(),str.get(3),Integer.parseInt(str.get(4)));
                             PreferitiSession preferitiSession = (PreferitiSession) request.getSession().getAttribute("preferiti");
-                            preferitiSession.setmCodice(str.get(3));
-                            preferitiSession.setFcodice(Integer.parseInt(str.get(4)));
-                            preferitiSession.setQuantita(Integer.parseInt(str.get(2)));
+                            boolean verifica = false;
+                            for(int g = 0; g<preferitiSession.mCodice().size();g++){
+                                if(preferitiSession.mCodice().get(g).equals(str.get(3))&&preferitiSession.Fcodice().get(g)==Integer.parseInt(str.get(4))){
+                                    System.out.println("0");
+                                    int quantity = preferitiSession.Quantita().get(g);// + pref.getNumeroPreferiti();
+                                    quantity += Integer.parseInt(str.get(2));
+                                    preferitiSession.Quantita().set(g,quantity);
+                                    preferitiDAO1.updateQuantita(quantity,ut.getId(),str.get(3),Integer.parseInt(str.get(4)));
+                                    verifica=true;
+                                    System.out.println("1");
+                                    break;
+                                }
+                            }
+                            if(!verifica) {
+                                System.out.println("3");
+                                preferitiSession.setmCodice(str.get(3));
+                                preferitiSession.setFcodice(Integer.parseInt(str.get(4)));
+                                preferitiSession.setQuantita(Integer.parseInt(str.get(2)));
+                                int quantity = Integer.parseInt(str.get(2)) + pref.getNumeroPreferiti();
+                                preferitiDAO1.updateQuantita(quantity,ut.getId(),str.get(3),Integer.parseInt(str.get(4)));
+                                System.out.println("2");
+                            }
                             request.getSession().setAttribute("preferiti",preferitiSession);
                         }else{
                             PreferitiSession preferitiSession = (PreferitiSession) request.getSession().getAttribute("preferiti");
-                            preferitiSession.setmCodice(str.get(3));
-                            preferitiSession.setFcodice(Integer.parseInt(str.get(4)));
-                            preferitiSession.setQuantita(Integer.parseInt(str.get(2)));
+                            boolean verifica = false;
+                            for(int g = 0; g<preferitiSession.mCodice().size();g++){
+                                System.out.println("5");
+                                if(preferitiSession.mCodice().get(g).equals(str.get(3))&&preferitiSession.Fcodice().get(g)==Integer.parseInt(str.get(4))){
+                                    System.out.println("4");
+                                    System.out.println(preferitiSession.Quantita().get(g));
+                                    int quantity = preferitiSession.Quantita().get(g);
+                                    quantity += Integer.parseInt(str.get(2));
+                                    preferitiSession.Quantita().set(g,quantity);
+                                    System.out.println("535363");
+                                    preferitiDAO1.insertElemento(Integer.parseInt(str.get(2)), ut.getId(), str.get(3), Integer.parseInt(str.get(4)));
+                                    //preferitiDAO1.updateQuantita(quantity,ut.getId(),str.get(3),Integer.parseInt(str.get(4)));
+                                    verifica=true;
+                                    System.out.println("6");
+                                    break;
+                                }
+                            }
+                            if(!verifica) {
+                                System.out.println("90");
+                                preferitiSession.setmCodice(str.get(3));
+                                preferitiSession.setFcodice(Integer.parseInt(str.get(4)));
+                                preferitiSession.setQuantita(Integer.parseInt(str.get(2)));
+                                System.out.println(str.get(3));
+                                System.out.println(Integer.parseInt(str.get(4)));
+                                System.out.println(Integer.parseInt(str.get(2)));
+                                System.out.println(ut.getId());
+                                System.out.println("44");
+                                preferitiDAO1.insertElemento(Integer.parseInt(str.get(2)), ut.getId(), str.get(3), Integer.parseInt(str.get(4)));
+                                System.out.println("99");
+                            }
                             request.getSession().setAttribute("preferiti",preferitiSession);
-                            preferitiDAO1.insertElemento(Integer.parseInt(str.get(2)),ut.getId(), str.get(3),Integer.parseInt(str.get(4)));
                         }
                     }else {
                         PreferitiSession preferitiSession = (PreferitiSession) request.getSession().getAttribute("preferiti");
-                        System.out.println(str.get(3));
-                        System.out.println(Integer.parseInt(str.get(4)));
-                        System.out.println(Integer.parseInt(str.get(2)));
-                        preferitiSession.setmCodice(str.get(3));
-                        preferitiSession.setFcodice(Integer.parseInt(str.get(4)));
-                        preferitiSession.setQuantita(Integer.parseInt(str.get(2)));
+                        boolean verifica = false;
+                        System.out.println("80");
+                        for(int g = 0; g<preferitiSession.mCodice().size();g++){
+                            System.out.println("88");
+                            if(preferitiSession.mCodice().get(g).equals(str.get(3))&&preferitiSession.Fcodice().get(g)==Integer.parseInt(str.get(4))){
+                                int quantity = preferitiSession.Quantita().get(g);
+                                quantity += Integer.parseInt(str.get(2));
+                                preferitiSession.Quantita().set(g,quantity);
+                                verifica=true;
+                                System.out.println("89");
+                                break;
+                            }
+                        }
+                        if(!verifica) {
+                            System.out.println("78");
+                            preferitiSession.setmCodice(str.get(3));
+                            preferitiSession.setFcodice(Integer.parseInt(str.get(4)));
+                            preferitiSession.setQuantita(Integer.parseInt(str.get(2)));
+                            System.out.println("79");
+                        }
                         request.getSession().setAttribute("preferiti",preferitiSession);
                     }
                     break;
@@ -203,31 +264,65 @@ public class PreferitiServlet extends Controller {
                         Carrello car = carrelloDAOs.findElement(ut.getId(),stro.get(3),Integer.parseInt(stro.get(4)));
                         if(car != null){
                             System.out.println("bro");
-                            int r = car.getQuantita()+Integer.parseInt(stro.get(2));
-                            carrelloDAOs.updateQuantita(r,ut.getId(),stro.get(3),Integer.parseInt(stro.get(4)));
                             CarrelloSession carrelloSession = (CarrelloSession) request.getSession().getAttribute("carrello");
-                            carrelloSession.setmCodice(stro.get(3));
-                            carrelloSession.setFcodice(Integer.parseInt(stro.get(4)));
-                            carrelloSession.setQuantita(Integer.parseInt(stro.get(2)));
+                            boolean verifica = false;
+                            for(int g = 0; g<carrelloSession.mCodice().size();g++) {
+                                if (carrelloSession.mCodice().get(g).equals(stro.get(3)) && carrelloSession.Fcodice().get(g) == Integer.parseInt(stro.get(4))) {
+                                    int quantity = carrelloSession.Quantita().get(g);
+                                    quantity += Integer.parseInt(stro.get(2));
+                                    carrelloSession.Quantita().set(g,quantity);
+                                    carrelloDAOs.updateQuantita(quantity,ut.getId(),stro.get(3),Integer.parseInt(stro.get(4)));
+                                    verifica=true;
+                                    break;
+                                }
+                            }
+                            if(!verifica) {
+                                carrelloSession.setmCodice(stro.get(3));
+                                carrelloSession.setFcodice(Integer.parseInt(stro.get(4)));
+                                carrelloSession.setQuantita(Integer.parseInt(stro.get(2)));
+                                int r = car.getQuantita()+Integer.parseInt(stro.get(2));
+                                carrelloDAOs.updateQuantita(r,ut.getId(),stro.get(3),Integer.parseInt(stro.get(4)));
+                            }
                             request.getSession().setAttribute("carrello",carrelloSession);
                         }else{
                             CarrelloSession carrelloSession = (CarrelloSession) request.getSession().getAttribute("carrello");
-                            carrelloSession.setmCodice(stro.get(3));
-                            System.out.println(Integer.parseInt(stro.get(4)));
-                            carrelloSession.setFcodice(Integer.parseInt(stro.get(4)));
-                            carrelloSession.setQuantita(Integer.parseInt(stro.get(2)));
+                            boolean verifica = false;
+                            for(int g = 0; g<carrelloSession.mCodice().size();g++) {
+                                if (carrelloSession.mCodice().get(g).equals(stro.get(3)) && carrelloSession.Fcodice().get(g) == Integer.parseInt(stro.get(4))) {
+                                    int quantity = carrelloSession.Quantita().get(g);
+                                    quantity += Integer.parseInt(stro.get(2));
+                                    carrelloSession.Quantita().set(g,quantity);
+                                    carrelloDAOs.insertElemento(ut.getId(), stro.get(3),Integer.parseInt(stro.get(4)),Integer.parseInt(stro.get(2)));
+                                    verifica=true;
+                                    break;
+                                }
+                            }
+                            if(!verifica) {
+                                carrelloSession.setmCodice(stro.get(3));
+                                carrelloSession.setFcodice(Integer.parseInt(stro.get(4)));
+                                carrelloSession.setQuantita(Integer.parseInt(stro.get(2)));
+                                carrelloDAOs.insertElemento(ut.getId(), stro.get(3),Integer.parseInt(stro.get(4)),Integer.parseInt(stro.get(2)));
+                            }
                             request.getSession().setAttribute("carrello",carrelloSession);
-                            carrelloDAOs.insertElemento(ut.getId(), stro.get(3),Integer.parseInt(stro.get(4)),Integer.parseInt(stro.get(2)));
                         }
                     }else {
                         System.out.println("mazinga");
                         CarrelloSession carrelloSession = (CarrelloSession) request.getSession().getAttribute("carrello");
-                        System.out.println(stro.get(3));
-                        carrelloSession.setmCodice(stro.get(3));
-                        System.out.println("robot");
-                        carrelloSession.setFcodice(Integer.parseInt(stro.get(4)));
-                        System.out.println("razzomissile");
-                        carrelloSession.setQuantita(Integer.parseInt(stro.get(2)));
+                        boolean verifica = false;
+                        for(int g = 0; g<carrelloSession.mCodice().size();g++) {
+                            if (carrelloSession.mCodice().get(g).equals(stro.get(3)) && carrelloSession.Fcodice().get(g) == Integer.parseInt(stro.get(4))) {
+                                int quantity = carrelloSession.Quantita().get(g);
+                                quantity += Integer.parseInt(stro.get(2));
+                                carrelloSession.Quantita().set(g,quantity);
+                                verifica=true;
+                                break;
+                            }
+                        }
+                        if(!verifica) {
+                            carrelloSession.setmCodice(stro.get(3));
+                            carrelloSession.setFcodice(Integer.parseInt(stro.get(4)));
+                            carrelloSession.setQuantita(Integer.parseInt(stro.get(2)));
+                        }
                         System.out.println("dove");
                         request.getSession(true).setAttribute("carrello",carrelloSession);
                     }

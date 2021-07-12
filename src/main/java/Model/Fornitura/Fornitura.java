@@ -46,4 +46,15 @@ public Fornitura(){
     public void setIdentificatore(int identificatore) {
         this.identificatore = identificatore;
     }
+
+    @Override
+    public String toString() {
+        return "Fornitura{" +
+                "codMerce='" + codMerce + '\'' +
+                ", lTaglia='" + lTaglia + '\'' +
+                ", codColore=" + codColore +
+                ", quantita=" + quantita +
+                ", identificatore=" + identificatore +
+                '}';
+    }
 }

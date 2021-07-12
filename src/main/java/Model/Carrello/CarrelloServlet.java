@@ -108,31 +108,85 @@ public class CarrelloServlet extends Controller {
                     if(Integer.parseInt(stro.get(0))==1) {
                         CarrelloDAO carrelloDAOs = new CarrelloDAO();
                         UtenteSession ut = (UtenteSession) request.getSession().getAttribute("accountSession");
-                        Carrello car = carrelloDAOs.findElement(ut.getId(),stro.get(2),Integer.parseInt(stro.get(3)));
+                        Carrello car = carrelloDAOs.findElement(ut.getId(),stro.get(3),Integer.parseInt(stro.get(4)));
+                        System.out.println("bro");
                         if(car != null){
                             System.out.println("bro");
-                            int r = car.getQuantita()+1;
-                            carrelloDAOs.updateQuantita(r,ut.getId(),stro.get(3),Integer.parseInt(stro.get(4)));
                             CarrelloSession carrelloSession = (CarrelloSession) request.getSession().getAttribute("carrello");
+                            boolean verifica = false;
+                            for(int g = 0; g<carrelloSession.mCodice().size();g++) {
+                                if (carrelloSession.mCodice().get(g).equals(stro.get(3)) && carrelloSession.Fcodice().get(g) == Integer.parseInt(stro.get(4))) {
+                                    int quantity = carrelloSession.Quantita().get(g);
+                                    quantity += Integer.parseInt(stro.get(2));
+                                    carrelloSession.Quantita().set(g,quantity);
+                                    carrelloDAOs.updateQuantita(quantity,ut.getId(),stro.get(3),Integer.parseInt(stro.get(4)));
+                                    verifica=true;
+                                    break;
+                                }
+                            }
+                            if(!verifica) {
+                                carrelloSession.setmCodice(stro.get(3));
+                                carrelloSession.setFcodice(Integer.parseInt(stro.get(4)));
+                                int r = car.getQuantita()+Integer.parseInt(stro.get(2));
+                                carrelloSession.setQuantita(r);
+                                carrelloDAOs.updateQuantita(r,ut.getId(),stro.get(3),Integer.parseInt(stro.get(4)));
+                            }
+                           /* int r = car.getQuantita()+1;
+                            carrelloDAOs.updateQuantita(r,ut.getId(),stro.get(3),Integer.parseInt(stro.get(4)));
                             carrelloSession.setmCodice(stro.get(3));
                             carrelloSession.setFcodice(Integer.parseInt(stro.get(4)));
-                            carrelloSession.setQuantita(1);
+                            carrelloSession.setQuantita(1);*/
                             request.getSession().setAttribute("carrello",carrelloSession);
                         }else{
-                            carrelloDAOs.insertElemento(ut.getId(), stro.get(3),Integer.parseInt(stro.get(4)),1);
+                            CarrelloSession carrelloSession = (CarrelloSession) request.getSession().getAttribute("carrello");
+                            boolean verifica = false;
+                            for(int g = 0; g<carrelloSession.mCodice().size();g++) {
+                                if (carrelloSession.mCodice().get(g).equals(stro.get(3)) && carrelloSession.Fcodice().get(g) == Integer.parseInt(stro.get(4))) {
+                                    int quantity = carrelloSession.Quantita().get(g);
+                                    quantity += Integer.parseInt(stro.get(2));
+                                    carrelloSession.Quantita().set(g,quantity);
+                                    //controllare database possibili problemi oppure inutile?
+                                    carrelloDAOs.insertElemento(ut.getId(), stro.get(3),Integer.parseInt(stro.get(4)),Integer.parseInt(stro.get(2)));
+                                    verifica=true;
+                                    break;
+                                }
+                            }
+                            if(!verifica) {
+                                carrelloSession.setmCodice(stro.get(3));
+                                carrelloSession.setFcodice(Integer.parseInt(stro.get(4)));
+                                carrelloSession.setQuantita(Integer.parseInt(stro.get(2)));
+                                carrelloDAOs.insertElemento(ut.getId(), stro.get(3),Integer.parseInt(stro.get(4)),Integer.parseInt(stro.get(2)));
+                            }
+                            request.getSession().setAttribute("carrello",carrelloSession);
                         }
                     }else {
                         System.out.println("mazinga");
                         CarrelloSession carrelloSession = (CarrelloSession) request.getSession().getAttribute("carrello");
+                        boolean verifica = false;
+                        for(int g = 0; g<carrelloSession.mCodice().size();g++) {
+                            if (carrelloSession.mCodice().get(g).equals(stro.get(3)) && carrelloSession.Fcodice().get(g) == Integer.parseInt(stro.get(4))) {
+                                int quantity = carrelloSession.Quantita().get(g);
+                                quantity += Integer.parseInt(stro.get(2));
+                                carrelloSession.Quantita().set(g,quantity);
+                                verifica=true;
+                                break;
+                            }
+                        }
+                        if(!verifica) {
+                            carrelloSession.setmCodice(stro.get(3));
+                            carrelloSession.setFcodice(Integer.parseInt(stro.get(4)));
+                            carrelloSession.setQuantita(Integer.parseInt(stro.get(2)));
+                        }
+                        /*
                         System.out.println(stro.get(3));
                         carrelloSession.setmCodice(stro.get(3));
                         System.out.println("robot");
                         System.out.println(Integer.parseInt(stro.get(4)));
                         carrelloSession.setFcodice(Integer.parseInt(stro.get(4)));
                         System.out.println("razzomissile");
-                        carrelloSession.setQuantita(1);
+                        carrelloSession.setQuantita();
                         System.out.println("dove");
-                        request.getSession().removeAttribute("carrello");
+                        request.getSession().removeAttribute("carrello");*/
                         request.getSession(true).setAttribute("carrello",carrelloSession);
                     }
                     break;

@@ -10,8 +10,8 @@
     List<Integer> cod = cs.Fcodice();%>
 <%List<Fornitura> forniture = (List<Fornitura>) request.getAttribute("preferitiFornitura");%>
 <%List<Colore> colori = (List<Colore>) request.getAttribute("preferitiColore");%>
-
-<%if(merci.isEmpty()){%>
+<%System.out.println(cs);%>
+<%if(merci.isEmpty()||merci.get(0).getCodice().equals("niente")){%>
 Non ci sono ancora preferiti
 <%}else{%>
 <table>
@@ -40,8 +40,7 @@ Non ci sono ancora preferiti
     <tr id="<%=i%>">
         <td data-head="Immagine"><img src="../Images/<%=merci.get(i).getCodice()%>.jpg" alt="img" width="700" height="500"></td>
         <td data-head="Nome"><%=merci.get(i).getNome()%></td>
-        <td data-head="Categoria"><%=merci.get(i).getTipocategoria()%>
-        </td>
+        <td data-head="Categoria"><%=merci.get(i).getTipocategoria()%></td>
         <%for (Fornitura f : forniture) {
             if (f.getCodMerce().equals(merci.get(i).getCodice())) {
                 if(f.getIdentificatore()==cs.Fcodice().get(i)) {
@@ -52,12 +51,10 @@ Non ci sono ancora preferiti
                         }
                     }
                 }
-                break;
             }
         %>
         <%}%>
-        <td data-head="Colore"><%=c%>
-        </td>
+        <td data-head="Colore"><%=c%></td>
         <%for (Fornitura f : forniture) {%>
         <%if (f.getCodMerce().equals(merci.get(i).getCodice())) {%>
         <%
@@ -72,11 +69,9 @@ Non ci sono ancora preferiti
         }%>
         <%}%>
         <%
-                break;
             }
         %>
-        <td data-head="Taglia"><%=c%>
-        </td>
+        <td data-head="Taglia"><%=c%></td>
         <td data-head="Prezzo"><%=merci.get(i).getPrezzo()%>
         </td>
         <%

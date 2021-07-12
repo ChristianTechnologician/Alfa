@@ -152,25 +152,6 @@ public class UtenteServlet extends Controller {
                    }
                    break;
                case "/preferiti":
-                   /*List<Merce> m = new ArrayList<>();
-                   MerceDAO merceDAO = new MerceDAO();
-                   PreferitiSession ps = (PreferitiSession) request.getSession(false).getAttribute("preferiti");
-                   if (ps != null) {
-                       for (String s : ps.mCodice()) {
-                           m.add(merceDAO.doRetrieveByCode(s));
-                       }
-                   } else {
-                       List<String> list = (List<String>) request.getSession(false).getAttribute("preferitiGuest");
-                       for (String s : list) {
-                           m.add(merceDAO.doRetrieveByCode(s));
-                       }
-                   }
-                   if (m.isEmpty()) {
-                       m = null;
-                   }
-                   request.setAttribute("preferiti", m);
-                   request.getRequestDispatcher("/WEB-INF/views/customer/favorites.jsp").forward(request, response);
-                   break;*/
                List<Merce> me = new ArrayList<>();
                List<Colore> colore = new ArrayList<>();
                ColoreDAO coloreDAO = new ColoreDAO();
@@ -178,7 +159,29 @@ public class UtenteServlet extends Controller {
                List<Fornitura> fo = new ArrayList<>();
                List<Integer> quantita = new ArrayList<>();
                FornituraDAO fornituraDAO = new FornituraDAO();
+               PreferitiDAO preferitiDAO = new PreferitiDAO();
                PreferitiSession preferiti = (PreferitiSession) request.getSession(false).getAttribute("preferiti");
+              /* if(preferiti.getRegistrato()==1) {
+                   List<Preferiti> preferitiSession = preferitiDAO.DoRetrieveByUtente(preferiti.getIdUtente());
+                   if (preferitiSession == null || preferitiSession.isEmpty()) {
+                       for (int q = 0; q < preferiti.mCodice().size(); q++) {
+                           preferitiDAO.insertElemento(preferiti.Quantita().get(q), preferiti.getIdUtente(), preferiti.mCodice().get(q), preferiti.Fcodice().get(q));
+                       }
+                   } else {
+                       for (int i = 0; i < preferitiSession.size(); i++) {
+                           for (int q = 0; q < preferiti.mCodice().size(); q++) {
+                               if (preferitiSession.get(i).getmCodice().equals(preferiti.mCodice().get(q)) && preferitiSession.get(i).getFcodice() == preferiti.Fcodice().get(q)) {
+                                   preferiti.Fcodice().remove(q);
+                                   preferiti.mCodice().remove(q);
+                                   preferiti.Quantita().remove(q);
+                               }
+                           }
+                       }
+                       for (int q = 0; q < preferiti.mCodice().size(); q++) {
+                           preferitiDAO.insertElemento(preferiti.Quantita().get(q), preferiti.getIdUtente(), preferiti.mCodice().get(q), preferiti.Fcodice().get(q));
+                       }
+                   }
+               }*/
                System.out.println(preferiti);
                if (preferiti.getRegistrato()==1) {
                    System.out.println("2");
@@ -349,6 +352,7 @@ public class UtenteServlet extends Controller {
                    System.out.println(mes);
                    System.out.println(fos);
                    System.out.println(colores);
+                   System.out.println(carrello);
                    request.setAttribute("carrelloMerce",mes);
                    request.setAttribute("carrelloFornitura",fos);
                    request.setAttribute("carrelloColori",colores);
@@ -464,8 +468,11 @@ public class UtenteServlet extends Controller {
                 tmpCustomer.setPassword(request.getParameter("password"));
                 UtenteDAO utentedao = new UtenteDAO();
                 Utente optCustomer = utentedao.loginUtente(tmpCustomer.getEmail(), request.getParameter("password"),false );
+                System.out.println("siamo spacciati");
                 if(optCustomer.getEmail().equals(tmpCustomer.getEmail())){
+                    System.out.println("werty");
                     UtenteSession customerSession = new UtenteSession(optCustomer);
+                    System.out.println("werty");
                     customerSession.setEmail(optCustomer.getEmail());
                     request.getSession(true).setAttribute("accountSession", customerSession);
                     List<Ordine> ordine = new ArrayList<>();
@@ -473,15 +480,71 @@ public class UtenteServlet extends Controller {
                     PreferitiDAO pD = new PreferitiDAO();
                     ordine = oDAO.DoRetriveByLast(customerSession.getId());
                     PreferitiSession preferitiSession = (PreferitiSession)request.getSession(false).getAttribute("preferiti");
-                    if(preferitiSession == null) {
+                    System.out.println("werty");
+                    if(preferitiSession == null || preferitiSession.mCodice().isEmpty()) {
+                        System.out.println("vabene");
                         PreferitiSession ps = new PreferitiSession(customerSession.getId(), 1);
-                        ps.setCodici(pD.DoRetriveCodiciByUtente(customerSession.getId()));
-                        ps.setListFcodice(pD.DoRetriveFCodiciByUtente(customerSession.getId()));
-                        request.getSession(false).removeAttribute("preferiti");
+                        List<Preferiti> preferitiList = new ArrayList<>();
+                        System.out.println("vabffene");
+                        preferitiList=pD.DoRetrieveByUtente(customerSession.getId());
+                        System.out.println("rr");
+                        if(preferitiList == null || preferitiList.isEmpty()) {
+                            pD.insertElemento(0,customerSession.getId(),"niente",0);
+                            System.out.println("okbro");
+                        }else{
+                            System.out.println("ss");
+                            for (Preferiti p : preferitiList) {
+                                ps.setmCodice(p.getmCodice());
+                                ps.setFcodice(p.getFcodice());
+                                ps.setQuantita(p.getNumeroPreferiti());
+                            /*ps.setCodici(pD.DoRetriveCodiciByUtente(customerSession.getId()));
+                            ps.setListFcodice(pD.DoRetriveFCodiciByUtente(customerSession.getId()));
+                            ps.setListQuantita(pD.D);*/
+                                System.out.println("ok");
+                            }
+                        }
                         request.getSession().setAttribute("preferiti", ps);
                     }else{
                         System.out.println("siamo forti");
                         PreferitiSession ps = new PreferitiSession(customerSession.getId(), 1);
+                        for(int i=0;i<preferitiSession.mCodice().size();i++){
+                            ps.setmCodice(preferitiSession.mCodice().get(i));
+                            ps.setFcodice(preferitiSession.Fcodice().get(i));
+                            ps.setQuantita(preferitiSession.Quantita().get(i));
+                        }
+                        System.out.println("qui");
+                        List<Preferiti> preferitiList = new ArrayList<>();
+                        System.out.println("qui");
+                        preferitiList=pD.DoRetrieveByUtente(customerSession.getId());
+                        System.out.println("qui");
+                        int count = 0;
+                        if(preferitiList == null || preferitiList.isEmpty()) {
+                            pD.insertElemento(0,customerSession.getId(),"niente",0);
+                        }else {
+                            for (Preferiti p : preferitiList) {
+                                System.out.println("qui");
+                                for (int i = 0; i < ps.mCodice().size(); i++) {
+                                    System.out.println("qui");
+                                    if (p.getmCodice().equals(ps.mCodice().get(i)) && p.getFcodice() == ps.Fcodice().get(i)) {
+                                        int quantita = p.getNumeroPreferiti() + ps.Quantita().get(i);
+                                        ps.Quantita().set(i, quantita);
+                                        preferitiList.remove(count);
+                                        break;
+                                    }
+                                }
+                                count++;
+                            }
+                            System.out.println("qui");
+                            for (Preferiti p : preferitiList) {
+                                System.out.println("qui");
+                                ps.setmCodice(p.getmCodice());
+                                ps.setFcodice(p.getFcodice());
+                                ps.setQuantita(p.getNumeroPreferiti());
+                            }
+                        }
+                        System.out.println("qui");
+                        request.getSession().setAttribute("preferiti", ps);
+                        /*
                         ps.setCodici(pD.DoRetriveCodiciByUtente(customerSession.getId()));
                         ps.setListFcodice(pD.DoRetriveFCodiciByUtente(customerSession.getId()));
                         for (String c:preferitiSession.mCodice()) {
@@ -490,25 +553,69 @@ public class UtenteServlet extends Controller {
                         for (int fcodici:preferitiSession.Fcodice()) {
                             ps.setFcodice(fcodici);
                         }
-                        request.getSession(false).removeAttribute("preferiti");
-                        request.getSession().setAttribute("preferiti", ps);
+                        request.getSession(false).removeAttribute("preferiti");*/
                     }
                     CarrelloDAO carrelloDAO = new CarrelloDAO();
                     System.out.println("davide");
                     CarrelloSession carrelloSessione = (CarrelloSession) request.getSession().getAttribute("carrello");
-                    if(carrelloSessione == null) {
-                        List<Integer> Fcodici = carrelloDAO.DoRetrieveFcodice(customerSession.getId());
+                    if(carrelloSessione == null || carrelloSessione.mCodice().isEmpty()) {
                         CarrelloSession carrelloSession = new CarrelloSession(customerSession.getId(), 1);
-                        System.out.println("ererrrr");
+                        List<Carrello> carrelloList = new ArrayList<>();
+                        carrelloList=carrelloDAO.DoRetrieveByUtente(customerSession.getId());
+                        if(carrelloList == null || carrelloList.isEmpty()) {
+                            carrelloDAO.insertElemento(customerSession.getId(),"niente",0,0);
+                        }else {
+                            for (Carrello c : carrelloList) {
+                                carrelloSession.setmCodice(c.getmCodice());
+                                carrelloSession.setFcodice(c.getfCodice());
+                                carrelloSession.setQuantita(c.getQuantita());
+                            /*ps.setCodici(pD.DoRetriveCodiciByUtente(customerSession.getId()));
+                            ps.setListFcodice(pD.DoRetriveFCodiciByUtente(customerSession.getId()));
+                            ps.setListQuantita(pD.D);*/
+                            }
+                        }
+                        request.getSession().setAttribute("carrello", carrelloSession);
+                    }else{
+                        System.out.println("siamo forti");
+                        CarrelloSession carrelloSession = new CarrelloSession(customerSession.getId(), 1);
+                        for(int i=0;i<carrelloSessione.mCodice().size();i++){
+                            carrelloSession.setmCodice(carrelloSessione.mCodice().get(i));
+                            carrelloSession.setFcodice(carrelloSessione.Fcodice().get(i));
+                            carrelloSession.setQuantita(carrelloSessione.Quantita().get(i));
+                        }
+                        List<Carrello> carrelloList = new ArrayList<>();
+                        carrelloList=carrelloDAO.DoRetrieveByUtente(customerSession.getId());
+                        int count=0;
+                        if(carrelloList == null || carrelloList.isEmpty()) {
+                            carrelloDAO.insertElemento(customerSession.getId(),"niente",0,0);
+                        }else {
+                            for (Carrello c : carrelloList) {
+                                for (int i = 0; i < carrelloSession.mCodice().size(); i++) {
+                                    if (c.getmCodice().equals(carrelloSession.mCodice().get(i)) && c.getfCodice() == carrelloSession.Fcodice().get(i)) {
+                                        int quantita = c.getQuantita() + carrelloSession.Quantita().get(i);
+                                        carrelloSession.Quantita().set(i, quantita);
+                                        carrelloList.remove(count);
+                                        break;
+                                    }
+                                }
+                                count++;
+                            }
+                            for (Carrello c : carrelloList) {
+                                carrelloSession.setmCodice(c.getmCodice());
+                                carrelloSession.setFcodice(c.getfCodice());
+                                carrelloSession.setQuantita(c.getQuantita());
+                            }
+                        }
+                        request.getSession().setAttribute("carrello", carrelloSession);
+                        /*System.out.println("ererrrr");
                         carrelloSession.setListFcodice(Fcodici);
                         System.out.println("magasium");
                         carrelloSession.setListQuantita(carrelloDAO.DoRetrieveQuantita(customerSession.getId()));
-                        carrelloSession.setmCodice(carrelloDAO.DoRetrieveCodici(customerSession.getId()));
+                        carrelloSession.setmCodice(carrelloDAO.DoRetrieveCodici(customerSession.getId()));*/
                     /*List<Carrello> carrello = new ArrayList<>();
                     CarrelloDAO carrelloDAO = new CarrelloDAO();
-                    carrello = carrelloDAO.DoRetrieveByUtente(customerSession.getId());*/
+                    carrello = carrelloDAO.DoRetrieveByUtente(customerSession.getId());
                         request.getSession(false).removeAttribute("carrello");
-                        request.getSession().setAttribute("carrello", carrelloSession);
                     }else{
                         List<Integer> Fcodici = carrelloDAO.DoRetrieveFcodice(customerSession.getId());
                         CarrelloSession carrelloSession = new CarrelloSession(customerSession.getId(), 1);
@@ -525,12 +632,11 @@ public class UtenteServlet extends Controller {
                         }
                         for (int quantita:carrelloSessione.Quantita()) {
                             carrelloSession.setQuantita(quantita);
-                        }
+                        }*/
                     /*List<Carrello> carrello = new ArrayList<>();
                     CarrelloDAO carrelloDAO = new CarrelloDAO();
-                    carrello = carrelloDAO.DoRetrieveByUtente(customerSession.getId());*/
-                        request.getSession(false).removeAttribute("carrello");
-                        request.getSession().setAttribute("carrello", carrelloSession);
+                    carrello = carrelloDAO.DoRetrieveByUtente(customerSession.getId());
+                        request.getSession(false).removeAttribute("carrello");*/
                     }
                     request.setAttribute("ordine",ordine);
                     request.getRequestDispatcher("/WEB-INF/views/customer/profilo.jsp").forward(request, response);
