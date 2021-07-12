@@ -17,20 +17,20 @@
        </label>
        <button class="premi">Invia</button>
    </form>
-
-    <form action="${pageContext.request.contextPath}/ordine/scegliOrdine" method="get">
+<!--
+    <form action="/ordine/scegliOrdine" method="get">
         <label>
             <input type="email" name="eCliente" placeholder="EMAIL CLIENTE">
         </label>
         <button class="premi">Invia</button>
     </form>
 
-    <form action="${pageContext.request.contextPath}/ordine/scegliOrdine" method="get">
+    <form action="/ordine/scegliOrdine" method="get">
         <label>
             <input type="text" name="idCliente" placeholder="ID CLIENTE">
         </label>
         <button class="premi">Invia</button>
-    </form>
+    </form>-->
 </div>
 <%@include file="/WEB-INF/views/partials/FooterCrm.jsp"%>
 </body>

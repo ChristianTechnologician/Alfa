@@ -47,7 +47,7 @@ public class OrdineServlet extends Controller {
                         request.setAttribute("ordine",list);
                         request.getRequestDispatcher(view("crm/dettaglioOrdine")).forward(request,response);
                     }
-                    if(idCliente!=null)
+                    /*if(idCliente!=null)
                     {
                         list = odao.DoRetriveByUtente(Integer.parseInt(idCliente));
                         request.setAttribute("ordine", list);
@@ -58,7 +58,7 @@ public class OrdineServlet extends Controller {
                         list = odao.DoRetriveByEmailUtente(emailCliente);
                         request.setAttribute("ordine", list);
                         request.getRequestDispatcher(view("crm/dettaglioOrdine")).forward(request, response);
-                    }
+                    }*/
                         break;
                 default:
                     break;
